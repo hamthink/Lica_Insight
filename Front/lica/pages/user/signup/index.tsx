@@ -6,7 +6,7 @@ import BaseLayout from 'src/layouts/BaseLayout';
 
 import Footer from '@/components/Footer';
 import { styled } from '@mui/material/styles';
-import { Card, Typography, Container, Box, Button, CardHeader, Divider, CardContent, TextField, MenuItem } from '@mui/material';
+import { Card, Typography, Container, Box, Button, CardHeader, Divider, CardContent, TextField, MenuItem, Grid } from '@mui/material';
 
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -55,30 +55,11 @@ function UserSignup() {
         <Container maxWidth="lg">
           <Box display="flex" alignItems="center">
             <Logo />
-            <Box
-              display="flex"
-              alignItems="center"
-              justifyContent="space-between"
-              flex={1}
-            >
+            <Box display="flex" alignItems="center" justifyContent="space-between" flex={1}>
               <Box />
               <Box>
-                <Button
-                  component={Link}
-                  href="/user/signup"
-                  variant="contained"
-                  sx={{ ml: 2 }}
-                >
-                  회원가입
-                </Button>
-                <Button
-                  component={Link}
-                  href="/dashboards/crypto"
-                  variant="contained"
-                  sx={{ ml: 2 }}
-                >
-                  로그인
-                </Button>
+                <Button component={Link} href="/user/signup" variant="contained" sx={{ ml: 2 }} > 회원가입 </Button>
+                <Button component={Link} href="/dashboards/crypto" variant="contained" sx={{ ml: 2 }}>로그인</Button>
               </Box>
             </Box>
           </Box>
@@ -88,8 +69,8 @@ function UserSignup() {
         <Typography variant="h1" component="h1" gutterBottom align='center'>회원가입</Typography>
         <Typography variant="subtitle2" align='center'>LiCa를 사용하기 위해 회원가입을 해주세요.</Typography>
         <Card>
-            <CardHeader title = "회원가입" />
-            <Divider />
+            {/* <CardHeader title = "회원가입" />
+            <Divider /> */}
             <CardContent>
                 <Box component="form" sx={{ '& .MuiTextField-root': { m: 1, width: '25ch' }}} noValidate autoComplete="off">
                  {/* <div>
@@ -134,8 +115,12 @@ function UserSignup() {
                       <FormControlLabel value="male" control={<Radio />} label="Male" />
                     </RadioGroup>
                   </FormControl>
-                  
+                  <div style={{ display: "flex", justifyContent: "center"}}>
+                    <Button component={Link} href="/" variant="contained" sx={{ ml: 2 }} color="error">취소</Button>
+                    <Button component={Link} href="/dashboards/crypto" variant="contained" sx={{ ml: 2 }}>확인</Button>
+                  </div>
                 </Box>
+                
             </CardContent>
         </Card>
       </Container>
