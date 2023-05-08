@@ -39,7 +39,7 @@ const [data, setData] = useState([24, 30, 45, 70, 26]);
 const svgRef = useRef(null);
 
 useEffect(() => {
-  const svg = select(svgRef.current); // selection 객체
+  // const svg = select(svgRef.current); // selection 객체
 
   svg
     .selectAll('circle')
