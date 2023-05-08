@@ -32,7 +32,7 @@ const HeaderWrapper = styled(Box)(
         justify-content: space-between;
         width: 100%;
         @media (min-width: ${theme.breakpoints.values.lg}px) {
-            left: ${theme.sidebar.width};
+            left: 0;
             width: auto;
         }
 `
@@ -62,14 +62,15 @@ function Header() {
               )}`
       }}
     >
-      <Stack
+      {/* <Stack
         direction="row"
         divider={<Divider orientation="vertical" flexItem />}
         alignItems="center"
         spacing={2}
       >
         <HeaderMenu />
-      </Stack>
+      </Stack> */}
+      <Box />
       <Box display="flex" alignItems="center">
         <HeaderButtons />
         <HeaderUserbox />
@@ -77,7 +78,7 @@ function Header() {
           component="span"
           sx={{
             ml: 2,
-            display: { lg: 'none', xs: 'inline-block' }
+            display: { lg: 'inline-block', xs: 'inline-block' }
           }}
         >
           <Tooltip arrow title="Toggle Menu">
