@@ -1,0 +1,31 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/Test
+    username: postgres
+    password: ssafy
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  security:
+    user:
+      name: user
+      password: password
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password:
+    database: 0
+
+jwt:
+  secret: a208.mrlee.laca
+sendinblue:
+  apikey: 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
+  email : ssafybin0308@gmail.com
