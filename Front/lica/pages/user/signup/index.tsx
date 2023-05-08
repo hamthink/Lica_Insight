@@ -69,8 +69,8 @@ function UserSignup() {
         <Typography variant="h1" component="h1" gutterBottom align='center'>회원가입</Typography>
         <Typography variant="subtitle2" align='center'>LiCa를 사용하기 위해 회원가입을 해주세요.</Typography>
         <Card>
-            <CardHeader title = "회원가입" />
-            <Divider />
+            {/* <CardHeader title = "회원가입" />
+            <Divider /> */}
             <CardContent>
                 <Box component="form" sx={{ '& .MuiTextField-root': { m: 1, width: '25ch' }}} noValidate autoComplete="off">
                  {/* <div>
