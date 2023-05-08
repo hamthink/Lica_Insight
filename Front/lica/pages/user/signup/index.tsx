@@ -59,7 +59,7 @@ function UserSignup() {
               <Box />
               <Box>
                 <Button component={Link} href="/user/signup" variant="contained" sx={{ ml: 2 }} > 회원가입 </Button>
-                <Button component={Link} href="/dashboards/crypto" variant="contained" sx={{ ml: 2 }}>로그인</Button>
+                <Button component={Link} href="/user/login" variant="contained" sx={{ ml: 2 }}>로그인</Button>
               </Box>
             </Box>
           </Box>
@@ -68,7 +68,7 @@ function UserSignup() {
       <Container maxWidth="sm" sx={{ mt: 8 }}>
         <Typography variant="h1" component="h1" gutterBottom align='center'>회원가입</Typography>
         <Typography variant="subtitle2" align='center'>LiCa를 사용하기 위해 회원가입을 해주세요.</Typography>
-        <Card>
+        <Card sx={{ mt: 5, mb: 5}}>
             {/* <CardHeader title = "회원가입" />
             <Divider /> */}
             <CardContent>
@@ -86,29 +86,29 @@ function UserSignup() {
                     <TextField id="standard-search" label="이름" type="search" variant="standard" /><br />
                   </div> */}
                   
-                  <FormControl variant="standard" sx={{ m: 2, width: '54ch'}}>
+                  <FormControl variant="standard" sx={{ m: 2, width: '90%'}}>
                     <InputLabel htmlFor="email">이메일</InputLabel>
                     <Input id="email" type='text' />
                     <FormHelperText id="email">LiCa ID로 사용할 주소입니다.</FormHelperText>
                   </FormControl>
-                  <FormControl variant="standard" sx={{ m: 2, width: '54ch'}}>
+                  <FormControl variant="standard" sx={{ m: 2, width: '90%'}}>
                     <InputLabel htmlFor="password">비밀번호</InputLabel>
                     <Input id="password" type='password' />
                   </FormControl>
-                  <FormControl variant="standard" sx={{ m: 2, width: '54ch'}}>
+                  <FormControl variant="standard" sx={{ m: 2, width: '90%'}}>
                     <InputLabel htmlFor="password-check">비밀번호 확인</InputLabel>
                     <Input id="password-check" type='password' />
                   </FormControl>
-                  <FormControl variant="standard" sx={{ m: 2, width: '54ch'}}>
+                  <FormControl variant="standard" sx={{ m: 2, width: '90%'}}>
                     <InputLabel htmlFor="name">이름</InputLabel>
                     <Input id="name" type='text' />
                   </FormControl>
-                  <FormControl variant="standard" sx={{ m: 2, width: '54ch'}}>
+                  <FormControl variant="standard" sx={{ m: 2, width: '90%'}}>
                     <InputLabel htmlFor="birth">생년월일</InputLabel>
                     <Input id="birth" type='text' />
                     <FormHelperText id="birth">####-##-## 형식으로 입력바랍니다.</FormHelperText>
                   </FormControl>
-                  <FormControl sx={{ m: 1, width: '54ch'}}>
+                  <FormControl sx={{ m: 1, width: '90%'}}>
                     <FormLabel component="legend"><br/>성별</FormLabel>
                     <RadioGroup row aria-label="gender" name="row-radio-buttons-group">
                       <FormControlLabel value="female" control={<Radio />} label="Female" />
@@ -117,10 +117,9 @@ function UserSignup() {
                   </FormControl>
                   <div style={{ display: "flex", justifyContent: "center"}}>
                     <Button component={Link} href="/" variant="contained" sx={{ ml: 2 }} color="error">취소</Button>
-                    <Button component={Link} href="/dashboards/crypto" variant="contained" sx={{ ml: 2 }}>확인</Button>
+                    <Button component={Link} href="/user/login" variant="contained" sx={{ ml: 2 }}>확인</Button>
                   </div>
                 </Box>
-                
             </CardContent>
         </Card>
       </Container>
