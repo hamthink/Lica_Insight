@@ -15,9 +15,7 @@ import Text from 'src/components/Text';
 import Label from 'src/components/Label';
 import { Chart } from 'src/components/Chart';
 import type { ApexOptions } from 'apexcharts';
-import TrendingDownTwoToneIcon from '@mui/icons-material/TrendingDownTwoTone';
 import TrendingUpTwoToneIcon from '@mui/icons-material/TrendingUpTwoTone';
-import TrendingFlatTwoToneIcon from '@mui/icons-material/TrendingFlatTwoTone';
 
 const AvatarWrapper = styled(Avatar)(
   ({ theme }) => `
@@ -122,20 +120,6 @@ function WatchListRow() {
     }
   ];
 
-  const Box2Data = [
-    {
-      name: 'Ethereum',
-      data: [1.854, 1.873, 1.992, 2.009, 1.909, 1.942, 1.884]
-    }
-  ];
-
-  const Box3Data = [
-    {
-      name: 'Cardano',
-      data: [13, 16, 14, 18, 8, 11, 20]
-    }
-  ];
-
   return (
     <Card>
       <Stack
@@ -210,145 +194,7 @@ function WatchListRow() {
               options={Box1Options}
               series={Box1Data}
               type="line"
-              height={100}
-            />
-          </Box>
-        </Box>
-        <Box
-          sx={{
-            width: '100%',
-            p: 3
-          }}
-        >
-          <Box
-            display="flex"
-            alignItems="flex-start"
-            justifyContent="space-between"
-          >
-            <Box display="flex" alignItems="center">
-              <AvatarWrapper>
-                <img
-                  alt="ETH"
-                  src="/static/images/placeholders/logo/ethereum.png"
-                />
-              </AvatarWrapper>
-              <Box>
-                <Typography variant="h4" noWrap>
-                  Ethereum
-                </Typography>
-                <Typography variant="subtitle1" noWrap>
-                  ETH
-                </Typography>
-              </Box>
-            </Box>
-            <Label color="secondary">24h</Label>
-          </Box>
-          <Box
-            mt={3}
-            display="flex"
-            alignItems="center"
-            justifyContent="space-between"
-          >
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'flex-start'
-              }}
-            >
-              <Typography
-                variant="h2"
-                sx={{
-                  pr: 1
-                }}
-              >
-                $1,968.00
-              </Typography>
-              <Text color="error">
-                <b>-3.24%</b>
-              </Text>
-            </Box>
-            <TrendingDownTwoToneIcon
-              sx={{
-                color: `${theme.colors.error.main}`
-              }}
-            />
-          </Box>
-          <Box pt={2}>
-            <Chart
-              options={Box1Options}
-              series={Box2Data}
-              type="line"
-              height={100}
-            />
-          </Box>
-        </Box>
-        <Box
-          sx={{
-            width: '100%',
-            p: 3
-          }}
-        >
-          <Box
-            display="flex"
-            alignItems="flex-start"
-            justifyContent="space-between"
-          >
-            <Box display="flex" alignItems="center">
-              <AvatarWrapper>
-                <img
-                  alt="ADA"
-                  src="/static/images/placeholders/logo/cardano.png"
-                />
-              </AvatarWrapper>
-              <Box>
-                <Typography variant="h4" noWrap>
-                  Cardano
-                </Typography>
-                <Typography variant="subtitle1" noWrap>
-                  ADA
-                </Typography>
-              </Box>
-            </Box>
-            <Label color="secondary">24h</Label>
-          </Box>
-          <Box
-            mt={3}
-            display="flex"
-            alignItems="center"
-            justifyContent="space-between"
-          >
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'flex-start'
-              }}
-            >
-              <Typography
-                variant="h2"
-                sx={{
-                  pr: 1
-                }}
-              >
-                $23.00
-              </Typography>
-              <Text color="error">
-                <b>-0.33%</b>
-              </Text>
-            </Box>
-            <TrendingFlatTwoToneIcon
-              sx={{
-                color: `${theme.colors.warning.main}`
-              }}
-            />
-          </Box>
-          <Box pt={2}>
-            <Chart
-              options={Box1Options}
-              series={Box3Data}
-              type="line"
-              height={100}
+              height={500}
             />
           </Box>
         </Box>

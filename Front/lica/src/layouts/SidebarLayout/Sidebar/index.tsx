@@ -36,7 +36,7 @@ function Sidebar() {
 
   return (
     <>
-      <SidebarWrapper
+      {/* <SidebarWrapper
         sx={{
           display: {
             xs: 'none',
@@ -91,7 +91,7 @@ function Sidebar() {
             Upgrade to PRO
           </Button>
         </Box>
-      </SidebarWrapper>
+      </SidebarWrapper> */}
       <Drawer
         sx={{
           boxShadow: `${theme.sidebar.boxShadow}`

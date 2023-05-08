@@ -9,18 +9,17 @@ const FooterWrapper = styled(Container)(
 function Footer() {
   return (
     <FooterWrapper className="footer-wrapper">
-      <Box
+      <Box 
+        sx={{ display: "flex", justifyContent: "center"}}
         pb={4}
         display={{ xs: 'block', md: 'flex' }}
         alignItems="center"
         textAlign={{ xs: 'center', md: 'left' }}
         justifyContent="space-between"
       >
-        <Box>
-          <Typography variant="subtitle1">
-            &copy; 이선생 - LiCa Insight
-          </Typography>
-        </Box>
+        <Typography variant="subtitle1">
+          &copy; 이선생 - LiCa Insight
+        </Typography>
       </Box>
     </FooterWrapper>
   );
