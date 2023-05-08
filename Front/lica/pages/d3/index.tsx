@@ -15,7 +15,7 @@ import Head from 'next/head';
 import Logo from 'src/components/LogoSign';
 import Hero from 'src/content/Overview/Hero';
 import React, { useRef, useEffect, useState } from 'react';
-import { scaleLinear, line, curveCatmullRom } from 'd3';
+import * as d3 from 'd3';
 
 const HeaderWrapper = styled(Card)(
   ({ theme }) => `
@@ -36,58 +36,86 @@ const OverviewWrapper = styled(Box)(
 `
 );
 
-const data1 = [
-  { x: 0, y: 20 },
-  { x: 1, y: 30 },
-  { x: 2, y: 25 },
-  { x: 3, y: 45 },
-  { x: 4, y: 35 },
-  { x: 5, y: 50 }
+// const data = [
+//   [
+//     { x: 0, y: 20 },
+//     { x: 1, y: 30 },
+//     { x: 2, y: 25 },
+//     { x: 3, y: 45 },
+//     { x: 4, y: 35 },
+//     { x: 5, y: 50 }
+//   ],
+//   [
+//     { x: 50, y: 10 },
+//     { x: 51, y: 20 },
+//     { x: 52, y: 15 },
+//     { x: 53, y: 15 },
+//     { x: 56, y: 25 },
+//     { x: 57, y: 20 }
+//   ]
+// ];
+
+const data = [
+  { x: 10, y: 10 },
+  { x: 20, y: 20 },
+  { x: 30, y: 30 },
+  { x: 40, y: 40 },
+  { x: 50, y: 50 },
+  { x: 60, y: 60 }
 ];
 
-const data2 = [
-  { x: 50, y: 10 },
-  { x: 51, y: 20 },
-  { x: 52, y: 15 },
-  { x: 53, y: 15 },
-  { x: 56, y: 25 },
-  { x: 57, y: 20 }
-];
+const width = 600;
+const height = 400;
 
-const colors = ['red', 'green', 'blue', 'yellow'];
+function Trace() {
+  const svgRef = useRef(null);
 
-function Overview() {
-  const [hoveredLine, setHoveredLine] = useState(null);
+  useEffect(() => {
+    const svg = d3.select(svgRef.current);
 
-  const margin = { top: 20, right: 20, bottom: 30, left: 30 };
-  const width = 600 - margin.left - margin.right;
-  const height = 400 - margin.top - margin.bottom;
+    const xScale = d3
+      .scaleLinear()
+      .domain(d3.extent(data, (d) => d.x))
+      .range([0, width]);
+    const yScale = d3
+      .scaleLinear()
+      .domain(d3.extent(data, (d) => d.y))
+      .range([height, 0]);
 
-  const xScale = scaleLinear()
-    .domain([0, data1.length - 1])
-    .range([0, width]);
+    const xAxis = d3.axisBottom(xScale);
+    const yAxis = d3.axisLeft(yScale);
 
-  const yScale = scaleLinear()
-    .domain([0, Math.max(...data2.map((d) => d.y))])
-    .range([height, 0]);
+    svg.attr('width', width).attr('height', height);
 
-  const lines = [
-    { color: 'red', data: data1.slice(0) },
-    { color: '#' + 'ffff00', data: data2.slice(0) }
-  ];
+    svg.append('g').attr('transform', 'translate(50, 370)').call(xAxis);
+    svg.append('g').attr('transform', 'translate(50, -30)').call(yAxis);
 
-  const lineGenerator = line()
-    .x((d, i) => xScale(i))
-    .y((d) => yScale(d.y))
-    .curve(curveCatmullRom.alpha(0.5));
+    svg
+      .selectAll('.dot')
+      .data(data)
+      .enter()
+      .append('circle')
+      .attr('class', 'dot')
+      .attr('cx', (d) => xScale(d.x))
+      .attr('cy', (d) => yScale(d.y))
+      .attr('r', 5)
+      .style('fill', 'steelblue');
 
-  const handleLineHover = (index) => {
-    setHoveredLine(index);
-  };
-
-  const handleLineLeave = () => {
-    setHoveredLine(null);
-  };
+    svg
+      .append('path')
+      .datum(data)
+      .attr('fill', 'none')
+      .attr('stroke', 'steelblue')
+      .attr('stroke-width', 2)
+      .attr(
+        'd',
+        d3
+          .line()
+          .x((d, i) => xScale(i) + 50)
+          .y((d) => yScale(d) - 30)
+          .curve(d3.curveCatmullRom.alpha(0.5))
+      );
+  }, []);
 
   return (
     <OverviewWrapper>
@@ -120,55 +148,14 @@ function Overview() {
         </Container>
       </HeaderWrapper>
       <Box>
-        <Box>
-          <svg
-            width={width + margin.left + margin.right}
-            height={height + margin.top + margin.bottom}
-          >
-            <g transform={`translate(${margin.left}, ${margin.top})`}>
-              {lines.map((line, index) => (
-                <path
-                  key={index}
-                  d={lineGenerator(line.data)}
-                  stroke={hoveredLine === index ? line.color : '#ccc'}
-                  strokeWidth={hoveredLine === index ? 3 : 1}
-                  fill="none"
-                  onMouseEnter={() => handleLineHover(index)}
-                  onMouseLeave={handleLineLeave}
-                />
-              ))}
-              {data1.map((d, i) => (
-                <circle
-                  key={i}
-                  cx={xScale(i)}
-                  cy={yScale(d.y)}
-                  r={4}
-                  fill="#fff"
-                  stroke="#333"
-                  strokeWidth={2}
-                />
-              ))}
-              {data2.map((d, i) => (
-                <circle
-                  key={i}
-                  cx={xScale(i)}
-                  cy={yScale(d.y)}
-                  r={4}
-                  fill="#fff"
-                  stroke="#333"
-                  strokeWidth={2}
-                />
-              ))}
-            </g>
-          </svg>
-        </Box>
+        <svg ref={svgRef}>{/* SVG 내용 */}</svg>
       </Box>
     </OverviewWrapper>
   );
 }
 
-export default Overview;
+export default Trace;
 
-Overview.getLayout = function getLayout(page: ReactElement) {
+Trace.getLayout = function getLayout(page: ReactElement) {
   return <BaseLayout>{page}</BaseLayout>;
 };
