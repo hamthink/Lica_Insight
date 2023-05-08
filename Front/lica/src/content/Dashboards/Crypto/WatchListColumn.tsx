@@ -129,18 +129,6 @@ function WatchListColumn() {
       data: [55.701, 57.598, 48.607, 46.439, 58.755, 46.978, 58.16]
     }
   ];
-  const chart2Data = [
-    {
-      name: 'Ethereum Price',
-      data: [13, 16, 14, 20, 8, 11, 20]
-    }
-  ];
-  const chart3Data = [
-    {
-      name: 'Cardano Price',
-      data: [51.85, 41.77, 22.09, 42.0, 71.9, 51.84, 31.84]
-    }
-  ];
 
   return (
     <Grid
@@ -150,7 +138,7 @@ function WatchListColumn() {
       alignItems="stretch"
       spacing={3}
     >
-      <Grid item md={4} xs={12}>
+      <Grid item xs={12}>
         <Card
           sx={{
             overflow: 'visible'
@@ -221,157 +209,7 @@ function WatchListColumn() {
             options={chartOptions}
             series={chart1Data}
             type="area"
-            height={200}
-          />
-        </Card>
-      </Grid>
-      <Grid item md={4} xs={12}>
-        <Card
-          sx={{
-            overflow: 'visible'
-          }}
-        >
-          <Box
-            sx={{
-              p: 3
-            }}
-          >
-            <Box display="flex" alignItems="center">
-              <AvatarWrapper>
-                <img
-                  alt="ETH"
-                  src="/static/images/placeholders/logo/ethereum.png"
-                />
-              </AvatarWrapper>
-              <Box>
-                <Typography variant="h4" noWrap>
-                  Ethereum
-                </Typography>
-                <Typography variant="subtitle1" noWrap>
-                  ETH
-                </Typography>
-              </Box>
-            </Box>
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'flex-start',
-                pt: 3
-              }}
-            >
-              <Typography
-                variant="h2"
-                sx={{
-                  pr: 1,
-                  mb: 1
-                }}
-              >
-                $1,968.00
-              </Typography>
-              <Text color="error">
-                <b>-3.24%</b>
-              </Text>
-            </Box>
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'flex-start'
-              }}
-            >
-              <Label color="error">-$90</Label>
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                sx={{
-                  pl: 1
-                }}
-              >
-                last 24h
-              </Typography>
-            </Box>
-          </Box>
-          <Chart
-            options={chartOptions}
-            series={chart2Data}
-            type="area"
-            height={200}
-          />
-        </Card>
-      </Grid>
-      <Grid item md={4} xs={12}>
-        <Card
-          sx={{
-            overflow: 'visible'
-          }}
-        >
-          <Box
-            sx={{
-              p: 3
-            }}
-          >
-            <Box display="flex" alignItems="center">
-              <AvatarWrapper>
-                <img
-                  alt="ADA"
-                  src="/static/images/placeholders/logo/cardano.png"
-                />
-              </AvatarWrapper>
-              <Box>
-                <Typography variant="h4" noWrap>
-                  Cardano
-                </Typography>
-                <Typography variant="subtitle1" noWrap>
-                  ADA
-                </Typography>
-              </Box>
-            </Box>
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'flex-start',
-                pt: 3
-              }}
-            >
-              <Typography
-                variant="h2"
-                sx={{
-                  pr: 1,
-                  mb: 1
-                }}
-              >
-                $23.00
-              </Typography>
-              <Text color="error">
-                <b>-0.33%</b>
-              </Text>
-            </Box>
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'flex-start'
-              }}
-            >
-              <Label color="error">-$5</Label>
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                sx={{
-                  pl: 1
-                }}
-              >
-                last 24h
-              </Typography>
-            </Box>
-          </Box>
-          <Chart
-            options={chartOptions}
-            series={chart3Data}
-            type="area"
-            height={200}
+            height={500}
           />
         </Card>
       </Grid>

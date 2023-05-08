@@ -101,7 +101,6 @@ function Logo() {
     <TooltipWrapper title="LiCa" arrow>
       <LogoWrapper href="/">
         <LogoSignWrapper> 
-          
           <LogoSign>
             <LogoSignInner />
           </LogoSign>
