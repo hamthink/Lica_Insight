@@ -18,6 +18,8 @@ import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone';
 import HeaderButtons from './Buttons';
 import HeaderUserbox from './Userbox';
 import HeaderMenu from './Menu';
+import Logo from '@/components/Logo';
+import LogoSign from '@/components/LogoSign';
 
 const HeaderWrapper = styled(Box)(
   ({ theme }) => `
@@ -45,7 +47,7 @@ function Header() {
   return (
     <HeaderWrapper
       display="flex"
-      alignItems="center"
+      alignItems="center" maxWidth="lg"
       sx={{
         boxShadow:
           theme.palette.mode === 'dark'
@@ -62,14 +64,9 @@ function Header() {
               )}`
       }}
     >
-      {/* <Stack
-        direction="row"
-        divider={<Divider orientation="vertical" flexItem />}
-        alignItems="center"
-        spacing={2}
-      >
-        <HeaderMenu />
-      </Stack> */}
+      
+      <Logo />
+      {/* <LogoSign /> */}
       <Box />
       <Box display="flex" alignItems="center">
         <HeaderButtons />

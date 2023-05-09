@@ -42,12 +42,12 @@ function Overview() {
       </Head>
       <HeaderWrapper>
         <Container maxWidth="lg">
-          <Box display="flex" alignItems="center">
+          <Box display="flex" alignItems="center" sx={{ ml: 5 }}>
             <Logo />
             <Box display="flex" alignItems="center" justifyContent="space-between" flex={1}>
               <Box />
               <Box>
-                <Button component={Link} href="/user/test1" variant="contained" sx={{ ml: 2 }}>TEST 1</Button>
+                {/* <Button component={Link} href="/user/test1" variant="contained" sx={{ ml: 2 }}>TEST 1</Button> */}
                 <Button component={Link} href="/user/signup" variant="contained" sx={{ ml: 2 }}>회원가입</Button>
                 <Button component={Link} href="/user/login" variant="contained" sx={{ ml: 2 }}>로그인</Button>
               </Box>
