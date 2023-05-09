@@ -67,7 +67,7 @@ function Header() {
         justifyContent="space-between"
         flexGrow={1}
         margin="0 auto"
-        maxWidth="lg"
+        maxWidth="1200px"
       >
         <Logo />
         {/* <LogoSign /> */}

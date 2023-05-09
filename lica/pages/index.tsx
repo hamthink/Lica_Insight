@@ -41,7 +41,7 @@ function Overview() {
       </Head>
       <HeaderWrapper>
         <Container maxWidth="lg">
-          <Box display="flex" alignItems="center" sx={{ ml: 5 }}>
+          <Box display="flex" alignItems="center">
             <Logo />
             <Box
               display="flex"
