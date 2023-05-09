@@ -183,7 +183,7 @@ function SidebarMenu() {
                     onClick={closeSidebar}
                     startIcon={<DesignServicesTwoToneIcon />}
                   >
-                    Overview
+                    Main
                   </Button>
                 </NextLink>
               </ListItem>
@@ -214,17 +214,17 @@ function SidebarMenu() {
           <SubMenuWrapper>
             <List component="div">
               <ListItem component="div">
-                <NextLink href="/dashboards/crypto" passHref>
+                <NextLink href="/dashboards/home" passHref>
                   <Button
                     className={
-                      currentRoute === '/dashboards/crypto' ? 'active' : ''
+                      currentRoute === '/dashboards/home' ? 'active' : ''
                     }
                     disableRipple
                     component="a"
                     onClick={closeSidebar}
                     startIcon={<BrightnessLowTwoToneIcon />}
                   >
-                    Cryptocurrency
+                    Home
                   </Button>
                 </NextLink>
               </ListItem>
@@ -269,6 +269,21 @@ function SidebarMenu() {
                     startIcon={<GroupsTwoToneIcon />}
                   >
                     visitors
+                  </Button>
+                </NextLink>
+              </ListItem>
+              <ListItem component="div">
+                <NextLink href="/statistics/heatmap" passHref>
+                  <Button
+                    className={
+                      currentRoute === '/statistics/heatmap' ? 'active' : ''
+                    }
+                    disableRipple
+                    component="a"
+                    onClick={closeSidebar}
+                    startIcon={<GroupsTwoToneIcon />}
+                  >
+                    heatmap
                   </Button>
                 </NextLink>
               </ListItem>

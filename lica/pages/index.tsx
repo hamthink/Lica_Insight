@@ -41,7 +41,7 @@ function Overview() {
       </Head>
       <HeaderWrapper>
         <Container maxWidth="lg">
-          <Box display="flex" alignItems="center">
+          <Box display="flex" alignItems="center" sx={{ ml: 5 }}>
             <Logo />
             <Box
               display="flex"
@@ -51,6 +51,7 @@ function Overview() {
             >
               <Box />
               <Box>
+                {/* <Button component={Link} href="/user/test1" variant="contained" sx={{ ml: 2 }}>TEST 1</Button> */}
                 <Button
                   component={Link}
                   href="/user/signup"

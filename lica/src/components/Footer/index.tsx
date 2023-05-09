@@ -18,7 +18,7 @@ function Footer() {
         justifyContent="space-between"
       >
         <Typography variant="subtitle1">
-          &copy; 이선생 - LiCa Insight
+          Copyright &copy; 이선생 - LiCa Insight 2023
         </Typography>
       </Box>
     </FooterWrapper>
