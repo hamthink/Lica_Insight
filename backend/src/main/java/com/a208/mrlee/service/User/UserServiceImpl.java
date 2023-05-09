@@ -30,7 +30,6 @@ public class UserServiceImpl implements UserService {
             return false;
         }
         String code = mailSendConfig.sendEmail(id);
-        System.out.println(code);
         cacheManager.getCache("email").put(id , code);
         return true;
     }
