@@ -44,7 +44,8 @@ function Header() {
 
   return (
     <HeaderWrapper
-      margin="0 auto"
+      display="flex"
+      alignItems="center"
       sx={{
         boxShadow:
           theme.palette.mode === 'dark'
@@ -61,7 +62,13 @@ function Header() {
               )}`
       }}
     >
-      <Box maxWidth="lg" display="flex" alignItems="center">
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        flexGrow={1}
+        margin="0 auto"
+        maxWidth="lg"
+      >
         <Logo />
         {/* <LogoSign /> */}
         <Box />
