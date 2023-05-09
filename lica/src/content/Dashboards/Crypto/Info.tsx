@@ -18,7 +18,7 @@ function Info() {
           pb: 3
         }}
       >
-        <Typography variant="h3">Infomation</Typography>
+        <Typography variant="h3">Information</Typography>
       </Box>
       <Card>
         <Grid spacing={0} container>
