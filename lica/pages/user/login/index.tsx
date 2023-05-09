@@ -1,4 +1,3 @@
-import { useState, ChangeEvent } from 'react';
 import Head from 'next/head';
 // import SidebarLayout from '@/layouts/SidebarLayout';
 import type { ReactElement } from 'react';
@@ -6,20 +5,25 @@ import BaseLayout from 'src/layouts/BaseLayout';
 
 import Footer from '@/components/Footer';
 import { styled } from '@mui/material/styles';
-import { Card, Typography, Container, Box, Button, CardHeader, Divider, CardContent, TextField, MenuItem, Grid, FormControlLabel, Checkbox } from '@mui/material';
-
-import FormControl from '@mui/material/FormControl';
+import {
+  Card,
+  Typography,
+  Container,
+  Box,
+  Button,
+  TextField,
+  Grid,
+  FormControlLabel,
+  Checkbox
+} from '@mui/material';
 
 import CardMedia from '@mui/material/CardMedia';
-
-import InputLabel from '@mui/material/InputLabel';
-import Input from '@mui/material/Input';
 
 import Logo from 'src/components/LogoSign';
 import Link from 'src/components/Link';
 
 const HeaderWrapper = styled(Card)(
-    ({ theme }) => `
+  ({ theme }) => `
     width: 100%;
     display: flex;
     align-items: center;
@@ -29,7 +33,7 @@ const HeaderWrapper = styled(Card)(
 );
 
 const SignupWrapper = styled(Box)(
-({ theme }) => `
+  ({ theme }) => `
     overflow: auto;
     background: ${theme.palette.common.white};
     flex: 1;
@@ -43,7 +47,7 @@ function UserLogin() {
     const data = new FormData(event.currentTarget);
     console.log({
       email: data.get('email'),
-      password: data.get('password'),
+      password: data.get('password')
     });
   };
 
@@ -56,29 +60,85 @@ function UserLogin() {
         <Container maxWidth="lg">
           <Box display="flex" alignItems="center">
             <Logo />
-            <Box display="flex" alignItems="center" justifyContent="space-between" flex={1}>
+            <Box
+              display="flex"
+              alignItems="center"
+              justifyContent="space-between"
+              flex={1}
+            >
               <Box />
               <Box>
-                <Button component={Link} href="/user/signup" variant="contained" sx={{ ml: 2 }} > 회원가입 </Button>
-                <Button component={Link} href="/user/login" variant="contained" sx={{ ml: 2 }}>로그인</Button>
+                <Button
+                  component={Link}
+                  href="/user/signup"
+                  variant="contained"
+                  sx={{ ml: 2 }}
+                >
+                  {' '}
+                  회원가입{' '}
+                </Button>
+                <Button
+                  component={Link}
+                  href="/user/login"
+                  variant="contained"
+                  sx={{ ml: 2 }}
+                >
+                  로그인
+                </Button>
               </Box>
             </Box>
           </Box>
         </Container>
       </HeaderWrapper>
       <Container maxWidth="sm" sx={{ mt: 8 }}>
-        <Typography variant="h1" component="h1" gutterBottom align='center'>로그인</Typography>
-        <Typography variant="subtitle2" align='center'>LiCa를 사용하기 위해 로그인 해주세요.</Typography>
-        
-        <div style={{ display: "flex", justifyContent: "center"}}>
-          <CardMedia component="img" sx={{ width: '30%', mt: 7 }} image="/static/images/logo/footprint.png" alt="LiCa LOGO"/>
+        <Typography variant="h1" component="h1" gutterBottom align="center">
+          로그인
+        </Typography>
+        <Typography variant="subtitle2" align="center">
+          LiCa를 사용하기 위해 로그인 해주세요.
+        </Typography>
+
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <CardMedia
+            component="img"
+            sx={{ width: '30%', mt: 7 }}
+            image="/static/images/logo/footprint.png"
+            alt="LiCa LOGO"
+          />
         </div>
 
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-          <TextField margin="normal" required fullWidth id="email" label="Email Address" name="email" autoComplete="email" autoFocus />
-          <TextField margin="normal" required fullWidth name="password" label="Password" type="password" id="password" autoComplete="current-password" />
-          <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
-          <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} href="/dashboards/home" >
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
+            name="email"
+            autoComplete="email"
+            autoFocus
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            autoComplete="current-password"
+          />
+          <FormControlLabel
+            control={<Checkbox value="remember" color="primary" />}
+            label="Remember me"
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+            href="/dashboards/home"
+          >
             로그인
           </Button>
           <Grid container>
@@ -94,7 +154,7 @@ function UserLogin() {
             </Grid> */}
           </Grid>
         </Box>
-        
+
         {/* <Card sx={{ mt: 10, mb: 15 }}>
           <CardContent>
             <Box component="form" sx={{ '& .MuiTextField-root': { m: 1, width: '25ch' }}} noValidate autoComplete="off">
@@ -107,8 +167,8 @@ function UserLogin() {
                 <Input id="password" type='password' />
                 <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
               </FormControl> */}
-              {/* <Button component={Link} href="/user/signup" variant="contained" sx={{ ml: 2 }} >회원가입</Button> */}
-              {/* <Button component={Link} href="/dashboards/home" variant="contained" sx={{ ml: 2 }}>확인</Button>
+        {/* <Button component={Link} href="/user/signup" variant="contained" sx={{ ml: 2 }} >회원가입</Button> */}
+        {/* <Button component={Link} href="/dashboards/home" variant="contained" sx={{ ml: 2 }}>확인</Button>
               <Grid container>
                 <Grid item xs>
                   <Link href="#" variant="body2">Forgot password?</Link>
@@ -121,7 +181,7 @@ function UserLogin() {
           </CardContent>
         </Card> */}
       </Container>
-      
+
       <Footer />
     </SignupWrapper>
   );
@@ -132,7 +192,7 @@ function UserLogin() {
 // );
 
 UserLogin.getLayout = function getLayout(page: ReactElement) {
-    return <BaseLayout>{page}</BaseLayout>;
-  };
+  return <BaseLayout>{page}</BaseLayout>;
+};
 
 export default UserLogin;

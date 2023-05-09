@@ -4,7 +4,6 @@ import {
   TooltipProps,
   tooltipClasses,
   styled,
-  useTheme,
   CardMedia
 } from '@mui/material';
 import Link from 'src/components/Link';
