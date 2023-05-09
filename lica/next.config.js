@@ -13,11 +13,4 @@ const redirects = {
   }
 };
 
-module.exports = withImages({
-  
-  images: {
-    unoptimized: true,
-  },
-  output: 'standalone',
-  ...redirects
-});
+module.exports = withImages(redirects);
