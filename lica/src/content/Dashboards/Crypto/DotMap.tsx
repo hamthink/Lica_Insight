@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
-function HeatMap() {
+function DotMap() {
   useEffect(() => {
     var heatmap = h337.create({
       container: document.querySelector('.Heat')
@@ -92,7 +92,7 @@ function HeatMap() {
           >
             {
               <Typography variant="h3" sx={{ mt: 2, ml: 2 }}>
-                HeatMap
+                DotMap
               </Typography>
             }
             <Box />
@@ -145,4 +145,4 @@ function HeatMap() {
   );
 }
 
-export default HeatMap;
+export default DotMap;

@@ -1,13 +1,6 @@
-import {
-  Box,
-  Card,
-  Typography,
-  Grid,
-} from '@mui/material';
-
+import { Box, Card, Typography, Grid } from '@mui/material';
 
 function Info() {
-  
   return (
     <>
       <Box
@@ -15,7 +8,7 @@ function Info() {
         alignItems="center"
         justifyContent="space-between"
         sx={{
-          pb: 3
+          pb: 4
         }}
       >
         <Typography variant="h3">Information</Typography>
@@ -23,9 +16,7 @@ function Info() {
       <Card>
         <Grid spacing={0} container>
           <Grid item xs={12} md={6}>
-            <Box p={4}>
-    
-            </Box>
+            <Box p={4}></Box>
           </Grid>
         </Grid>
       </Card>
