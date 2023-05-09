@@ -272,6 +272,21 @@ function SidebarMenu() {
                   </Button>
                 </NextLink>
               </ListItem>
+              <ListItem component="div">
+                <NextLink href="/statistics/heatmap" passHref>
+                  <Button
+                    className={
+                      currentRoute === '/statistics/heatmap' ? 'active' : ''
+                    }
+                    disableRipple
+                    component="a"
+                    onClick={closeSidebar}
+                    startIcon={<GroupsTwoToneIcon />}
+                  >
+                    heatmap
+                  </Button>
+                </NextLink>
+              </ListItem>
             </List>
           </SubMenuWrapper>
         </List>
