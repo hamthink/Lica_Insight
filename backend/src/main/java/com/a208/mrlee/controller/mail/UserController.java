@@ -14,7 +14,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
-@Api("Mail Api")
+@Api("USER Api")
 @RequiredArgsConstructor
 public class UserController {
     private static final String SUCCESS = "success";
@@ -27,11 +27,12 @@ public class UserController {
     public ResponseEntity<?> email(@RequestParam String email){
         Map<String, Object> resultMap = new HashMap<String, Object>();
         if(userService.idExist(email)){
-            resultMap.put("exist" , false);
+            resultMap.put("possible" , true);
+            resultMap.put("result", SUCCESS);
         }else{
-            resultMap.put("exist" , true);
+            resultMap.put("possible" , false);
+            resultMap.put("result", FAIL);
         }
-        resultMap.put("result", SUCCESS);
         return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
     }
 
@@ -40,15 +41,16 @@ public class UserController {
         Map<String, Object> resultMap = new HashMap<String, Object>();
         if(userService.isCached(userDto.getEmail() , userDto.getCode())){
             resultMap.put("done" , true);
+            resultMap.put("result", SUCCESS);
         }else{
             resultMap.put("done" , false);
+            resultMap.put("result", FAIL);
         }
-        resultMap.put("result", SUCCESS);
         return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> code(@RequestBody UserDTO userDto){
+    public ResponseEntity<?> login(@RequestBody UserDTO userDto){
         Map<String, Object> resultMap = userService.login(userDto.getEmail() , userDto.getPassword());
         if(resultMap.get("result").equals(SUCCESS)){
             String accessToken = jwtService.login(userDto.getEmail());
