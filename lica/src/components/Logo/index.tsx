@@ -1,4 +1,4 @@
-import { Box, CardMedia, styled, Tooltip } from '@mui/material';
+import { Box, CardMedia, styled } from '@mui/material';
 import Link from 'src/components/Link';
 
 const LogoWrapper = styled(Link)(
@@ -36,7 +36,7 @@ function Logo() {
     <LogoWrapper href="/">
       <CardMedia
         component="img"
-        sx={{ height: 50 }}
+        sx={{ width: 50 }}
         image="/static/images/logo/footprint.png"
         alt="LiCa LOGO"
       />
