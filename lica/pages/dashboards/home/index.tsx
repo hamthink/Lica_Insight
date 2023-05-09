@@ -7,8 +7,7 @@ import PageTitleWrapper from '@/components/PageTitleWrapper';
 import { Container, Grid } from '@mui/material';
 import Footer from '@/components/Footer';
 
-import HeatMap from '@/content/Dashboards/Crypto/HeatMap';
-import Info from '@/content/Dashboards/Crypto/Info';
+import AccountBalance from '@/content/Dashboards/Crypto/AccountBalance';
 import Wallets from '@/content/Dashboards/Crypto/Wallets';
 import AccountSecurity from '@/content/Dashboards/Crypto/AccountSecurity';
 import WatchList from '@/content/Dashboards/Crypto/WatchList';
@@ -23,18 +22,9 @@ function DashboardCrypto() {
         <PageHeader />
       </PageTitleWrapper>
       <Container maxWidth="lg">
-        <Grid
-          container
-          direction="row"
-          justifyContent="center"
-          alignItems="stretch"
-          spacing={4}
-        >
-          <Grid item lg={9} xs={12}>
-            <HeatMap />
-          </Grid>
-          <Grid item lg={3} xs={12}>
-            <Info />
+        <Grid container direction="row" justifyContent="center" alignItems="stretch" spacing={4}>
+          <Grid item xs={12}>
+            <AccountBalance />
           </Grid>
           <Grid item lg={8} xs={12}>
             <Wallets />
