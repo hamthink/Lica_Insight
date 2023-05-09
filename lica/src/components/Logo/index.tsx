@@ -1,4 +1,4 @@
-import { Box, styled, Tooltip } from '@mui/material';
+import { Box, CardMedia, styled, Tooltip } from '@mui/material';
 import Link from 'src/components/Link';
 
 const LogoWrapper = styled(Link)(
@@ -61,41 +61,15 @@ const LogoSign = styled(Box)(
 `
 );
 
-const LogoSignInner = styled(Box)(
-  ({ theme }) => `
-        width: 16px;
-        height: 16px;
-        position: absolute;
-        top: 12px;
-        left: 12px;
-        z-index: 5;
-        border-radius: ${theme.general.borderRadiusSm};
-        background: ${theme.header.background};
-`
-);
-
 const LogoTextWrapper = styled(Box)(
   ({ theme }) => `
         padding-left: ${theme.spacing(1)};
 `
 );
 
-const VersionBadge = styled(Box)(
-  ({ theme }) => `
-        background: ${theme.palette.success.main};
-        color: ${theme.palette.success.contrastText};
-        padding: ${theme.spacing(0.4, 1)};
-        border-radius: ${theme.general.borderRadiusSm};
-        text-align: center;
-        display: inline-block;
-        line-height: 1;
-        font-size: ${theme.typography.pxToRem(11)};
-`
-);
-
 const LogoText = styled(Box)(
   ({ theme }) => `
-        font-size: ${theme.typography.pxToRem(15)};
+        font-size: ${theme.typography.pxToRem(30)};
         font-weight: ${theme.typography.fontWeightBold};
 `
 );
@@ -103,22 +77,10 @@ const LogoText = styled(Box)(
 function Logo() {
   return (
     <LogoWrapper href="/">
-      <LogoSignWrapper>
-        <LogoSign>
-          <LogoSignInner />
-        </LogoSign>
-      </LogoSignWrapper>
-      <Box
-        component="span"
-        sx={{
-          display: { xs: 'none', sm: 'inline-block' }
-        }}
-      >
+      <CardMedia component="img" sx={{ width: 50}} image="/static/images/logo/footprint.png" alt="LiCa LOGO"/>
+      <Box component="span" sx={{ display: { xs: 'none', sm: 'inline-block' } }}>
         <LogoTextWrapper>
-          <Tooltip title="Version 1.0" arrow placement="right">
-            <VersionBadge>1.0</VersionBadge>
-          </Tooltip>
-          <LogoText>Tokyo Free White</LogoText>
+          <LogoText>LiCa</LogoText>
         </LogoTextWrapper>
       </Box>
     </LogoWrapper>
