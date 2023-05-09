@@ -7,12 +7,13 @@ import {
   styled
 } from '@mui/material';
 import type { ReactElement } from 'react';
-import BaseLayout from 'src/layouts/BaseLayout';
+// import BaseLayout from 'src/layouts/BaseLayout';
 
 import Link from 'src/components/Link';
 import Head from 'next/head';
 
 import Logo from 'src/components/LogoSign';
+import SidebarLayout from '@/layouts/SidebarLayout';
 
 const HeaderWrapper = styled(Card)(
   ({ theme }) => `
@@ -39,8 +40,8 @@ function Overview() {
       <Head>
         <title>LiCa Main</title>
       </Head>
-      <HeaderWrapper>
-        <Container maxWidth="lg">
+      {/* <HeaderWrapper> */}
+      {/* <Container maxWidth="lg">
           <Box display="flex" alignItems="center">
             <Logo />
             <Box
@@ -50,9 +51,9 @@ function Overview() {
               flex={1}
             >
               <Box />
-              <Box>
-                {/* <Button component={Link} href="/user/test1" variant="contained" sx={{ ml: 2 }}>TEST 1</Button> */}
-                <Button
+              <Box> */}
+      {/* <Button component={Link} href="/user/test1" variant="contained" sx={{ ml: 2 }}>TEST 1</Button> */}
+      {/* <Button
                   component={Link}
                   href="/user/signup"
                   variant="contained"
@@ -71,8 +72,8 @@ function Overview() {
               </Box>
             </Box>
           </Box>
-        </Container>
-      </HeaderWrapper>
+        </Container> */}
+      {/* </HeaderWrapper> */}
       {/* <Hero /> */}
       <Container maxWidth="lg" sx={{ mt: 8 }}>
         <Typography mt={10} variant="h1" gutterBottom align="center">
@@ -90,7 +91,7 @@ function Overview() {
         <Typography mt={6} mb={10} variant="h1" gutterBottom align="center">
           analysis
         </Typography>
-        <Typography mt={6} mb={10} variant="h1" gutterBottom align="center">
+        <Typography mt={6} mb={35} variant="h1" gutterBottom align="center">
           LiCa
         </Typography>
       </Container>
@@ -110,11 +111,13 @@ function Overview() {
   );
 }
 
+Overview.getLayout = (page) => <SidebarLayout>{page}</SidebarLayout>;
+
 export default Overview;
 
-Overview.getLayout = function getLayout(page: ReactElement) {
-  return <BaseLayout>{page}</BaseLayout>;
-};
+// Overview.getLayout = function getLayout(page: ReactElement) {
+//   return <BaseLayout>{page}</BaseLayout>;
+// };
 
 // <Container maxWidth="lg">
 //         <Grid

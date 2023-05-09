@@ -34,15 +34,17 @@ const LogoText = styled(Box)(
 function Logo() {
   return (
     <LogoWrapper href="/">
-      <CardMedia
-        component="img"
-        sx={{ width: 50 }}
-        image="/static/images/logo/footprint.png"
-        alt="LiCa LOGO"
-      />
+      <Box sx={{ mt: 0.5 }}>
+        <CardMedia
+          component="img"
+          sx={{ width: 50 }}
+          image="/static/images/logo/footprint.png"
+          alt="LiCa LOGO"
+        />
+      </Box>
       <Box
         component="span"
-        sx={{ display: { xs: 'none', sm: 'inline-block' } }}
+        sx={{ display: { xs: 'none', sm: 'inline-block' }, mt: 0.7 }}
       >
         <LogoTextWrapper>
           <LogoText>LiCa</LogoText>
