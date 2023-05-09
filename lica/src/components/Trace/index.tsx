@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 import randomColor from 'randomcolor';
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 
 function Trace(props) {
   const svgRef = useRef(null);

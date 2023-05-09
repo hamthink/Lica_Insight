@@ -1,11 +1,9 @@
 import {
   Box,
   Tooltip,
-  Badge,
   TooltipProps,
   tooltipClasses,
-  styled,
-  useTheme
+  styled
 } from '@mui/material';
 import Link from 'src/components/Link';
 
@@ -95,12 +93,10 @@ const TooltipWrapper = styled(({ className, ...props }: TooltipProps) => (
 }));
 
 function Logo() {
-  const theme = useTheme();
-
   return (
     <TooltipWrapper title="LiCa" arrow>
       <LogoWrapper href="/">
-        <LogoSignWrapper> 
+        <LogoSignWrapper>
           <LogoSign>
             <LogoSignInner />
           </LogoSign>
