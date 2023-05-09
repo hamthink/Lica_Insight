@@ -17,7 +17,8 @@ const LogoWrapper = styled(Link)(
 
 const LogoTextWrapper = styled(Box)(
   ({ theme }) => `
-        padding-left: ${theme.spacing(1)};
+        padding-left: ${theme.spacing(2)};
+        
 `
 );
 
@@ -25,21 +26,25 @@ const LogoText = styled(Box)(
   ({ theme }) => `
         font-size: ${theme.typography.pxToRem(30)};
         font-weight: ${theme.typography.fontWeightBold};
+        margin: 0 auto;
+        display: flex;
 `
 );
 
 function Logo() {
   return (
     <LogoWrapper href="/">
-      <CardMedia
-        component="img"
-        sx={{ width: 50 }}
-        image="/static/images/logo/footprint.png"
-        alt="LiCa LOGO"
-      />
+      <Box sx={{ mt: 0.5 }}>
+        <CardMedia
+          component="img"
+          sx={{ width: 50 }}
+          image="/static/images/logo/footprint.png"
+          alt="LiCa LOGO"
+        />
+      </Box>
       <Box
         component="span"
-        sx={{ display: { xs: 'none', sm: 'inline-block' } }}
+        sx={{ display: { xs: 'none', sm: 'inline-block' }, mt: 0.7 }}
       >
         <LogoTextWrapper>
           <LogoText>LiCa</LogoText>

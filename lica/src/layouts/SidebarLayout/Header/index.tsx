@@ -7,7 +7,9 @@ import {
   IconButton,
   Tooltip,
   styled,
-  useTheme
+  useTheme,
+  Button,
+  Link
 } from '@mui/material';
 import MenuTwoToneIcon from '@mui/icons-material/MenuTwoTone';
 import { SidebarContext } from 'src/contexts/SidebarContext';
@@ -65,18 +67,36 @@ function Header() {
         justifyContent="space-between"
         flexGrow={1}
         margin="0 auto"
-        maxWidth="lg"
+        maxWidth="1200px"
       >
         <Logo />
         {/* <LogoSign /> */}
         <Box />
         <Box display="flex" alignItems="center">
+          <Box>
+            {/* <Button component={Link} href="/user/test1" variant="contained" sx={{ ml: 2 }}>TEST 1</Button> */}
+            <Button
+              component={Link}
+              href="/user/signup"
+              variant="contained"
+              sx={{ ml: 2 }}
+            >
+              회원가입
+            </Button>
+            <Button
+              component={Link}
+              href="/user/login"
+              variant="contained"
+              sx={{ ml: 2 }}
+            >
+              로그인
+            </Button>
+          </Box>
           <HeaderButtons />
           <HeaderUserbox />
           <Box
             component="span"
             sx={{
-              ml: 2,
               display: { lg: 'inline-block', xs: 'inline-block' }
             }}
           >
