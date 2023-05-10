@@ -7,7 +7,7 @@ import PageTitleWrapper from '@/components/PageTitleWrapper';
 import { Container, Grid } from '@mui/material';
 import Footer from '@/components/Footer';
 
-import HeatMap from '@/content/Dashboards/Crypto/HeatMap';
+import HeatMap from '@/content/Dashboards/Crypto/Heatmap';
 import Info from '@/content/Dashboards/Crypto/Info';
 import Wallets from '@/content/Dashboards/Crypto/Wallets';
 import AccountSecurity from '@/content/Dashboards/Crypto/AccountSecurity';

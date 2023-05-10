@@ -4,7 +4,7 @@ import SidebarLayout from '@/layouts/SidebarLayout';
 
 import { Container, Grid } from '@mui/material';
 import Footer from '@/components/Footer';
-import Dotmap from '@/components/Dotmap';
+import Dotmap from '@/content/Dashboards/Crypto/Dotmap';
 
 function StatisticsHeatMap() {
   return (
