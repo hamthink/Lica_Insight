@@ -14,6 +14,7 @@ import {
 } from '@mui/material';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { DateTimePicker } from '@mui/lab';
+import { faker } from '@faker-js/faker';
 
 function HeatMap() {
   useEffect(() => {
@@ -23,48 +24,12 @@ function HeatMap() {
 
     heatmap.setData({
       max: 25,
-      data: [
-        { x: 165, y: 200, value: 5 },
-        { x: 160, y: 250, value: 4 },
-        { x: 150, y: 260, value: 5 },
-        { x: 100, y: 270, value: 5 },
-        { x: 165, y: 250, value: 5 },
-        { x: 160, y: 255, value: 4 },
-        { x: 150, y: 265, value: 5 },
-        { x: 150, y: 275, value: 5 },
-        { x: 100, y: 20, value: 5 },
-        { x: 100, y: 30, value: 4 },
-        { x: 100, y: 40, value: 5 },
-        { x: 105, y: 50, value: 5 },
-        { x: 100, y: 60, value: 5 },
-        { x: 100, y: 70, value: 4 },
-        { x: 100, y: 80, value: 5 },
-        { x: 100, y: 90, value: 5 },
-        { x: 20, y: 15, value: 5 },
-        { x: 20, y: 14, value: 4 },
-        { x: 20, y: 13, value: 5 },
-        { x: 20, y: 11, value: 5 },
-        { x: 500, y: 20, value: 5 },
-        { x: 600, y: 30, value: 4 },
-        { x: 700, y: 40, value: 5 },
-        { x: 800, y: 50, value: 5 },
-        { x: 900, y: 60, value: 5 },
-        { x: 900, y: 70, value: 4 },
-        { x: 900, y: 80, value: 5 },
-        { x: 900, y: 90, value: 5 },
-        { x: 500, y: 200, value: 5 },
-        { x: 600, y: 300, value: 4 },
-        { x: 700, y: 400, value: 5 },
-        { x: 800, y: 500, value: 5 },
-        { x: 900, y: 600, value: 5 },
-        { x: 900, y: 700, value: 4 },
-        { x: 900, y: 800, value: 5 },
-        { x: 900, y: 900, value: 5 },
-        { x: 100, y: 150, value: 5 },
-        { x: 100, y: 140, value: 4 },
-        { x: 100, y: 130, value: 5 },
-        { x: 100, y: 110, value: 5 }
-      ]
+      data: Array.from({ length: 3500 }, () => ({
+        x: faker.datatype.number({ min: 0, max: 1200 }),
+        y: faker.datatype.number({ min: 0, max: 1000 }),
+        value: faker.datatype.number({ min: 1, max: 5 })
+      }))
+      // data: [{ x: 165, y: 200, value: 5 }]
     });
   });
 
@@ -160,7 +125,16 @@ function HeatMap() {
                 </Box>
               </Box>
               <CardContent>
-                <div className="Heat" style={{ width: 1000, height: 600 }}>
+                <div
+                  className="Heat"
+                  style={{
+                    width: '100%',
+                    height: 600,
+                    margin: '0 auto',
+                    backgroundImage: "url('/static/images/map/map1.png')",
+                    backgroundSize: 'cover'
+                  }}
+                >
                   {/* <h1>First Heatmap</h1>
                             <h2>Heatmap test test test</h2> */}
                 </div>

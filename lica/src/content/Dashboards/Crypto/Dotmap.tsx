@@ -69,7 +69,7 @@ const data = {
   datasets: [
     {
       label: 'A dataset',
-      data: Array.from({ length: 100 }, () => ({
+      data: Array.from({ length: 500 }, () => ({
         x: faker.datatype.number({ min: 0, max: 100 }),
         y: faker.datatype.number({ min: 0, max: 100 })
       })),
