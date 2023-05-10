@@ -1,70 +1,26 @@
 import React, { useEffect } from 'react';
-import h337 from 'heatmap.js';
 
 import {
+  Button,
   Card,
+  Grid,
   Box,
   CardContent,
   Typography,
+  Avatar,
+  alpha,
+  Tooltip,
+  CardActionArea,
+  styled,
   MenuItem,
   InputLabel,
-  FormControl
+  FormControl,
+  CardHeader
 } from '@mui/material';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
 
-function HeatMap() {
-  useEffect(() => {
-    var heatmap = h337.create({
-      container: document.querySelector('.Heat')
-    });
-
-    heatmap.setData({
-      max: 25,
-      data: [
-        { x: 165, y: 200, value: 5 },
-        { x: 160, y: 250, value: 4 },
-        { x: 150, y: 260, value: 5 },
-        { x: 100, y: 270, value: 5 },
-        { x: 165, y: 250, value: 5 },
-        { x: 160, y: 255, value: 4 },
-        { x: 150, y: 265, value: 5 },
-        { x: 150, y: 275, value: 5 },
-        { x: 100, y: 20, value: 5 },
-        { x: 100, y: 30, value: 4 },
-        { x: 100, y: 40, value: 5 },
-        { x: 105, y: 50, value: 5 },
-        { x: 100, y: 60, value: 5 },
-        { x: 100, y: 70, value: 4 },
-        { x: 100, y: 80, value: 5 },
-        { x: 100, y: 90, value: 5 },
-        { x: 20, y: 15, value: 5 },
-        { x: 20, y: 14, value: 4 },
-        { x: 20, y: 13, value: 5 },
-        { x: 20, y: 11, value: 5 },
-        { x: 500, y: 20, value: 5 },
-        { x: 600, y: 30, value: 4 },
-        { x: 700, y: 40, value: 5 },
-        { x: 800, y: 50, value: 5 },
-        { x: 900, y: 60, value: 5 },
-        { x: 900, y: 70, value: 4 },
-        { x: 900, y: 80, value: 5 },
-        { x: 900, y: 90, value: 5 },
-        { x: 500, y: 200, value: 5 },
-        { x: 600, y: 300, value: 4 },
-        { x: 700, y: 400, value: 5 },
-        { x: 800, y: 500, value: 5 },
-        { x: 900, y: 600, value: 5 },
-        { x: 900, y: 700, value: 4 },
-        { x: 900, y: 800, value: 5 },
-        { x: 900, y: 900, value: 5 },
-        { x: 100, y: 150, value: 5 },
-        { x: 100, y: 140, value: 4 },
-        { x: 100, y: 130, value: 5 },
-        { x: 100, y: 110, value: 5 }
-      ]
-    });
-  });
-
+function DotMap() {
   const [floor, setFloor] = React.useState('');
   const [store, setStore] = React.useState('');
 
@@ -91,7 +47,7 @@ function HeatMap() {
               flex={1}
             >
               <Typography variant="h3" sx={{ mt: 2, ml: 2 }}>
-                HeatMap
+                DotMap
               </Typography>
               <Box />
               <Box component="div">
@@ -133,10 +89,7 @@ function HeatMap() {
             </Box>
           </Box>
           <CardContent>
-            <div className="Heat" style={{ width: 1000, height: 600 }}>
-              {/* <h1>First Heatmap</h1>
-                            <h2>Heatmap test test test</h2> */}
-            </div>
+            <div className="Heat" style={{ width: 1000, height: 600 }}></div>
           </CardContent>
         </Card>
       </Box>
@@ -144,4 +97,4 @@ function HeatMap() {
   );
 }
 
-export default HeatMap;
+export default DotMap;

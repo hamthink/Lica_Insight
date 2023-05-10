@@ -287,6 +287,21 @@ function SidebarMenu() {
                   </Button>
                 </NextLink>
               </ListItem>
+              <ListItem component="div">
+                <NextLink href="/statistics/dotmap" passHref>
+                  <Button
+                    className={
+                      currentRoute === '/statistics/dotmap' ? 'active' : ''
+                    }
+                    disableRipple
+                    component="a"
+                    onClick={closeSidebar}
+                    startIcon={<GroupsTwoToneIcon />}
+                  >
+                    dotmap
+                  </Button>
+                </NextLink>
+              </ListItem>
             </List>
           </SubMenuWrapper>
         </List>
