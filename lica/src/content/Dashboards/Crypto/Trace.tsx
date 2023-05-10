@@ -79,7 +79,6 @@ function Trace() {
         display="flex"
         alignItems="center"
         justifyContent="space-between"
-        sx={{ pb: 3 }}
       ></Box>
       <Card>
         {/* <CardHeader title="HeatMap" /> */}

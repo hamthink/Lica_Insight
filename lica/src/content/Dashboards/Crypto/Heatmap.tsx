@@ -14,7 +14,7 @@ import {
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { DateTimePicker } from '@mui/lab';
 
-function DotMap() {
+function HeatMap() {
   const [floor, setFloor] = React.useState('');
   const [store, setStore] = React.useState('');
   const [date, setDate] = React.useState(new Date());
@@ -49,7 +49,7 @@ function DotMap() {
                   flex={1}
                 >
                   <Typography variant="h3" sx={{ mt: 2, ml: 2 }}>
-                    DotMap
+                    HeatMap
                   </Typography>
                   <Box />
                   <Box component="div" display="flex">
@@ -124,4 +124,4 @@ function DotMap() {
   );
 }
 
-export default DotMap;
+export default HeatMap;

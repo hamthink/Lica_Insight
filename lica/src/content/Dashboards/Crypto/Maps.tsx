@@ -11,6 +11,7 @@ import {
 import BlurOnTwoToneIcon from '@mui/icons-material/BlurOnTwoTone';
 import TableRowsTwoToneIcon from '@mui/icons-material/TableRowsTwoTone';
 import TimelineTwoToneIcon from '@mui/icons-material/TimelineTwoTone';
+import HeatMap from './Heatmap';
 import DotMap from './Dotmap';
 import Trace from './Trace';
 
@@ -34,7 +35,12 @@ function Maps() {
 
   return (
     <>
-      <Box display="flex" alignItems="center" justifyContent="space-between">
+      <Box
+        display="flex"
+        alignItems="center"
+        justifyContent="space-between"
+        sx={{ pb: 3 }}
+      >
         <Typography variant="h3">Map List</Typography>
         <ToggleButtonGroup
           value={tabs}
@@ -52,6 +58,8 @@ function Maps() {
           </ToggleButton>
         </ToggleButtonGroup>
       </Box>
+
+      {tabs === 'HeatMap' && <HeatMap />}
 
       {tabs === 'DotMap' && <DotMap />}
 
