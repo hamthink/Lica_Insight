@@ -1,31 +1,29 @@
 import React, { useEffect } from 'react';
 
 import {
-  Button,
   Card,
-  Grid,
   Box,
   CardContent,
   Typography,
-  Avatar,
-  alpha,
-  Tooltip,
-  CardActionArea,
-  styled,
   MenuItem,
   InputLabel,
   FormControl,
-  CardHeader
+  TextField
 } from '@mui/material';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
+import { DateTimePicker } from '@mui/lab';
 
 function DotMap() {
   const [floor, setFloor] = React.useState('');
   const [store, setStore] = React.useState('');
+  const [date, setDate] = React.useState(new Date());
+  // const [time, setTime] = React.useState('');
 
-  const handleChange = (event: SelectChangeEvent) => {
+  const FloorhandleChange = (event: SelectChangeEvent) => {
     setFloor(event.target.value);
+  };
+
+  const StorehandleChange = (event: SelectChangeEvent) => {
     setStore(event.target.value);
   };
 
@@ -50,7 +48,7 @@ function DotMap() {
                 DotMap
               </Typography>
               <Box />
-              <Box component="div">
+              <Box component="div" display="flex">
                 <FormControl variant="standard" sx={{ m: 1, minWidth: 200 }}>
                   <InputLabel id="store-select">Store</InputLabel>
                   <Select
@@ -58,7 +56,7 @@ function DotMap() {
                     id="store"
                     value={store}
                     label="Store"
-                    onChange={handleChange}
+                    onChange={StorehandleChange}
                   >
                     <MenuItem value="">None</MenuItem>
                     <MenuItem value="이마트">이마트</MenuItem>
@@ -68,14 +66,14 @@ function DotMap() {
                     <MenuItem value="신세계백화점">신세계백화점</MenuItem>
                   </Select>
                 </FormControl>
-                <FormControl variant="standard" sx={{ m: 1, minWidth: 200 }}>
+                <FormControl variant="standard" sx={{ m: 1, minWidth: 100 }}>
                   <InputLabel id="floor-select">Floor</InputLabel>
                   <Select
                     labelId="floor-select"
                     id="floor"
                     value={floor}
                     label="Floor"
-                    onChange={handleChange}
+                    onChange={FloorhandleChange}
                   >
                     <MenuItem value="">None</MenuItem>
                     <MenuItem value={1}>1층</MenuItem>
@@ -85,6 +83,20 @@ function DotMap() {
                     <MenuItem value={5}>5층</MenuItem>
                   </Select>
                 </FormControl>
+
+                <DateTimePicker
+                  label="date time picker"
+                  value={date}
+                  onChange={(newDate) => setDate(newDate)}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Date"
+                      variant="standard"
+                      sx={{ m: 1, mr: 3 }}
+                    />
+                  )}
+                />
               </Box>
             </Box>
           </Box>

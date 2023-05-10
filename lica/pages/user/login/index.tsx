@@ -14,13 +14,15 @@ import {
   TextField,
   Grid,
   FormControlLabel,
-  Checkbox
+  Checkbox,
+  Modal
 } from '@mui/material';
 
 import CardMedia from '@mui/material/CardMedia';
 
 import Logo from 'src/components/LogoSign';
 import Link from 'src/components/Link';
+import React from 'react';
 
 const HeaderWrapper = styled(Card)(
   ({ theme }) => `
@@ -41,6 +43,20 @@ const SignupWrapper = styled(Box)(
 `
 );
 
+const style = {
+  position: 'absolute' as 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  pt: 2,
+  px: 4,
+  pb: 3
+};
+
 function UserLogin() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -49,6 +65,14 @@ function UserLogin() {
       email: data.get('email'),
       password: data.get('password')
     });
+  };
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
   };
 
   return (
@@ -143,9 +167,19 @@ function UserLogin() {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
+              <Button onClick={handleOpen}>Forgot password?</Button>
+              <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-title"
+                aria-describedby="modal-description"
+              >
+                <Box sx={{ ...style, width: 500 }}>
+                  <h2 id="modal-title">비밀번호를 잊어버리셨습니까?</h2>
+                  <p id="modal-description">다시 회원가입하세요.</p>
+                  <Button onClick={handleClose}>닫기</Button>
+                </Box>
+              </Modal>
             </Grid>
             {/* <Grid item>
               <Link href="#" variant="body2">
