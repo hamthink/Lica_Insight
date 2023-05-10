@@ -7,7 +7,8 @@ import PageTitleWrapper from '@/components/PageTitleWrapper';
 import { Container, Grid } from '@mui/material';
 import Footer from '@/components/Footer';
 
-import AccountBalance from '@/content/Dashboards/Crypto/AccountBalance';
+import Maps from '@/content/Dashboards/Crypto/Maps';
+import Info from '@/content/Dashboards/Crypto/Info';
 import Wallets from '@/content/Dashboards/Crypto/Wallets';
 import AccountSecurity from '@/content/Dashboards/Crypto/AccountSecurity';
 import WatchList from '@/content/Dashboards/Crypto/WatchList';
@@ -29,8 +30,11 @@ function DashboardCrypto() {
           alignItems="stretch"
           spacing={4}
         >
-          <Grid item xs={12}>
-            <AccountBalance />
+          <Grid item lg={9} xs={12}>
+            <Maps />
+          </Grid>
+          <Grid item lg={3} xs={12}>
+            <Info />
           </Grid>
           <Grid item lg={8} xs={12}>
             <Wallets />
