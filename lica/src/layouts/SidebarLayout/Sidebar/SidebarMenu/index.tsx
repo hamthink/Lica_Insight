@@ -283,7 +283,7 @@ function SidebarMenu() {
                     onClick={closeSidebar}
                     startIcon={<GroupsTwoToneIcon />}
                   >
-                    Maps
+                    heatmap
                   </Button>
                 </NextLink>
               </ListItem>

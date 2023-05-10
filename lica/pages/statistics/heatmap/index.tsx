@@ -21,7 +21,9 @@ function StatisticsHeatMap() {
           spacing={4}
         >
           <Grid item xs={12}>
-            <Heatmap />
+            <Container sx={{ mt: 5 }}>
+              <Heatmap />
+            </Container>
           </Grid>
         </Grid>
       </Container>
