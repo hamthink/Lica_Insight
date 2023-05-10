@@ -15,6 +15,84 @@ import {
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { DateTimePicker } from '@mui/lab';
 
+import {
+  Chart as ChartJS,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Tooltip,
+  Legend
+} from 'chart.js';
+import { Chart, Scatter } from 'react-chartjs-2';
+import { faker } from '@faker-js/faker';
+
+ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend);
+
+const options = {
+  scales: {
+    y: {
+      display: false
+    },
+    x: {
+      display: false
+    }
+  }
+};
+
+// const plugin = {
+//   id: 'backgroundImage',
+//   backgroundImage: {
+//     url: '/static/images/map/map1.png'
+//   }
+// };
+
+// let image;
+
+// if (typeof window !== 'undefined') {
+//   image = new Image();
+//   image.src = '/static/images/map/map1.png';
+// }
+
+const plugin = {
+  id: 'scatter',
+  beforeDraw: (chart) => {
+    // if (image.complete) {
+    const ctx = chart.ctx;
+    const { top, left, width, height } = chart.chartArea;
+
+    const image = new Image();
+    image.src = '/static/images/map/map1.png';
+
+    // const x = left + width / 2 - image.width / 2 + 200;
+    // const y = top + height / 2 - image.height / 2 - 100;
+    const x = 1485;
+    const y = 727;
+    ctx.drawImage(image, x, y);
+    // } else {
+    //   image.onload = () => chart.draw();
+    // }
+  }
+};
+
+const data = {
+  datasets: [
+    {
+      label: 'A dataset',
+      data: Array.from({ length: 100 }, () => ({
+        x: faker.datatype.number({ min: 0, max: 100 }),
+        y: faker.datatype.number({ min: 0, max: 100 })
+      })),
+      backgroundColor: 'rgba(255, 99, 132, 1)'
+    }
+  ]
+};
+
+// const scatterChart = new Chart('scatter', {
+//   type: 'scatter',
+//   data: data,
+//   options: options
+// });
+
 function DotMap() {
   const [floor, setFloor] = React.useState('');
   const [store, setStore] = React.useState('');
@@ -111,13 +189,17 @@ function DotMap() {
                 </Box>
               </Box>
               <CardContent>
-                <Box>
-                  <CardMedia
+                <Box
+                // sx={{ backgroundImage: "url('/static/images/map/map1.png')" }}
+                >
+                  {/* <canvas id="scatter"></canvas> */}
+                  <Scatter options={options} data={data} plugins={[plugin]} />
+                  {/* <CardMedia
                     component="img"
                     sx={{ width: '100%', mt: 7 }}
                     image="/static/images/map/map1.png"
                     alt="LiCa LOGO"
-                  />
+                  /> */}
                 </Box>
               </CardContent>
             </Card>

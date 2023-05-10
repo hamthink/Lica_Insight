@@ -68,8 +68,8 @@ function HeatMap() {
     });
   });
 
-  const [floor, setFloor] = React.useState('');
-  const [store, setStore] = React.useState('');
+  const [floor, setFloor] = React.useState('1층');
+  const [store, setStore] = React.useState('휴게실');
   const [date, setDate] = React.useState(new Date());
 
   const FloorhandleChange = (event: SelectChangeEvent) => {
@@ -123,11 +123,7 @@ function HeatMap() {
                         onChange={StorehandleChange}
                       >
                         <MenuItem value="">None</MenuItem>
-                        <MenuItem value="이마트">이마트</MenuItem>
-                        <MenuItem value="롯데마트">롯데마트</MenuItem>
-                        <MenuItem value="홈플러스">홈플러스</MenuItem>
-                        <MenuItem value="롯데백화점">롯데백화점</MenuItem>
-                        <MenuItem value="신세계백화점">신세계백화점</MenuItem>
+                        <MenuItem value="휴게실">휴게실</MenuItem>
                       </Select>
                     </FormControl>
                     <FormControl
@@ -143,11 +139,7 @@ function HeatMap() {
                         onChange={FloorhandleChange}
                       >
                         <MenuItem value="">None</MenuItem>
-                        <MenuItem value={1}>1층</MenuItem>
-                        <MenuItem value={2}>2층</MenuItem>
-                        <MenuItem value={3}>3층</MenuItem>
-                        <MenuItem value={4}>4층</MenuItem>
-                        <MenuItem value={5}>5층</MenuItem>
+                        <MenuItem value={1}>8층</MenuItem>
                       </Select>
                     </FormControl>
 
