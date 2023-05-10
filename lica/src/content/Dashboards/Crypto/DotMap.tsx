@@ -36,22 +36,13 @@ const options = {
     x: {
       display: false
     }
+  },
+  plugins: {
+    legend: {
+      display: false
+    }
   }
 };
-
-// const plugin = {
-//   id: 'backgroundImage',
-//   backgroundImage: {
-//     url: '/static/images/map/map1.png'
-//   }
-// };
-
-// let image;
-
-// if (typeof window !== 'undefined') {
-//   image = new Image();
-//   image.src = '/static/images/map/map1.png';
-// }
 
 const plugin = {
   id: 'scatter',
@@ -63,10 +54,10 @@ const plugin = {
     const image = new Image();
     image.src = '/static/images/map/map1.png';
 
-    // const x = left + width / 2 - image.width / 2 + 200;
-    // const y = top + height / 2 - image.height / 2 - 100;
-    const x = 1485;
-    const y = 727;
+    const x = left + width / 2 - image.width / 2 + 200;
+    const y = top + height / 2 - image.height / 2 - 100;
+    // const x = 1485;
+    // const y = 727;
     ctx.drawImage(image, x, y);
     // } else {
     //   image.onload = () => chart.draw();
@@ -87,15 +78,9 @@ const data = {
   ]
 };
 
-// const scatterChart = new Chart('scatter', {
-//   type: 'scatter',
-//   data: data,
-//   options: options
-// });
-
 function DotMap() {
-  const [floor, setFloor] = React.useState('');
-  const [store, setStore] = React.useState('');
+  const [floor, setFloor] = React.useState('1');
+  const [store, setStore] = React.useState('휴게실');
   const [date, setDate] = React.useState(new Date());
   // const [time, setTime] = React.useState('');
 
@@ -144,11 +129,7 @@ function DotMap() {
                         onChange={StorehandleChange}
                       >
                         <MenuItem value="">None</MenuItem>
-                        <MenuItem value="이마트">이마트</MenuItem>
-                        <MenuItem value="롯데마트">롯데마트</MenuItem>
-                        <MenuItem value="홈플러스">홈플러스</MenuItem>
-                        <MenuItem value="롯데백화점">롯데백화점</MenuItem>
-                        <MenuItem value="신세계백화점">신세계백화점</MenuItem>
+                        <MenuItem value="휴게실">휴게실</MenuItem>
                       </Select>
                     </FormControl>
                     <FormControl
@@ -165,10 +146,6 @@ function DotMap() {
                       >
                         <MenuItem value="">None</MenuItem>
                         <MenuItem value={1}>1층</MenuItem>
-                        <MenuItem value={2}>2층</MenuItem>
-                        <MenuItem value={3}>3층</MenuItem>
-                        <MenuItem value={4}>4층</MenuItem>
-                        <MenuItem value={5}>5층</MenuItem>
                       </Select>
                     </FormControl>
 
@@ -190,9 +167,11 @@ function DotMap() {
               </Box>
               <CardContent>
                 <Box
-                // sx={{ backgroundImage: "url('/static/images/map/map1.png')" }}
+                  sx={{
+                    backgroundImage: "url('/static/images/map/map1.png')",
+                    backgroundSize: 'cover'
+                  }}
                 >
-                  {/* <canvas id="scatter"></canvas> */}
                   <Scatter options={options} data={data} plugins={[plugin]} />
                   {/* <CardMedia
                     component="img"
