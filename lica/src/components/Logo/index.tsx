@@ -1,4 +1,4 @@
-import { Box, CardMedia, styled, Tooltip } from '@mui/material';
+import { Box, CardMedia, styled } from '@mui/material';
 import Link from 'src/components/Link';
 
 const LogoWrapper = styled(Link)(
@@ -15,55 +15,10 @@ const LogoWrapper = styled(Link)(
 `
 );
 
-const LogoSignWrapper = styled(Box)(
-  () => `
-        width: 52px;
-        height: 38px;
-        margin-top: 4px;
-        transform: scale(.8);
-`
-);
-
-const LogoSign = styled(Box)(
-  ({ theme }) => `
-        background: ${theme.general.reactFrameworkColor};
-        width: 18px;
-        height: 18px;
-        border-radius: ${theme.general.borderRadiusSm};
-        position: relative;
-        transform: rotate(45deg);
-        top: 3px;
-        left: 17px;
-
-        &:after, 
-        &:before {
-            content: "";
-            display: block;
-            width: 18px;
-            height: 18px;
-            position: absolute;
-            top: -1px;
-            right: -20px;
-            transform: rotate(0deg);
-            border-radius: ${theme.general.borderRadiusSm};
-        }
-
-        &:before {
-            background: ${theme.palette.primary.main};
-            right: auto;
-            left: 0;
-            top: 20px;
-        }
-
-        &:after {
-            background: ${theme.palette.secondary.main};
-        }
-`
-);
-
 const LogoTextWrapper = styled(Box)(
   ({ theme }) => `
-        padding-left: ${theme.spacing(1)};
+        padding-left: ${theme.spacing(2)};
+        
 `
 );
 
@@ -71,14 +26,26 @@ const LogoText = styled(Box)(
   ({ theme }) => `
         font-size: ${theme.typography.pxToRem(30)};
         font-weight: ${theme.typography.fontWeightBold};
+        margin: 0 auto;
+        display: flex;
 `
 );
 
 function Logo() {
   return (
     <LogoWrapper href="/">
-      <CardMedia component="img" sx={{ width: 50}} image="/static/images/logo/footprint.png" alt="LiCa LOGO"/>
-      <Box component="span" sx={{ display: { xs: 'none', sm: 'inline-block' } }}>
+      <Box sx={{ mt: 0.5 }}>
+        <CardMedia
+          component="img"
+          sx={{ width: 50 }}
+          image="/static/images/logo/footprint.png"
+          alt="LiCa LOGO"
+        />
+      </Box>
+      <Box
+        component="span"
+        sx={{ display: { xs: 'none', sm: 'inline-block' }, mt: 0.7 }}
+      >
         <LogoTextWrapper>
           <LogoText>LiCa</LogoText>
         </LogoTextWrapper>

@@ -11,8 +11,7 @@ import {
 import BlurOnTwoToneIcon from '@mui/icons-material/BlurOnTwoTone';
 import TableRowsTwoToneIcon from '@mui/icons-material/TableRowsTwoTone';
 import TimelineTwoToneIcon from '@mui/icons-material/TimelineTwoTone';
-import HeatMap from './HeatMap';
-import DotMap from './DotMap';
+import DotMap from './Dotmap';
 import Trace from './Trace';
 
 const EmptyResultsWrapper = styled('img')(
@@ -53,8 +52,6 @@ function Maps() {
           </ToggleButton>
         </ToggleButtonGroup>
       </Box>
-
-      {tabs === 'HeatMap' && <HeatMap />}
 
       {tabs === 'DotMap' && <DotMap />}
 

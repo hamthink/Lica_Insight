@@ -4,7 +4,6 @@ import {
   TooltipProps,
   tooltipClasses,
   styled,
-  useTheme,
   CardMedia
 } from '@mui/material';
 import Link from 'src/components/Link';
@@ -38,12 +37,15 @@ const TooltipWrapper = styled(({ className, ...props }: TooltipProps) => (
 }));
 
 function Logo() {
-  const theme = useTheme();
-
   return (
     <TooltipWrapper title="LiCa" arrow>
       <LogoWrapper href="/">
-        <CardMedia component="img" sx={{ width: 50 }} image="/static/images/logo/footprint.png" alt="LiCa LOGO"/>
+        <CardMedia
+          component="img"
+          sx={{ width: 50 }}
+          image="/static/images/logo/footprint.png"
+          alt="LiCa LOGO"
+        />
         <Box />
       </LogoWrapper>
     </TooltipWrapper>

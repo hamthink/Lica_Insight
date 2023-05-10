@@ -1,11 +1,4 @@
-import {
-  Typography,
-  Box,
-  Card,
-  Container,
-  Button,
-  styled
-} from '@mui/material';
+import { Box, Card, Container, Button, styled } from '@mui/material';
 import type { ReactElement } from 'react';
 import BaseLayout from 'src/layouts/BaseLayout';
 
@@ -13,9 +6,8 @@ import Link from 'src/components/Link';
 import Head from 'next/head';
 
 import Logo from 'src/components/LogoSign';
-import Hero from 'src/content/Overview/Hero';
-import React, { useRef, useEffect, useState } from 'react';
-import * as d3 from 'd3';
+import React from 'react';
+import Trace from '@/components/Trace';
 
 const HeaderWrapper = styled(Card)(
   ({ theme }) => `
@@ -36,86 +28,40 @@ const OverviewWrapper = styled(Box)(
 `
 );
 
-// const data = [
-//   [
-//     { x: 0, y: 20 },
-//     { x: 1, y: 30 },
-//     { x: 2, y: 25 },
-//     { x: 3, y: 45 },
-//     { x: 4, y: 35 },
-//     { x: 5, y: 50 }
-//   ],
-//   [
-//     { x: 50, y: 10 },
-//     { x: 51, y: 20 },
-//     { x: 52, y: 15 },
-//     { x: 53, y: 15 },
-//     { x: 56, y: 25 },
-//     { x: 57, y: 20 }
-//   ]
-// ];
+function Overview() {
+  // dummy start
+  const data = [
+    [
+      { x: 20, y: 20 },
+      { x: 20, y: 50 },
+      { x: 30, y: 20 },
+      { x: 40, y: 50 },
+      { x: 50, y: 20 },
+      { x: 60, y: 50 }
+    ],
+    [
+      { x: 10, y: 10 },
+      { x: 60, y: 80 },
+      { x: 70, y: 60 },
+      { x: 80, y: 80 },
+      { x: 90, y: 60 },
+      { x: 100, y: 80 }
+    ],
+    [
+      { x: 10, y: 80 },
+      { x: 30, y: 20 },
+      { x: 50, y: 50 },
+      { x: 70, y: 80 },
+      { x: 90, y: 60 },
+      { x: 100, y: 10 }
+    ]
+  ];
 
-const data = [
-  { x: 10, y: 10 },
-  { x: 20, y: 20 },
-  { x: 30, y: 30 },
-  { x: 40, y: 40 },
-  { x: 50, y: 50 },
-  { x: 60, y: 60 }
-];
+  const offset = { x: 50, y: 50 };
+  const domain = { xStart: 0, xEnd: 100, yStart: 0, yEnd: 100 };
+  const range = { width: 600, height: 400 };
 
-const width = 600;
-const height = 400;
-
-function Trace() {
-  const svgRef = useRef(null);
-
-  useEffect(() => {
-    const svg = d3.select(svgRef.current);
-
-    const xScale = d3
-      .scaleLinear()
-      .domain(d3.extent(data, (d) => d.x))
-      .range([0, width]);
-    const yScale = d3
-      .scaleLinear()
-      .domain(d3.extent(data, (d) => d.y))
-      .range([height, 0]);
-
-    const xAxis = d3.axisBottom(xScale);
-    const yAxis = d3.axisLeft(yScale);
-
-    svg.attr('width', width).attr('height', height);
-
-    svg.append('g').attr('transform', 'translate(50, 370)').call(xAxis);
-    svg.append('g').attr('transform', 'translate(50, -30)').call(yAxis);
-
-    svg
-      .selectAll('.dot')
-      .data(data)
-      .enter()
-      .append('circle')
-      .attr('class', 'dot')
-      .attr('cx', (d) => xScale(d.x))
-      .attr('cy', (d) => yScale(d.y))
-      .attr('r', 5)
-      .style('fill', 'steelblue');
-
-    svg
-      .append('path')
-      .datum(data)
-      .attr('fill', 'none')
-      .attr('stroke', 'steelblue')
-      .attr('stroke-width', 2)
-      .attr(
-        'd',
-        d3
-          .line()
-          .x((d, i) => xScale(i) + 50)
-          .y((d) => yScale(d) - 30)
-          .curve(d3.curveCatmullRom.alpha(0.5))
-      );
-  }, []);
+  // dummy end
 
   return (
     <OverviewWrapper>
@@ -147,15 +93,13 @@ function Trace() {
           </Box>
         </Container>
       </HeaderWrapper>
-      <Box>
-        <svg ref={svgRef}>{/* SVG 내용 */}</svg>
-      </Box>
+      <Trace data={data} offset={offset} range={range} domain={domain} />
     </OverviewWrapper>
   );
 }
 
-export default Trace;
+export default Overview;
 
-Trace.getLayout = function getLayout(page: ReactElement) {
+Overview.getLayout = function getLayout(page: ReactElement) {
   return <BaseLayout>{page}</BaseLayout>;
 };

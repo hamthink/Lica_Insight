@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const withImages = require('next-images');
 
 const redirects = {
@@ -12,4 +13,7 @@ const redirects = {
   }
 };
 
-module.exports = withImages(redirects);
+module.exports = withImages({
+  output: 'standalone',
+  ...redirects
+});

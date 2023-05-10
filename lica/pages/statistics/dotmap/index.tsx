@@ -4,7 +4,7 @@ import SidebarLayout from '@/layouts/SidebarLayout';
 
 import { Container, Grid } from '@mui/material';
 import Footer from '@/components/Footer';
-import Heatmap from '@/content/Dashboards/Crypto/Heatmap';
+import Dotmap from '@/content/Dashboards/Crypto/Dotmap';
 
 function StatisticsHeatMap() {
   return (
@@ -21,7 +21,7 @@ function StatisticsHeatMap() {
           spacing={4}
         >
           <Grid item xs={12}>
-            <Heatmap />
+            <Dotmap />
           </Grid>
         </Grid>
       </Container>
