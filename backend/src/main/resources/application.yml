@@ -23,6 +23,14 @@ spring:
     port: 6379
     password:
     database: 0
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: a208
+    password: a208!
+    queue: CustomerTrackingInfo
+    exchange: my_exchange_name
+    routingkey: my_routing_key
 
 jwt:
   secret: a208.mrlee.laca
