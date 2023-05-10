@@ -9,7 +9,8 @@ import {
   InputLabel,
   FormControl,
   TextField,
-  Grid
+  Grid,
+  CardMedia
 } from '@mui/material';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { DateTimePicker } from '@mui/lab';
@@ -40,7 +41,6 @@ function DotMap() {
         >
           <Grid item xs={12}>
             <Card>
-              {/* <CardHeader title="HeatMap" /> */}
               <Box display="flex" alignItems="center">
                 <Box
                   display="flex"
@@ -111,10 +111,14 @@ function DotMap() {
                 </Box>
               </Box>
               <CardContent>
-                <div
-                  className="Heat"
-                  style={{ width: 1000, height: 600 }}
-                ></div>
+                <Box>
+                  <CardMedia
+                    component="img"
+                    sx={{ width: '100%', mt: 7 }}
+                    image="/static/images/map/map1.png"
+                    alt="LiCa LOGO"
+                  />
+                </Box>
               </CardContent>
             </Card>
           </Grid>
@@ -125,3 +129,9 @@ function DotMap() {
 }
 
 export default DotMap;
+
+// display="flex"
+//         justifyContent="space-between"
+//         flexGrow={1}
+//         margin="0 auto"
+//         maxWidth="1200px"
