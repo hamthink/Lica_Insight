@@ -15,9 +15,72 @@ import {
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { DateTimePicker } from '@mui/lab';
 
+import {
+  Chart as ChartJS,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Tooltip,
+  Legend
+} from 'chart.js';
+import { Chart, Scatter } from 'react-chartjs-2';
+import { faker } from '@faker-js/faker';
+
+ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend);
+
+const options = {
+  scales: {
+    y: {
+      display: false
+    },
+    x: {
+      display: false
+    }
+  },
+  plugins: {
+    legend: {
+      display: false
+    }
+  }
+};
+
+const plugin = {
+  id: 'scatter',
+  beforeDraw: (chart) => {
+    // if (image.complete) {
+    const ctx = chart.ctx;
+    const { top, left, width, height } = chart.chartArea;
+
+    const image = new Image();
+    image.src = '/static/images/map/map1.png';
+
+    const x = left + width / 2 - image.width / 2 + 200;
+    const y = top + height / 2 - image.height / 2 - 100;
+    // const x = 1485;
+    // const y = 727;
+    ctx.drawImage(image, x, y);
+    // } else {
+    //   image.onload = () => chart.draw();
+    // }
+  }
+};
+
+const data = {
+  datasets: [
+    {
+      label: 'A dataset',
+      data: Array.from({ length: 500 }, () => ({
+        x: faker.datatype.number({ min: 0, max: 100 }),
+        y: faker.datatype.number({ min: 0, max: 100 })
+      })),
+      backgroundColor: 'rgba(255, 99, 132, 1)'
+    }
+  ]
+};
+
 function DotMap() {
-  const [floor, setFloor] = React.useState('');
-  const [store, setStore] = React.useState('');
+  const [floor, setFloor] = React.useState('1');
+  const [store, setStore] = React.useState('휴게실');
   const [date, setDate] = React.useState(new Date());
   // const [time, setTime] = React.useState('');
 
@@ -66,11 +129,7 @@ function DotMap() {
                         onChange={StorehandleChange}
                       >
                         <MenuItem value="">None</MenuItem>
-                        <MenuItem value="이마트">이마트</MenuItem>
-                        <MenuItem value="롯데마트">롯데마트</MenuItem>
-                        <MenuItem value="홈플러스">홈플러스</MenuItem>
-                        <MenuItem value="롯데백화점">롯데백화점</MenuItem>
-                        <MenuItem value="신세계백화점">신세계백화점</MenuItem>
+                        <MenuItem value="휴게실">휴게실</MenuItem>
                       </Select>
                     </FormControl>
                     <FormControl
@@ -87,10 +146,6 @@ function DotMap() {
                       >
                         <MenuItem value="">None</MenuItem>
                         <MenuItem value={1}>1층</MenuItem>
-                        <MenuItem value={2}>2층</MenuItem>
-                        <MenuItem value={3}>3층</MenuItem>
-                        <MenuItem value={4}>4층</MenuItem>
-                        <MenuItem value={5}>5층</MenuItem>
                       </Select>
                     </FormControl>
 
@@ -111,13 +166,19 @@ function DotMap() {
                 </Box>
               </Box>
               <CardContent>
-                <Box>
-                  <CardMedia
+                <Box
+                  sx={{
+                    backgroundImage: "url('/static/images/map/map1.png')",
+                    backgroundSize: 'cover'
+                  }}
+                >
+                  <Scatter options={options} data={data} />
+                  {/* <CardMedia
                     component="img"
                     sx={{ width: '100%', mt: 7 }}
                     image="/static/images/map/map1.png"
                     alt="LiCa LOGO"
-                  />
+                  /> */}
                 </Box>
               </CardContent>
             </Card>
