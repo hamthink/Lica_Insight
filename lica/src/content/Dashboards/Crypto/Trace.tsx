@@ -16,8 +16,8 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { DateTimePicker } from '@mui/lab';
 
 function Trace(props) {
-  const [floor, setFloor] = React.useState('');
-  const [store, setStore] = React.useState('');
+  const [floor, setFloor] = React.useState('8');
+  const [store, setStore] = React.useState('휴게실');
   const [date, setDate] = React.useState(new Date());
 
   const FloorhandleChange = (event: SelectChangeEvent) => {
@@ -57,8 +57,8 @@ function Trace(props) {
 
     svg.attr('width', props.range.width).attr('height', props.range.height);
 
-    svg.append('g').attr('transform', 'translate(30, 370)').call(xAxis);
-    svg.append('g').attr('transform', 'translate(30, -30)').call(yAxis);
+    // svg.append('g').attr('transform', 'translate(30, 370)').call(xAxis);
+    // svg.append('g').attr('transform', 'translate(30, -30)').call(yAxis);
 
     svg
       .selectAll('circle')
@@ -124,11 +124,7 @@ function Trace(props) {
                         onChange={StorehandleChange}
                       >
                         <MenuItem value="">None</MenuItem>
-                        <MenuItem value="이마트">이마트</MenuItem>
-                        <MenuItem value="롯데마트">롯데마트</MenuItem>
-                        <MenuItem value="홈플러스">홈플러스</MenuItem>
-                        <MenuItem value="롯데백화점">롯데백화점</MenuItem>
-                        <MenuItem value="신세계백화점">신세계백화점</MenuItem>
+                        <MenuItem value="휴게실">휴게실</MenuItem>
                       </Select>
                     </FormControl>
                     <FormControl
@@ -144,11 +140,7 @@ function Trace(props) {
                         onChange={FloorhandleChange}
                       >
                         <MenuItem value="">None</MenuItem>
-                        <MenuItem value={1}>1층</MenuItem>
-                        <MenuItem value={2}>2층</MenuItem>
-                        <MenuItem value={3}>3층</MenuItem>
-                        <MenuItem value={4}>4층</MenuItem>
-                        <MenuItem value={5}>5층</MenuItem>
+                        <MenuItem value={8}>8층</MenuItem>
                       </Select>
                     </FormControl>
 
@@ -169,12 +161,19 @@ function Trace(props) {
                 </Box>
               </Box>
               <CardContent>
-                <svg
-                  ref={svgRef}
-                  transform={`translate(${props.offset.x},${props.offset.y})`}
+                <Box
+                  sx={{
+                    backgroundImage: props.map,
+                    backgroundSize: 'cover'
+                  }}
                 >
-                  {/* SVG 내용 */}
-                </svg>
+                  <svg
+                    ref={svgRef}
+                    transform={`translate(${props.offset.x},${props.offset.y})`}
+                  >
+                    {/* SVG 내용 */}
+                  </svg>
+                </Box>
               </CardContent>
             </Card>
           </Grid>

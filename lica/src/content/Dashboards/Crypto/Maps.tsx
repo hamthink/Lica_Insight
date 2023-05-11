@@ -14,6 +14,7 @@ import TimelineTwoToneIcon from '@mui/icons-material/TimelineTwoTone';
 import HeatMap from './Heatmap';
 import DotMap from './Dotmap';
 import Trace from './Trace';
+import { faker } from '@faker-js/faker';
 
 const EmptyResultsWrapper = styled('img')(
   ({ theme }) => `
@@ -54,7 +55,7 @@ function Maps() {
 
   const offset = { x: 50, y: 20 };
   const domain = { xStart: 0, xEnd: 100, yStart: 0, yEnd: 100 };
-  const range = { width: 600, height: 400 };
+  const range = { width: 1000, height: 600 };
 
   // dummy end
 
@@ -66,6 +67,35 @@ function Maps() {
   ) => {
     setTab(newValue);
   };
+
+  const heatmap_data = Array.from({ length: 3500 }, () => ({
+    x: faker.datatype.number({ min: 0, max: 1200 }),
+    y: faker.datatype.number({ min: 0, max: 1000 }),
+    value: faker.datatype.number({ min: 1, max: 5 })
+  }));
+
+  const dotmap_data = {
+    datasets: [
+      {
+        label: 'A dataset',
+        data: Array.from({ length: 500 }, () => ({
+          x: faker.datatype.number({ min: 0, max: 100 }),
+          y: faker.datatype.number({ min: 0, max: 100 })
+        })),
+        backgroundColor: 'rgba(255, 99, 132, 1)'
+      },
+      {
+        label: 'B dataset',
+        data: Array.from({ length: 500 }, () => ({
+          x: faker.datatype.number({ min: 0, max: 100 }),
+          y: faker.datatype.number({ min: 0, max: 100 })
+        })),
+        backgroundColor: 'rgba(0, 200, 132, 1)'
+      }
+    ]
+  };
+
+  const map = "url('/static/images/map/map1.png')";
 
   return (
     <>
@@ -93,12 +123,18 @@ function Maps() {
         </ToggleButtonGroup>
       </Box>
 
-      {tabs === 'HeatMap' && <HeatMap />}
+      {tabs === 'HeatMap' && <HeatMap data={heatmap_data} map={map} />}
 
-      {tabs === 'DotMap' && <DotMap />}
+      {tabs === 'DotMap' && <DotMap dataset={dotmap_data} map={map} />}
 
       {tabs === 'Trace' && (
-        <Trace data={data} offset={offset} range={range} domain={domain} />
+        <Trace
+          data={data}
+          offset={offset}
+          range={range}
+          domain={domain}
+          map={map}
+        />
       )}
 
       {!tabs && (

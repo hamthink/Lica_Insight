@@ -24,7 +24,6 @@ import {
   Legend
 } from 'chart.js';
 import { Chart, Scatter } from 'react-chartjs-2';
-import { faker } from '@faker-js/faker';
 
 ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend);
 
@@ -65,23 +64,11 @@ const plugin = {
   }
 };
 
-const data = {
-  datasets: [
-    {
-      label: 'A dataset',
-      data: Array.from({ length: 500 }, () => ({
-        x: faker.datatype.number({ min: 0, max: 100 }),
-        y: faker.datatype.number({ min: 0, max: 100 })
-      })),
-      backgroundColor: 'rgba(255, 99, 132, 1)'
-    }
-  ]
-};
-
-function DotMap() {
-  const [floor, setFloor] = React.useState('1');
+function DotMap(props) {
+  const [floor, setFloor] = React.useState('8');
   const [store, setStore] = React.useState('휴게실');
   const [date, setDate] = React.useState(new Date());
+  const [dataset, setDataset] = React.useState(props.dataset);
   // const [time, setTime] = React.useState('');
 
   const FloorhandleChange = (event: SelectChangeEvent) => {
@@ -91,6 +78,8 @@ function DotMap() {
   const StorehandleChange = (event: SelectChangeEvent) => {
     setStore(event.target.value);
   };
+
+  useEffect(() => {});
 
   return (
     <>
@@ -145,7 +134,7 @@ function DotMap() {
                         onChange={FloorhandleChange}
                       >
                         <MenuItem value="">None</MenuItem>
-                        <MenuItem value={1}>1층</MenuItem>
+                        <MenuItem value={8}>8층</MenuItem>
                       </Select>
                     </FormControl>
 
@@ -168,11 +157,11 @@ function DotMap() {
               <CardContent>
                 <Box
                   sx={{
-                    backgroundImage: "url('/static/images/map/map1.png')",
+                    backgroundImage: props.map,
                     backgroundSize: 'cover'
                   }}
                 >
-                  <Scatter options={options} data={data} />
+                  <Scatter options={options} data={dataset} />
                   {/* <CardMedia
                     component="img"
                     sx={{ width: '100%', mt: 7 }}
