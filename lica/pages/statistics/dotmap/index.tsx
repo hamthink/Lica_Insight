@@ -28,6 +28,7 @@ const data = {
   ]
 };
 
+const range = { width: 1000, height: 600 };
 const map = "url('/static/images/map/map1.png')";
 
 function StatisticsHeatMap() {
@@ -46,7 +47,7 @@ function StatisticsHeatMap() {
         >
           <Grid item xs={12}>
             <Container sx={{ mt: 5 }}>
-              <Dotmap dataset={data} map={map} />
+              <Dotmap dataset={data} map={map} range={range} />
             </Container>
           </Grid>
         </Grid>
