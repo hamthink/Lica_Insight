@@ -8,16 +8,16 @@ group = 'com.a208'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
-bootJar {
-	environment(['POSTGRES_URL': System.getenv('POSTGRES_URL'),
-				 'POSTGRES_ID': System.getenv('POSTGRES_ID'),
-				 'POSTGRES_PASSWORD': System.getenv('POSTGRES_PASSWORD'),
-				 'RABBITMQ_HOST': System.getenv('RABBITMQ_HOST'),
-				 'RABBITMQ_PORT': System.getenv('RABBITMQ_PORT'),
-				 'RABBITMQ_USER': System.getenv('RABBITMQ_USER'),
-				 'RABBITMQ_PASSWORD': System.getenv('RABBITMQ_PASSWORD'),
-				 'RABBITMQ_TOPIC': System.getenv('RABBITMQ_TOPIC')])
-}
+//bootJar {
+//	environment(['POSTGRES_URL': System.getenv('POSTGRES_URL'),
+//				 'POSTGRES_ID': System.getenv('POSTGRES_ID'),
+//				 'POSTGRES_PASSWORD': System.getenv('POSTGRES_PASSWORD'),
+//				 'RABBITMQ_HOST': System.getenv('RABBITMQ_HOST'),
+//				 'RABBITMQ_PORT': System.getenv('RABBITMQ_PORT'),
+//				 'RABBITMQ_USER': System.getenv('RABBITMQ_USER'),
+//				 'RABBITMQ_PASSWORD': System.getenv('RABBITMQ_PASSWORD'),
+//				 'RABBITMQ_TOPIC': System.getenv('RABBITMQ_TOPIC')])
+//}
 
 jar {
 	enabled = false
