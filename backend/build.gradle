@@ -8,6 +8,17 @@ group = 'com.a208'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
+bootJar {
+	environment(['POSTGRES_URL': System.getenv('POSTGRES_URL'),
+				 'POSTGRES_ID': System.getenv('POSTGRES_ID'),
+				 'POSTGRES_PASSWORD': System.getenv('POSTGRES_PASSWORD'),
+				 'RABBITMQ_HOST': System.getenv('RABBITMQ_HOST'),
+				 'RABBITMQ_PORT': System.getenv('RABBITMQ_PORT'),
+				 'RABBITMQ_USER': System.getenv('RABBITMQ_USER'),
+				 'RABBITMQ_PASSWORD': System.getenv('RABBITMQ_PASSWORD'),
+				 'RABBITMQ_TOPIC': System.getenv('RABBITMQ_TOPIC')])
+}
+
 jar {
 	enabled = false
 }
@@ -45,9 +56,6 @@ dependencies {
 	// for cache
 	implementation 'com.google.guava:guava:31.0.1-jre'
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-
-	// for RabbitMG
-//	implementation 'org.springframework.amqp:spring-rabbit:2.3.12.RELEASE'
 
 	implementation 'org.springframework.boot:spring-boot-starter-amqp'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
