@@ -15,7 +15,6 @@ import MenuTwoToneIcon from '@mui/icons-material/MenuTwoTone';
 import { SidebarContext } from 'src/contexts/SidebarContext';
 import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone';
 
-import HeaderButtons from './Buttons';
 import HeaderUserbox from './Userbox';
 import Logo from '@/components/Logo';
 
@@ -92,7 +91,6 @@ function Header() {
               로그인
             </Button>
           </Box>
-          <HeaderButtons />
           <HeaderUserbox />
           <Box
             component="span"

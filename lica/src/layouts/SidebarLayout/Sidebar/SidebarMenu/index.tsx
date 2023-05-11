@@ -21,6 +21,9 @@ import AccountCircleTwoToneIcon from '@mui/icons-material/AccountCircleTwoTone';
 import DisplaySettingsTwoToneIcon from '@mui/icons-material/DisplaySettingsTwoTone';
 import GroupsTwoToneIcon from '@mui/icons-material/GroupsTwoTone';
 import VideocamTwoToneIcon from '@mui/icons-material/VideocamTwoTone';
+import BlurOnTwoToneIcon from '@mui/icons-material/BlurOnTwoTone';
+import EggAltTwoToneIcon from '@mui/icons-material/EggAltTwoTone';
+import TimelineTwoToneIcon from '@mui/icons-material/TimelineTwoTone';
 
 const MenuWrapper = styled(Box)(
   ({ theme }) => `
@@ -282,7 +285,7 @@ function SidebarMenu() {
                     disableRipple
                     component="a"
                     onClick={closeSidebar}
-                    startIcon={<GroupsTwoToneIcon />}
+                    startIcon={<EggAltTwoToneIcon />}
                   >
                     heatmap
                   </Button>
@@ -297,7 +300,7 @@ function SidebarMenu() {
                     disableRipple
                     component="a"
                     onClick={closeSidebar}
-                    startIcon={<GroupsTwoToneIcon />}
+                    startIcon={<BlurOnTwoToneIcon />}
                   >
                     dotmap
                   </Button>
@@ -312,7 +315,7 @@ function SidebarMenu() {
                     disableRipple
                     component="a"
                     onClick={closeSidebar}
-                    startIcon={<GroupsTwoToneIcon />}
+                    startIcon={<TimelineTwoToneIcon />}
                   >
                     Trace
                   </Button>

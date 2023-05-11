@@ -9,7 +9,7 @@ import {
   ToggleButtonGroup
 } from '@mui/material';
 import BlurOnTwoToneIcon from '@mui/icons-material/BlurOnTwoTone';
-import TableRowsTwoToneIcon from '@mui/icons-material/TableRowsTwoTone';
+import EggAltTwoToneIcon from '@mui/icons-material/EggAltTwoTone';
 import TimelineTwoToneIcon from '@mui/icons-material/TimelineTwoTone';
 import HeatMap from './Heatmap';
 import DotMap from './Dotmap';
@@ -82,10 +82,10 @@ function Maps() {
           onChange={handleViewOrientation}
         >
           <ToggleButton disableRipple value="HeatMap">
-            <BlurOnTwoToneIcon />
+            <EggAltTwoToneIcon />
           </ToggleButton>
           <ToggleButton disableRipple value="DotMap">
-            <TableRowsTwoToneIcon />
+            <BlurOnTwoToneIcon />
           </ToggleButton>
           <ToggleButton disableRipple value="Trace">
             <TimelineTwoToneIcon />
