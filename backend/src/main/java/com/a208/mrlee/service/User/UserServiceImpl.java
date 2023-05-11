@@ -1,6 +1,7 @@
 package com.a208.mrlee.service.User;
 
 import com.a208.mrlee.config.mail.MailSendConfig;
+import com.a208.mrlee.dto.user.UserDTO;
 import com.a208.mrlee.entity.user.User;
 import com.a208.mrlee.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +9,7 @@ import org.springframework.cache.CacheManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -56,10 +58,13 @@ public class UserServiceImpl implements UserService {
         return resultMap;
     }
 
-    public void join(String id , String password){
+    public void join(UserDTO userDto){
         User user = User.builder()
-                .email(id)
-                .password(passwordEncoder.encode(password))
+                .email(userDto.getEmail())
+                .name(userDto.getName())
+                .gender(userDto.getGender())
+                .password(passwordEncoder.encode(userDto.getPassword()))
+                .date(LocalDateTime.now())
                 .build();
         userRepository.save(user);
     }

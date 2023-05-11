@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "CustomerTrackingInfo")
@@ -21,10 +21,18 @@ public class CustomerTrackingInfo {
     @Column(name = "tracking_idx")
     private Long id;
 
-    @JsonIgnore
-    @Column(name="tracking_img")
-    private String img;
+    @Column(name = "tracking_storeId")
+    private long storeId;
 
-    @Column(nullable = false ,name = "tracking_pos3d")
-    private String pos3d;
+    @Column(name = "tracking_tid")
+    private String tid;
+
+    @Column(name = "tracking_x")
+    private double x;
+
+    @Column(name = "tracking_y")
+    private double y;
+
+    @Column(name = "tracking_created")
+    private LocalDateTime created;
 }

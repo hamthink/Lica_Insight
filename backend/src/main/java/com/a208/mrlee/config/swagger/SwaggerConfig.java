@@ -60,8 +60,13 @@ public class SwaggerConfig {
     }
     // DEVELOPTING
     @Bean
-    public Docket scarp() {
+    public Docket mail() {
         return getDocket("MAIL", true, "mail");
+    }
+
+    @Bean
+    public Docket visit() {
+        return getDocket("VISIT", true, "visit");
     }
 
 }
