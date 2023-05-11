@@ -33,7 +33,7 @@ function HeatMap() {
     });
   });
 
-  const [floor, setFloor] = React.useState('1층');
+  const [floor, setFloor] = React.useState('1');
   const [store, setStore] = React.useState('휴게실');
   const [date, setDate] = React.useState(new Date());
 

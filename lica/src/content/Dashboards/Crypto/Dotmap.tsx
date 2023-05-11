@@ -172,7 +172,7 @@ function DotMap() {
                     backgroundSize: 'cover'
                   }}
                 >
-                  <Scatter options={options} data={data} plugins={[plugin]} />
+                  <Scatter options={options} data={data} />
                   {/* <CardMedia
                     component="img"
                     sx={{ width: '100%', mt: 7 }}
