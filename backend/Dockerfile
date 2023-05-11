@@ -1,4 +1,4 @@
-FROM amazoncorretto:11-alphine
+FROM amazoncorretto:11
 
 WORKDIR /app
 COPY build/libs/*.jar app.jar
