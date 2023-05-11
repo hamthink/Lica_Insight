@@ -3,7 +3,7 @@ package com.a208.mrlee.dto.CustomerTrackingInfo;
 import com.a208.mrlee.entity.CustomerTrackingInfo.CustomerTrackingInfo;
 import lombok.*;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 @Builder
 @Getter
@@ -13,25 +13,29 @@ import java.sql.Date;
 @ToString
 public class CustomerTrackingInfoDTO {
 
-
-
-    private Long id;
-    private String img;
-    private String pos3d;
-
-
+    private long storeId;
+    private String tid;
+    private double x;
+    private double y;
+    private LocalDateTime created;
 
     public static CustomerTrackingInfo of(CustomerTrackingInfoDTO dto){
         return CustomerTrackingInfo.builder()
-                .id(dto.getId())
-                .img(dto.getImg())
-                .pos3d(dto.getPos3d())
+                .storeId(dto.getStoreId())
+                .tid(dto.getTid())
+                .x(dto.getX())
+                .y(dto.getY())
+                .created(dto.getCreated())
                 .build();
     }
 
-//    private long storeId;
-//    private long tid;
-//    private double x;
-//    private double y;
-//    private Date created;
+    public static CustomerTrackingInfoDTO to(CustomerTrackingInfo info){
+        return CustomerTrackingInfoDTO.builder()
+                .storeId(info.getStoreId())
+                .tid(info.getTid())
+                .x(info.getX())
+                .y(info.getY())
+                .created(info.getCreated())
+                .build();
+    }
 }
