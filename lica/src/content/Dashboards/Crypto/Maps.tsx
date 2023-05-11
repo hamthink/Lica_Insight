@@ -52,7 +52,7 @@ function Maps() {
     ]
   ];
 
-  const offset = { x: 50, y: 50 };
+  const offset = { x: 50, y: 20 };
   const domain = { xStart: 0, xEnd: 100, yStart: 0, yEnd: 100 };
   const range = { width: 600, height: 400 };
 

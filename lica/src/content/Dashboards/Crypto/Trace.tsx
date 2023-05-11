@@ -175,7 +175,6 @@ function Trace(props) {
                 >
                   {/* SVG 내용 */}
                 </svg>
-                ;
               </CardContent>
             </Card>
           </Grid>
