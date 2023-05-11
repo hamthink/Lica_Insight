@@ -47,12 +47,7 @@ function HeatMap() {
 
   return (
     <>
-      <Box
-        display="flex"
-        alignItems="center"
-        justifyContent="space-between"
-        sx={{ pb: 3, mt: 10 }}
-      >
+      <Box display="flex" alignItems="center" justifyContent="space-between">
         <Grid
           container
           direction="row"
