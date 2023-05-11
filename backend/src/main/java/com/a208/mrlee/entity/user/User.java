@@ -16,7 +16,6 @@ import java.sql.Date;
 @ToString
 public class User {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_idx")

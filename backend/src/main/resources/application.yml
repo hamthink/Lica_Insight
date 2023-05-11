@@ -1,9 +1,18 @@
 spring:
+  profiles:
+    active: local
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+
   datasource:
     url: jdbc:postgresql://localhost:5432/Test
     username: postgres
     password: ssafy
     driver-class-name: org.postgresql.Driver
+
   jpa:
     hibernate:
       ddl-auto: update
@@ -11,21 +20,52 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
-  security:
-    user:
-      name: user
-      password: password
-  redis:
-    host: 127.0.0.1
-    port: 6379
-    password:
-    database: 0
 
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: a208
+    password: a208!
+    template:
+      default-receive-queue: CustomerTrackingInfo
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+  datasource:
+    url: ${POSTGRES_URL}
+    username: ${POSTGRES_ID}
+    password: ${POSTGRES_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+  rabbitmq:
+    host: ${RABBITMQ_HOST}
+    port: ${RABBITMQ_PORT}
+    username: ${RABBITMQ_USER}
+    password: ${RABBITMQ_PASSWORD}
+    template:
+      default-receive-queue: ${RABBITMQ_TOPIC}
+---
 jwt:
-  secret: a208.mrlee.laca
+  secret: a208.mrlee.lica
 sendinblue:
   apikey: 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
   email : ssafybin0308@gmail.com
