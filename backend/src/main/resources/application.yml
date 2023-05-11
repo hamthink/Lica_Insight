@@ -63,9 +63,6 @@ spring:
     template:
       default-receive-queue: CustomerTrackingInfo
 
-logging:
-  level:
-    root: trace
 ---
 jwt:
   secret: a208.mrlee.lica
