@@ -27,22 +27,6 @@ import { Chart, Scatter } from 'react-chartjs-2';
 
 ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend);
 
-const options = {
-  scales: {
-    y: {
-      display: false
-    },
-    x: {
-      display: false
-    }
-  },
-  plugins: {
-    legend: {
-      display: false
-    }
-  }
-};
-
 const plugin = {
   id: 'scatter',
   beforeDraw: (chart) => {
@@ -50,14 +34,14 @@ const plugin = {
     const ctx = chart.ctx;
     const { top, left, width, height } = chart.chartArea;
 
-    const image = new Image();
-    image.src = '/static/images/map/map1.png';
+    // const image = new Image();
+    // image.src = '/static/images/map/map1.png';
 
-    const x = left + width / 2 - image.width / 2 + 200;
-    const y = top + height / 2 - image.height / 2 - 100;
-    // const x = 1485;
-    // const y = 727;
-    ctx.drawImage(image, x, y);
+    // const x = left + width / 2 - image.width / 2 + 200;
+    // const y = top + height / 2 - image.height / 2 - 100;
+    const x = 1485;
+    const y = 727;
+    // ctx.drawImage(image, x, y);
     // } else {
     //   image.onload = () => chart.draw();
     // }
@@ -77,6 +61,26 @@ function DotMap(props) {
 
   const StorehandleChange = (event: SelectChangeEvent) => {
     setStore(event.target.value);
+  };
+
+  const options = {
+    scales: {
+      y: {
+        display: false,
+        min: 0,
+        max: props.range.height
+      },
+      x: {
+        display: false,
+        min: 0,
+        max: props.range.width
+      }
+    },
+    plugins: {
+      legend: {
+        display: false
+      }
+    }
   };
 
   useEffect(() => {});

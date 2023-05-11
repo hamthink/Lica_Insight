@@ -69,8 +69,8 @@ function Maps() {
   };
 
   const heatmap_data = Array.from({ length: 3500 }, () => ({
-    x: faker.datatype.number({ min: 0, max: 1200 }),
-    y: faker.datatype.number({ min: 0, max: 1000 }),
+    x: faker.datatype.number({ min: 0, max: 500 }),
+    y: faker.datatype.number({ min: 0, max: 200 }),
     value: faker.datatype.number({ min: 1, max: 5 })
   }));
 
@@ -123,9 +123,13 @@ function Maps() {
         </ToggleButtonGroup>
       </Box>
 
-      {tabs === 'HeatMap' && <HeatMap data={heatmap_data} map={map} />}
+      {tabs === 'HeatMap' && (
+        <HeatMap data={heatmap_data} map={map} range={range} />
+      )}
 
-      {tabs === 'DotMap' && <DotMap dataset={dotmap_data} map={map} />}
+      {tabs === 'DotMap' && (
+        <DotMap dataset={dotmap_data} map={map} range={range} />
+      )}
 
       {tabs === 'Trace' && (
         <Trace

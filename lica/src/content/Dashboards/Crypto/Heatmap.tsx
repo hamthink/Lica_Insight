@@ -16,6 +16,9 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { DateTimePicker } from '@mui/lab';
 
 function HeatMap(props) {
+  const width = props.range.width;
+  const height = props.range.height;
+
   useEffect(() => {
     var heatmap = h337.create({
       container: document.querySelector('.Heat')
@@ -23,7 +26,11 @@ function HeatMap(props) {
 
     heatmap.setData({
       max: 25,
-      data: props.data
+      data: props.data,
+      xMin: 0,
+      xMax: width,
+      yMin: 0,
+      yMax: height
       // data: [{ x: 165, y: 200, value: 5 }]
     });
   });

@@ -8,11 +8,12 @@ import Heatmap from '@/content/Dashboards/Crypto/Heatmap';
 import { faker } from '@faker-js/faker';
 
 const data = Array.from({ length: 3500 }, () => ({
-  x: faker.datatype.number({ min: 0, max: 1200 }),
-  y: faker.datatype.number({ min: 0, max: 1000 }),
+  x: faker.datatype.number({ min: 0, max: 100 }),
+  y: faker.datatype.number({ min: 0, max: 100 }),
   value: faker.datatype.number({ min: 1, max: 5 })
 }));
 
+const range = { width: 1000, height: 600 };
 const map = "url('/static/images/map/map1.png')";
 
 function StatisticsHeatMap() {
@@ -31,7 +32,7 @@ function StatisticsHeatMap() {
         >
           <Grid item xs={12}>
             <Container sx={{ mt: 5 }}>
-              <Heatmap data={data} map={map} />
+              <Heatmap data={data} map={map} range={range} />
             </Container>
           </Grid>
         </Grid>
