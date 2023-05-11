@@ -1,6 +1,6 @@
 import Head from 'next/head';
 // import SidebarLayout from '@/layouts/SidebarLayout';
-import type { ReactElement } from 'react';
+import { ReactElement, useState } from 'react';
 import BaseLayout from 'src/layouts/BaseLayout';
 
 import Footer from '@/components/Footer';
@@ -47,6 +47,27 @@ const SignupWrapper = styled(Box)(
 );
 
 function UserSignup() {
+  const [email, setEmail] = useState('');
+  const [showVerificationCode, setShowVerificationCode] = useState(false);
+  const [checkVerification, setCheckVerification] = useState(false);
+  const [checkButton, setCheckButton] = useState(false);
+
+  const changeEmail = (e) => {
+    setEmail(e.target.value);
+  };
+
+  function handleVerification() {
+    setShowVerificationCode(true);
+  }
+
+  function handleCheck() {
+    if (email == '1234') {
+      setCheckVerification(true);
+    }
+    // setCheckVerification(true);
+    setCheckButton(true);
+  }
+
   return (
     <SignupWrapper>
       <Head>
@@ -94,8 +115,6 @@ function UserSignup() {
           LiCa를 사용하기 위해 회원가입을 해주세요.
         </Typography>
         <Card sx={{ mt: 5, mb: 5 }}>
-          {/* <CardHeader title = "회원가입" />
-            <Divider /> */}
           <CardContent>
             <Box
               component="form"
@@ -103,26 +122,57 @@ function UserSignup() {
               noValidate
               autoComplete="off"
             >
-              {/* <div>
-                     <TextField required id="standard-required" label="이메일" variant="standard" helperText="LiCa ID로 사용할 주소입니다." /><br />
-                     <TextField id="standard-password-input" label="비밀번호" type="password" autoComplete="current-password" variant="standard" /><br />
-                     <TextField id="standard-password-input" label="비밀번호 확인" type="password" autoComplete="current-password" variant="standard" /><br />
-                     <TextField id="standard-number" label="Number" type="number"
-                      InputLabelProps={{
-                        shrink: true
-                      }}
-                      variant="standard"
-                    /><br />
-                    <TextField id="standard-search" label="이름" type="search" variant="standard" /><br />
-                  </div> */}
+              <Box sx={{ display: 'flex' }} justifyContent="space-between">
+                <FormControl variant="standard" sx={{ m: 2, width: '90%' }}>
+                  <InputLabel htmlFor="email">이메일</InputLabel>
+                  <Input
+                    id="email"
+                    type="text"
+                    value={email}
+                    onChange={changeEmail}
+                  />
+                  <FormHelperText id="email">
+                    LiCa ID로 사용할 주소입니다.
+                  </FormHelperText>
+                </FormControl>
+                <Box />
+                <Button
+                  component={Link}
+                  href="#"
+                  variant="contained"
+                  sx={{ mt: 4, mr: 4, width: '20%', height: '20%' }}
+                  onClick={handleVerification}
+                >
+                  인증
+                </Button>
+              </Box>
+              {showVerificationCode && (
+                <Box sx={{ display: 'flex' }} justifyContent="space-between">
+                  <FormControl variant="standard" sx={{ ml: 2, width: '90%' }}>
+                    <InputLabel htmlFor="email">인증번호</InputLabel>
+                    <Input id="email" type="text" />
+                  </FormControl>
+                  <Box />
+                  <Button
+                    component={Link}
+                    href="#"
+                    variant="contained"
+                    onClick={handleCheck}
+                    sx={{ mt: 2, mr: 4, ml: 2, width: '20%', height: '20%' }}
+                  >
+                    인증
+                  </Button>
+                </Box>
+              )}
+              {checkVerification && (
+                <Box sx={{ ml: 2, width: '90%', color: 'green' }}>
+                  인증 성공!
+                </Box>
+              )}
+              {showVerificationCode && !checkVerification && checkButton && (
+                <Box sx={{ ml: 2, width: '90%', color: 'red' }}>인증 실패!</Box>
+              )}
 
-              <FormControl variant="standard" sx={{ m: 2, width: '90%' }}>
-                <InputLabel htmlFor="email">이메일</InputLabel>
-                <Input id="email" type="text" />
-                <FormHelperText id="email">
-                  LiCa ID로 사용할 주소입니다.
-                </FormHelperText>
-              </FormControl>
               <FormControl variant="standard" sx={{ m: 2, width: '90%' }}>
                 <InputLabel htmlFor="password">비밀번호</InputLabel>
                 <Input id="password" type="password" />
