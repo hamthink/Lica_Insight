@@ -14,9 +14,8 @@ import {
 } from '@mui/material';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { DateTimePicker } from '@mui/lab';
-import { faker } from '@faker-js/faker';
 
-function HeatMap() {
+function HeatMap(props) {
   useEffect(() => {
     var heatmap = h337.create({
       container: document.querySelector('.Heat')
@@ -24,11 +23,7 @@ function HeatMap() {
 
     heatmap.setData({
       max: 25,
-      data: Array.from({ length: 3500 }, () => ({
-        x: faker.datatype.number({ min: 0, max: 1200 }),
-        y: faker.datatype.number({ min: 0, max: 1000 }),
-        value: faker.datatype.number({ min: 1, max: 5 })
-      }))
+      data: props.data
       // data: [{ x: 165, y: 200, value: 5 }]
     });
   });
@@ -126,7 +121,8 @@ function HeatMap() {
                     width: '100%',
                     height: 600,
                     margin: '0 auto',
-                    backgroundImage: "url('/static/images/map/map1.png')",
+                    backgroundImage: props.map,
+                    // backgroundImage: "url('/static/images/map/map1.png')",
                     backgroundSize: 'cover'
                   }}
                 >

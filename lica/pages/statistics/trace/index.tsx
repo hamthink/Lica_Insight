@@ -37,7 +37,9 @@ function StatisticsTrace() {
 
   const offset = { x: 50, y: 20 };
   const domain = { xStart: 0, xEnd: 100, yStart: 0, yEnd: 100 };
-  const range = { width: 600, height: 400 };
+  const range = { width: 1000, height: 600 };
+
+  const map = "url('/static/images/map/map1.png')";
 
   // dummy end
 
@@ -61,6 +63,7 @@ function StatisticsTrace() {
                 offset={offset}
                 range={range}
                 domain={domain}
+                map={map}
               />
             </Container>
           </Grid>

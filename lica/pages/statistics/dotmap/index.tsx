@@ -5,6 +5,30 @@ import SidebarLayout from '@/layouts/SidebarLayout';
 import { Container, Grid } from '@mui/material';
 import Footer from '@/components/Footer';
 import Dotmap from '@/content/Dashboards/Crypto/Dotmap';
+import { faker } from '@faker-js/faker';
+
+const data = {
+  datasets: [
+    {
+      label: 'A dataset',
+      data: Array.from({ length: 500 }, () => ({
+        x: faker.datatype.number({ min: 0, max: 100 }),
+        y: faker.datatype.number({ min: 0, max: 100 })
+      })),
+      backgroundColor: 'rgba(255, 99, 132, 1)'
+    },
+    {
+      label: 'B dataset',
+      data: Array.from({ length: 500 }, () => ({
+        x: faker.datatype.number({ min: 0, max: 100 }),
+        y: faker.datatype.number({ min: 0, max: 100 })
+      })),
+      backgroundColor: 'rgba(0, 200, 132, 1)'
+    }
+  ]
+};
+
+const map = "url('/static/images/map/map1.png')";
 
 function StatisticsHeatMap() {
   return (
@@ -22,7 +46,7 @@ function StatisticsHeatMap() {
         >
           <Grid item xs={12}>
             <Container sx={{ mt: 5 }}>
-              <Dotmap />
+              <Dotmap dataset={data} map={map} />
             </Container>
           </Grid>
         </Grid>
