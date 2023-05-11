@@ -20,6 +20,7 @@ import TableChartTwoToneIcon from '@mui/icons-material/TableChartTwoTone';
 import AccountCircleTwoToneIcon from '@mui/icons-material/AccountCircleTwoTone';
 import DisplaySettingsTwoToneIcon from '@mui/icons-material/DisplaySettingsTwoTone';
 import GroupsTwoToneIcon from '@mui/icons-material/GroupsTwoTone';
+import VideocamTwoToneIcon from '@mui/icons-material/VideocamTwoTone';
 
 const MenuWrapper = styled(Box)(
   ({ theme }) => `
@@ -299,6 +300,50 @@ function SidebarMenu() {
                     startIcon={<GroupsTwoToneIcon />}
                   >
                     dotmap
+                  </Button>
+                </NextLink>
+              </ListItem>
+              <ListItem component="div">
+                <NextLink href="/statistics/trace" passHref>
+                  <Button
+                    className={
+                      currentRoute === '/statistics/trace' ? 'active' : ''
+                    }
+                    disableRipple
+                    component="a"
+                    onClick={closeSidebar}
+                    startIcon={<GroupsTwoToneIcon />}
+                  >
+                    Trace
+                  </Button>
+                </NextLink>
+              </ListItem>
+            </List>
+          </SubMenuWrapper>
+        </List>
+
+        <List
+          component="div"
+          subheader={
+            <ListSubheader component="div" disableSticky>
+              Videos
+            </ListSubheader>
+          }
+        >
+          <SubMenuWrapper>
+            <List component="div">
+              <ListItem component="div">
+                <NextLink href="/videos/camera" passHref>
+                  <Button
+                    className={
+                      currentRoute === '/videos/camera' ? 'active' : ''
+                    }
+                    disableRipple
+                    component="a"
+                    onClick={closeSidebar}
+                    startIcon={<VideocamTwoToneIcon />}
+                  >
+                    Live Camera
                   </Button>
                 </NextLink>
               </ListItem>

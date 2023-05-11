@@ -8,9 +8,7 @@ import { Container, Grid } from '@mui/material';
 import Footer from '@/components/Footer';
 
 import Maps from '@/content/Dashboards/Crypto/Maps';
-import Info from '@/content/Dashboards/Crypto/Info';
-import Wallets from '@/content/Dashboards/Crypto/Wallets';
-import AccountSecurity from '@/content/Dashboards/Crypto/AccountSecurity';
+import Camera from '@/content/Dashboards/Crypto/Camera';
 import WatchList from '@/content/Dashboards/Crypto/WatchList';
 
 function DashboardCrypto() {
@@ -30,11 +28,11 @@ function DashboardCrypto() {
           alignItems="stretch"
           spacing={4}
         >
-          <Grid item lg={9} xs={12}>
+          <Grid item xs={12}>
             <Maps />
           </Grid>
-          <Grid item lg={3} xs={12}>
-            <Info />
+          <Grid item xs={12}>
+            <Camera />
           </Grid>
           <Grid item xs={12}>
             <WatchList />
