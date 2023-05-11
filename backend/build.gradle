@@ -44,7 +44,6 @@ dependencies {
 
 	// for cache
 	implementation 'com.google.guava:guava:31.0.1-jre'
-	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
 	// for RabbitMG
 //	implementation 'org.springframework.amqp:spring-rabbit:2.3.12.RELEASE'

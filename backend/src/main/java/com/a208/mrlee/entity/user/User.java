@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "member")
@@ -32,7 +32,7 @@ public class User {
     private String name;
 
     @Column(name = "member_birthday")
-    private Date date;
+    private LocalDateTime date;
 
     @Column(name = "member_gender")
     private String gender;
