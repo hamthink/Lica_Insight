@@ -4,6 +4,7 @@ import com.a208.mrlee.entity.CustomerTrackingInfo.CustomerTrackingInfo;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Builder
 @Getter
@@ -17,15 +18,16 @@ public class CustomerTrackingInfoDTO {
     private String tid;
     private double x;
     private double y;
-    private LocalDateTime created;
+    private String created;
 
     public static CustomerTrackingInfo of(CustomerTrackingInfoDTO dto){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return CustomerTrackingInfo.builder()
                 .storeId(dto.getStoreId())
                 .tid(dto.getTid())
                 .x(dto.getX())
                 .y(dto.getY())
-                .created(dto.getCreated())
+                .created(LocalDateTime.parse(dto.getCreated() , formatter))
                 .build();
     }
 
@@ -35,7 +37,7 @@ public class CustomerTrackingInfoDTO {
                 .tid(info.getTid())
                 .x(info.getX())
                 .y(info.getY())
-                .created(info.getCreated())
+                .created(info.getCreated().toString())
                 .build();
     }
 }
