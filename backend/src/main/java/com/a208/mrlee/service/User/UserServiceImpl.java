@@ -38,7 +38,11 @@ public class UserServiceImpl implements UserService {
 
     public boolean isCached(String id, String code) {
         String cachedCode = cacheManager.getCache("email").get(id, String.class);
-        return code.equals(cachedCode);
+        if(code.equals(cachedCode)){
+            cacheManager.getCache("auth").put(id , code);
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -67,5 +71,17 @@ public class UserServiceImpl implements UserService {
                 .date(LocalDateTime.now())
                 .build();
         userRepository.save(user);
+    }
+
+    @Override
+    public boolean checkExist(String id) {
+//        String code = cacheManager.getCache("auth").get(id, String.class);
+        User user = userRepository.findByEmail(id).orElse(null);
+        if(user != null
+//                || code == null
+        ){
+            return true;
+        }
+        return false;
     }
 }

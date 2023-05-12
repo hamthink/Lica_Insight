@@ -62,7 +62,7 @@ public class UserController {
     @PostMapping("/join")
     public ResponseEntity<?> join(@RequestBody UserDTO userDto){
         Map<String, Object> resultMap = new HashMap<String, Object>();
-        if(!userService.idExist(userDto.getEmail())){
+        if(userService.checkExist(userDto.getEmail())){
             resultMap.put("result", FAIL);
             return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.INTERNAL_SERVER_ERROR);
         }
