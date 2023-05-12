@@ -7,7 +7,7 @@ import Footer from '@/components/Footer';
 import Heatmap from '@/content/Dashboards/Crypto/Heatmap';
 import { faker } from '@faker-js/faker';
 
-const data = Array.from({ length: 2000 }, () => ({
+const data = Array.from({ length: 20000 }, () => ({
   x: Math.round((1140 / 11000) * faker.datatype.number({ min: 0, max: 11000 })),
   y: Math.round((600 / 7000) * faker.datatype.number({ min: 0, max: 7000 })),
   value: faker.datatype.number({ min: 1, max: 5 })
@@ -16,8 +16,7 @@ const data = Array.from({ length: 2000 }, () => ({
 // console.log(data);
 
 const range = { width: 1140, height: 600 };
-// const map = "url('/static/images/map/map1.png')";
-const map = "url('')";
+const map = "url('/static/images/map/map1.png')";
 
 function StatisticsHeatMap() {
   return (
