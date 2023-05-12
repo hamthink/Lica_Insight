@@ -125,8 +125,8 @@ function HeatMap(props) {
                 <div
                   className="Heat"
                   style={{
-                    width: '100%',
-                    height: 600,
+                    width: props.range.width,
+                    height: props.range.height,
                     margin: '0 auto',
                     backgroundImage: props.map,
                     // backgroundImage: "url('/static/images/map/map1.png')",
