@@ -7,7 +7,7 @@ import Head from 'next/head';
 
 import Logo from 'src/components/LogoSign';
 import React from 'react';
-import Trace from '@/components/Trace';
+import Trace from 'src/content/Dashboards/Crypto/Trace';
 
 const HeaderWrapper = styled(Card)(
   ({ theme }) => `

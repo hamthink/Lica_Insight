@@ -20,6 +20,10 @@ import TableChartTwoToneIcon from '@mui/icons-material/TableChartTwoTone';
 import AccountCircleTwoToneIcon from '@mui/icons-material/AccountCircleTwoTone';
 import DisplaySettingsTwoToneIcon from '@mui/icons-material/DisplaySettingsTwoTone';
 import GroupsTwoToneIcon from '@mui/icons-material/GroupsTwoTone';
+import VideocamTwoToneIcon from '@mui/icons-material/VideocamTwoTone';
+import BlurOnTwoToneIcon from '@mui/icons-material/BlurOnTwoTone';
+import EggAltTwoToneIcon from '@mui/icons-material/EggAltTwoTone';
+import TimelineTwoToneIcon from '@mui/icons-material/TimelineTwoTone';
 
 const MenuWrapper = styled(Box)(
   ({ theme }) => `
@@ -187,19 +191,6 @@ function SidebarMenu() {
                   </Button>
                 </NextLink>
               </ListItem>
-              <ListItem component="div">
-                <NextLink href="/d3" passHref>
-                  <Button
-                    className={currentRoute === '/d3' ? 'active' : ''}
-                    disableRipple
-                    component="a"
-                    onClick={closeSidebar}
-                    startIcon={<DesignServicesTwoToneIcon />}
-                  >
-                    D3.js
-                  </Button>
-                </NextLink>
-              </ListItem>
             </List>
           </SubMenuWrapper>
         </List>
@@ -225,21 +216,6 @@ function SidebarMenu() {
                     startIcon={<BrightnessLowTwoToneIcon />}
                   >
                     Home
-                  </Button>
-                </NextLink>
-              </ListItem>
-              <ListItem component="div">
-                <NextLink href="/applications/messenger" passHref>
-                  <Button
-                    className={
-                      currentRoute === '/applications/messenger' ? 'active' : ''
-                    }
-                    disableRipple
-                    component="a"
-                    onClick={closeSidebar}
-                    startIcon={<MmsTwoToneIcon />}
-                  >
-                    Messenger
                   </Button>
                 </NextLink>
               </ListItem>
@@ -281,7 +257,7 @@ function SidebarMenu() {
                     disableRipple
                     component="a"
                     onClick={closeSidebar}
-                    startIcon={<GroupsTwoToneIcon />}
+                    startIcon={<EggAltTwoToneIcon />}
                   >
                     heatmap
                   </Button>
@@ -296,9 +272,24 @@ function SidebarMenu() {
                     disableRipple
                     component="a"
                     onClick={closeSidebar}
-                    startIcon={<GroupsTwoToneIcon />}
+                    startIcon={<BlurOnTwoToneIcon />}
                   >
                     dotmap
+                  </Button>
+                </NextLink>
+              </ListItem>
+              <ListItem component="div">
+                <NextLink href="/statistics/trace" passHref>
+                  <Button
+                    className={
+                      currentRoute === '/statistics/trace' ? 'active' : ''
+                    }
+                    disableRipple
+                    component="a"
+                    onClick={closeSidebar}
+                    startIcon={<TimelineTwoToneIcon />}
+                  >
+                    Trace
                   </Button>
                 </NextLink>
               </ListItem>
@@ -310,71 +301,24 @@ function SidebarMenu() {
           component="div"
           subheader={
             <ListSubheader component="div" disableSticky>
-              Management
+              Videos
             </ListSubheader>
           }
         >
           <SubMenuWrapper>
             <List component="div">
               <ListItem component="div">
-                <NextLink href="/management/transactions" passHref>
+                <NextLink href="/videos/camera" passHref>
                   <Button
                     className={
-                      currentRoute === '/management/transactions'
-                        ? 'active'
-                        : ''
+                      currentRoute === '/videos/camera' ? 'active' : ''
                     }
                     disableRipple
                     component="a"
                     onClick={closeSidebar}
-                    startIcon={<TableChartTwoToneIcon />}
+                    startIcon={<VideocamTwoToneIcon />}
                   >
-                    Transactions List
-                  </Button>
-                </NextLink>
-              </ListItem>
-            </List>
-          </SubMenuWrapper>
-        </List>
-        <List
-          component="div"
-          subheader={
-            <ListSubheader component="div" disableSticky>
-              Accounts
-            </ListSubheader>
-          }
-        >
-          <SubMenuWrapper>
-            <List component="div">
-              <ListItem component="div">
-                <NextLink href="/management/profile" passHref>
-                  <Button
-                    className={
-                      currentRoute === '/management/profile' ? 'active' : ''
-                    }
-                    disableRipple
-                    component="a"
-                    onClick={closeSidebar}
-                    startIcon={<AccountCircleTwoToneIcon />}
-                  >
-                    User Profile
-                  </Button>
-                </NextLink>
-              </ListItem>
-              <ListItem component="div">
-                <NextLink href="/management/profile/settings" passHref>
-                  <Button
-                    className={
-                      currentRoute === '/management/profile/settings'
-                        ? 'active'
-                        : ''
-                    }
-                    disableRipple
-                    component="a"
-                    onClick={closeSidebar}
-                    startIcon={<DisplaySettingsTwoToneIcon />}
-                  >
-                    Account Settings
+                    Live Camera
                   </Button>
                 </NextLink>
               </ListItem>
