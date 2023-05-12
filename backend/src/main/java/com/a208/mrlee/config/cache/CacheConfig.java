@@ -22,7 +22,7 @@ public class CacheConfig extends CachingConfigurerSupport {
     @Bean
     public CacheManager cacheManager() {
         SimpleCacheManager cacheManager = new SimpleCacheManager();
-        cacheManager.setCaches(Arrays.asList(emailCache()));
+        cacheManager.setCaches(Arrays.asList(emailCache() , authCache()));
         return cacheManager;
     }
 
@@ -30,6 +30,13 @@ public class CacheConfig extends CachingConfigurerSupport {
     public Cache emailCache() {
         return new ConcurrentMapCache("email",
                 CacheBuilder.newBuilder().expireAfterWrite(3, TimeUnit.MINUTES).maximumSize(100).build().asMap(),
+                false);
+    }
+
+    @Bean
+    public Cache authCache() {
+        return new ConcurrentMapCache("auth",
+                CacheBuilder.newBuilder().expireAfterWrite(10, TimeUnit.MINUTES).maximumSize(100).build().asMap(),
                 false);
     }
 }
