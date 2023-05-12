@@ -1,6 +1,6 @@
 import Head from 'next/head';
 // import SidebarLayout from '@/layouts/SidebarLayout';
-import type { ReactElement } from 'react';
+import { ReactElement, useState } from 'react';
 import BaseLayout from 'src/layouts/BaseLayout';
 
 import Footer from '@/components/Footer';
@@ -58,13 +58,54 @@ const style = {
 };
 
 function UserLogin() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const changeEmail = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const changePassword = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const data = {
+      email: email,
+      password: password
+    };
+
     console.log({
-      email: data.get('email'),
-      password: data.get('password')
+      email: data.email,
+      password: data.password
+      // email: `"${email}"`,
+      // password: `"${password}"`
     });
+
+    fetch('https://k8a208.p.ssafy.io/api/user/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.result) {
+          if (confirm('로그인 성공!')) {
+            console.log(data);
+            // window.location.href = '/dashboards/home';
+          }
+        } else {
+          throw new Error('로그인 실패');
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        alert(error.message);
+      });
   };
 
   const [open, setOpen] = React.useState(false);
@@ -141,6 +182,8 @@ function UserLogin() {
             name="email"
             autoComplete="email"
             autoFocus
+            value={email}
+            onChange={changeEmail}
           />
           <TextField
             margin="normal"
@@ -151,6 +194,8 @@ function UserLogin() {
             type="password"
             id="password"
             autoComplete="current-password"
+            value={password}
+            onChange={changePassword}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -161,7 +206,7 @@ function UserLogin() {
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
-            href="/dashboards/home"
+            // href="/dashboards/home"
           >
             로그인
           </Button>

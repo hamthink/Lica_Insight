@@ -63,5 +63,6 @@
   "packageManager": "yarn@1.22.19",
   "resolutions": {
     "@types/react": "17.0.2"
-  }
+  },
+  "proxy": "https://k8a208.p.ssafy.io"
 }
