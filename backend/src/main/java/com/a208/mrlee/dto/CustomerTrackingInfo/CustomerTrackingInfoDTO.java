@@ -18,7 +18,7 @@ public class CustomerTrackingInfoDTO {
     private String tid;
     private double x;
     private double y;
-    private String created;
+    private String created; // MQ에서 빼올 때는 datetime 문자열이다
 
     public static CustomerTrackingInfo of(CustomerTrackingInfoDTO dto){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
