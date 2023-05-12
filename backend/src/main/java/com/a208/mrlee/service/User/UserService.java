@@ -6,6 +6,7 @@ import java.util.Map;
 
 public interface UserService {
     boolean idExist(String id);
+    boolean checkExist(String id);
     Map<String, Object> login(String id , String password);
     boolean isCached(String id, String code);
     void join(UserDTO userDto);
