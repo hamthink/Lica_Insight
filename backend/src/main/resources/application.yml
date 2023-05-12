@@ -31,6 +31,12 @@ spring:
     username: a208
     password: a208!
     queue: CustomerTrackingInfo
+
+jwt:
+  secret: a208.mrlee.lica
+sendinblue:
+  apikey: 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
+  email : ssafybin0308@gmail.com
 ---
 spring:
   config:
@@ -60,9 +66,11 @@ spring:
     username: a208
     password: a208!
     queue: CustomerTrackingInfo
----
+
 jwt:
   secret: a208.mrlee.lica
+
 sendinblue:
   apikey: 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
   email : ssafybin0308@gmail.com
+---
