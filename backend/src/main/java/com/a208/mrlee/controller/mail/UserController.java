@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/user")
 @Api("USER Api")
 @RequiredArgsConstructor
