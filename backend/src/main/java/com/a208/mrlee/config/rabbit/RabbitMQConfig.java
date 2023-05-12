@@ -34,7 +34,7 @@ public class RabbitMQConfig {
 
     @Bean
     public Queue queue() {
-        return new Queue(queueName, false, true, false);
+        return QueueBuilder.nonDurable(queueName).build();
     }
 
     @Bean
