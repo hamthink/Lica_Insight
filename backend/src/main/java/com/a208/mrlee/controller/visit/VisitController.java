@@ -26,24 +26,25 @@ public class VisitController {
     private final VisitService visitService;
 
     @GetMapping("")
-    public ResponseEntity<?> record(@RequestParam String start , @RequestParam String end){
+    public ResponseEntity<?> record(@RequestParam String start, @RequestParam String end) {
         Map<String, Object> resultMap = new HashMap<String, Object>();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime startTime = LocalDateTime.parse(start , formatter);
-        LocalDateTime endTime = LocalDateTime.parse(end , formatter);
-        List<CustomerTrackingInfoDTO> list = visitService.getTrackingInfo(startTime , endTime);
-        resultMap.put("infoList" , list);
-        return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
+        LocalDateTime startTime = LocalDateTime.parse(start, formatter);
+        LocalDateTime endTime = LocalDateTime.parse(end, formatter);
+        List<CustomerTrackingInfoDTO> list = visitService.getTrackingInfo(startTime, endTime);
+        resultMap.put("infoList", list);
+        return ResponseEntity.ok(resultMap);
 
     }
+
     @GetMapping("/track")
-    public ResponseEntity<?> track(@RequestParam String start , @RequestParam String end){
+    public ResponseEntity<?> track(@RequestParam String start, @RequestParam String end) {
         Map<String, Object> resultMap = new HashMap<String, Object>();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime startTime = LocalDateTime.parse(start , formatter);
-        LocalDateTime endTime = LocalDateTime.parse(end , formatter);
-        Map<String , List<CustomerTrackingInfoDTO>> map = visitService.getTrack(startTime , endTime);
-        resultMap.put("trackList" , map);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+        LocalDateTime startTime = LocalDateTime.parse(start, formatter);
+        LocalDateTime endTime = LocalDateTime.parse(end, formatter);
+        Map<String, List<CustomerTrackingInfoDTO>> map = visitService.getTrack(startTime, endTime);
+        resultMap.put("trackList", map);
         return ResponseEntity.ok(resultMap);
     }
 }
