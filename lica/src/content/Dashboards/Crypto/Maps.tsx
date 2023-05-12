@@ -1,4 +1,4 @@
-import { MouseEvent, useState } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 import {
   Box,
   Card,
@@ -67,6 +67,7 @@ function Maps() {
   // dummy end
 
   const [tabs, setTab] = useState<string | null>('HeatMap');
+  const [date, setDate] = useState(new Date());
 
   const handleViewOrientation = (
     _event: MouseEvent<HTMLElement>,
@@ -75,9 +76,9 @@ function Maps() {
     setTab(newValue);
   };
 
-  const heatmap_data = Array.from({ length: 3500 }, () => ({
-    x: faker.datatype.number({ min: 0, max: 1200 }),
-    y: faker.datatype.number({ min: 0, max: 600 }),
+  const heatmap_data = Array.from({ length: 1 }, () => ({
+    x: (1200 / 11000) * faker.datatype.number({ min: 0, max: 11000 }),
+    y: (600 / 7000) * faker.datatype.number({ min: 0, max: 7000 }),
     value: faker.datatype.number({ min: 1, max: 5 })
   }));
 
@@ -103,6 +104,8 @@ function Maps() {
   };
 
   const map = "url('/static/images/map/map1.png')";
+
+  useEffect(() => {});
 
   return (
     <>
