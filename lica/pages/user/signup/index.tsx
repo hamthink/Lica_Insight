@@ -26,6 +26,7 @@ import Input from '@mui/material/Input';
 
 import Logo from 'src/components/LogoSign';
 import Link from 'src/components/Link';
+import { getEmailVerificationCode } from 'api/user';
 
 const HeaderWrapper = styled(Card)(
   ({ theme }) => `
@@ -129,22 +130,22 @@ function UserSignup() {
   function handleVerification() {
     setShowVerificationCode(true);
 
-    // https://k8a208.p.ssafy.io/api/user/email?email=ssafymmixx@gmail.com
-    fetch('https://k8a208.p.ssafy.io/api/user/email?email=' + email, {
-      method: 'GET'
-    })
-      .then((response) => {
-        if (response.ok) {
+    getEmailVerificationCode(
+      { email: email },
+      ({ data }) => {
+        if (data.result === 'success') {
+          console.log('이메일 인증번호 전송 완료!');
           alert('이메일 인증번호 전송 완료! 3분 이내에 인증을 완료해주세요!');
           setCheckVerification(true);
         } else {
           throw new Error('이메일 인증번호 전송 실패');
         }
-      })
-      .catch((error) => {
+      },
+      (error) => {
         console.error(error);
         alert(error.message);
-      });
+      }
+    );
   }
 
   function handleCheck() {
