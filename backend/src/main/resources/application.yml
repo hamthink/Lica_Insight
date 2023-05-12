@@ -30,8 +30,7 @@ spring:
     port: 5672
     username: a208
     password: a208!
-    template:
-      default-receive-queue: CustomerTrackingInfo
+    queue: CustomerTrackingInfo
 ---
 spring:
   config:
@@ -60,8 +59,7 @@ spring:
     port: 3333
     username: a208
     password: a208!
-    template:
-      default-receive-queue: CustomerTrackingInfo
+    queue: CustomerTrackingInfo
 
 ---
 jwt:
