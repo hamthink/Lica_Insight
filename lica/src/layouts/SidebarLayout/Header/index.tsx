@@ -9,13 +9,13 @@ import {
   styled,
   useTheme,
   Button,
-  Link
+  Link,
+  Typography
 } from '@mui/material';
 import MenuTwoToneIcon from '@mui/icons-material/MenuTwoTone';
 import { SidebarContext } from 'src/contexts/SidebarContext';
 import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone';
 
-import HeaderButtons from './Buttons';
 import HeaderUserbox from './Userbox';
 import Logo from '@/components/Logo';
 
@@ -70,11 +70,8 @@ function Header() {
         maxWidth="1200px"
       >
         <Logo />
-        {/* <LogoSign /> */}
-        <Box />
         <Box display="flex" alignItems="center">
           <Box>
-            {/* <Button component={Link} href="/user/test1" variant="contained" sx={{ ml: 2 }}>TEST 1</Button> */}
             <Button
               component={Link}
               href="/user/signup"
@@ -92,7 +89,6 @@ function Header() {
               로그인
             </Button>
           </Box>
-          <HeaderButtons />
           <HeaderUserbox />
           <Box
             component="span"
