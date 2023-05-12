@@ -1,6 +1,10 @@
 package com.a208.mrlee.config.rabbit;
 
-import org.springframework.amqp.core.*;
+import org.springframework.amqp.core.AcknowledgeMode;
+import org.springframework.amqp.core.MessageListener;
+import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.QueueBuilder;
+import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
@@ -13,28 +17,24 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMGConfig {
 
+    @Value("${spring.rabbitmq.host}")
+    private String rabbitmqHost;
+
+    @Value("${spring.rabbitmq.port}")
+    private int rabbitmqPort;
+
+    @Value("${spring.rabbitmq.username}")
+    private String rabbitmqUsername;
+
+    @Value("${spring.rabbitmq.password}")
+    private String rabbitmqPassword;
+
     @Value("${spring.rabbitmq.queue}")
     private String queueName;
-
-    @Value("${spring.rabbitmq.exchange}")
-    private String exchangeName;
-
-    @Value("${spring.rabbitmq.routingkey}")
-    private String routingKeyName;
 
     @Bean
     public Queue queue() {
         return QueueBuilder.durable(queueName).build();
-    }
-
-    @Bean
-    public Exchange exchange() {
-        return ExchangeBuilder.topicExchange(exchangeName).build();
-    }
-
-    @Bean
-    public Binding binding(Queue queue, Exchange exchange) {
-        return BindingBuilder.bind(queue).to(exchange).with(routingKeyName).noargs();
     }
 
     @Bean
@@ -61,4 +61,11 @@ public class RabbitMGConfig {
         return adapter;
     }
 
+    @Bean
+    public ConnectionFactory connectionFactory() {
+        CachingConnectionFactory connectionFactory = new CachingConnectionFactory(rabbitmqHost, rabbitmqPort);
+        connectionFactory.setUsername(rabbitmqUsername);
+        connectionFactory.setPassword(rabbitmqPassword);
+        return connectionFactory;
+    }
 }

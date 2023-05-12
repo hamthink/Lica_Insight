@@ -38,9 +38,10 @@ spring:
       on-profile: prod
 
   datasource:
-    url: jdbc:postgresql://k8a2081.p.ssafy.io:3306/lica
-    username: postgres
-    password: postgres
+    url: ${POSTGRES_URL}
+    username: ${POSTGRES_ID}
+    password: ${POSTGRES_PASSWORD}
+    driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
@@ -55,12 +56,11 @@ spring:
       matching-strategy: ant_path_matcher
 
   rabbitmq:
-    host: k8a2081.p.ssafy.io
-    port: 3333
-    username: a208
-    password: a208!
-    queue: CustomerTrackingInfo
-
+    host: ${RABBITMQ_HOST}
+    port: ${RABBITMQ_PORT}
+    username: ${RABBITMQ_USER}
+    password: ${RABBITMQ_PASSWORD}
+    queue: ${RABBITMQ_TOPIC}
 ---
 jwt:
   secret: a208.mrlee.lica
