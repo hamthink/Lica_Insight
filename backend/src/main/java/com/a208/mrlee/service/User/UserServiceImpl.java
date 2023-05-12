@@ -71,6 +71,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean checkExist(String id) {
-        return userRepository.findByEmail(id).orElse(null) == null ? true : false;
+        return userRepository.findByEmail(id).orElse(null) != null ? true : false;
     }
 }
