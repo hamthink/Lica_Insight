@@ -53,8 +53,15 @@ function Maps() {
     ]
   ];
 
-  const offset = { x: 50, y: 20 };
-  const domain = { xStart: 0, xEnd: 100, yStart: 0, yEnd: 100 };
+  const newdata = [
+    [
+      { x: 0, y: 0 },
+      { x: 11000, y: 7000 }
+    ]
+  ];
+
+  const offset = { x: -25, y: 30 };
+  const domain = { xStart: 0, xEnd: 11000, yStart: 0, yEnd: 7000 };
   const range = { width: 1200, height: 600 };
 
   // dummy end
@@ -136,7 +143,7 @@ function Maps() {
 
       {tabs === 'Trace' && (
         <Trace
-          data={data}
+          data={newdata}
           offset={offset}
           range={range}
           domain={domain}

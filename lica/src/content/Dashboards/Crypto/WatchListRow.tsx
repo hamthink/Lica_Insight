@@ -16,6 +16,7 @@ import Label from 'src/components/Label';
 import { Chart } from 'src/components/Chart';
 import type { ApexOptions } from 'apexcharts';
 import TrendingUpTwoToneIcon from '@mui/icons-material/TrendingUpTwoTone';
+import { useState, useEffect } from 'react';
 
 const AvatarWrapper = styled(Avatar)(
   ({ theme }) => `
@@ -48,6 +49,40 @@ const AvatarWrapper = styled(Avatar)(
 function WatchListRow() {
   const theme = useTheme();
 
+  const [date, setDate] = useState(new Date());
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setDate(new Date());
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
+  const today = new Date(); // 현재 날짜를 가져옵니다.
+
+  const day1 = new Date(
+    today.getTime() - 24 * 60 * 60 * 1000
+  ).toLocaleDateString(); // 하루 전의 날짜
+  const day2 = new Date(
+    today.getTime() - 2 * 24 * 60 * 60 * 1000
+  ).toLocaleDateString(); // 이틀 전의 날짜
+  const day3 = new Date(
+    today.getTime() - 3 * 24 * 60 * 60 * 1000
+  ).toLocaleDateString(); // 사흘 전의 날짜
+  const day4 = new Date(
+    today.getTime() - 4 * 24 * 60 * 60 * 1000
+  ).toLocaleDateString(); // 넷째 날 전의 날짜
+  const day5 = new Date(
+    today.getTime() - 5 * 24 * 60 * 60 * 1000
+  ).toLocaleDateString(); // 다섯째 날 전의 날짜
+  const day6 = new Date(
+    today.getTime() - 6 * 24 * 60 * 60 * 1000
+  ).toLocaleDateString(); // 여섯째 날 전의 날짜
+  const day7 = new Date(
+    today.getTime() - 7 * 24 * 60 * 60 * 1000
+  ).toLocaleDateString(); // 일주일 전의 날짜
+
   const Box1Options: ApexOptions = {
     chart: {
       animations: {
@@ -64,15 +99,7 @@ function WatchListRow() {
         enabled: false
       }
     },
-    labels: [
-      'Monday',
-      'Tueday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-      'Sunday'
-    ],
+    labels: [day7, day6, day5, day4, day3, day2, day1],
     stroke: {
       curve: 'smooth',
       colors: [theme.colors.primary.main],
@@ -103,7 +130,7 @@ function WatchListRow() {
       y: {
         title: {
           formatter: function () {
-            return 'Price: $';
+            return 'visitors: ';
           }
         }
       },
@@ -115,7 +142,7 @@ function WatchListRow() {
 
   const Box1Data = [
     {
-      name: 'Bitcoin',
+      name: 'visitors',
       data: [55.701, 57.598, 48.607, 46.439, 58.755, 46.978, 58.16]
     }
   ];
@@ -136,29 +163,6 @@ function WatchListRow() {
           }}
         >
           <Box
-            display="flex"
-            alignItems="flex-start"
-            justifyContent="space-between"
-          >
-            <Box display="flex" alignItems="center">
-              <AvatarWrapper>
-                <img
-                  alt="BTC"
-                  src="/static/images/placeholders/logo/bitcoin.png"
-                />
-              </AvatarWrapper>
-              <Box>
-                <Typography variant="h4" noWrap>
-                  Bitcoin
-                </Typography>
-                <Typography variant="subtitle1" noWrap>
-                  BTC
-                </Typography>
-              </Box>
-            </Box>
-            <Label color="secondary">24h</Label>
-          </Box>
-          <Box
             mt={3}
             display="flex"
             alignItems="center"
@@ -177,17 +181,16 @@ function WatchListRow() {
                   pr: 1
                 }}
               >
-                $56,475.99
+                <Box>
+                  <Box>
+                    <Typography variant="h2" noWrap>
+                      {date.toLocaleDateString()}
+                    </Typography>
+                  </Box>
+                  <Label color="secondary">last 7 days</Label>
+                </Box>
               </Typography>
-              <Text color="success">
-                <b>+12.5%</b>
-              </Text>
             </Box>
-            <TrendingUpTwoToneIcon
-              sx={{
-                color: `${theme.colors.success.main}`
-              }}
-            />
           </Box>
           <Box pt={2}>
             <Chart

@@ -12,6 +12,7 @@ import Label from 'src/components/Label';
 import Text from 'src/components/Text';
 import { Chart } from 'src/components/Chart';
 import type { ApexOptions } from 'apexcharts';
+import { useState, useEffect } from 'react';
 
 const AvatarWrapper = styled(Avatar)(
   ({ theme }) => `
@@ -43,6 +44,16 @@ const AvatarWrapper = styled(Avatar)(
 
 function WatchListColumn() {
   const theme = useTheme();
+
+  const [date, setDate] = useState(new Date());
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setDate(new Date());
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, []);
 
   const chartOptions: ApexOptions = {
     chart: {
@@ -84,13 +95,30 @@ function WatchListColumn() {
       show: false
     },
     labels: [
-      'Monday',
-      'Tueday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-      'Sunday'
+      '0',
+      '1',
+      '2',
+      '3',
+      '4',
+      '5',
+      '6',
+      '7',
+      '8',
+      '9',
+      '10',
+      '11',
+      '12',
+      '13',
+      '14',
+      '15',
+      '16',
+      '17',
+      '18',
+      '19',
+      '20',
+      '21',
+      '22',
+      '23'
     ],
     xaxis: {
       labels: {
@@ -126,7 +154,9 @@ function WatchListColumn() {
   const chart1Data = [
     {
       name: 'Bitcoin Price',
-      data: [55.701, 57.598, 48.607, 46.439, 58.755, 46.978, 58.16]
+      data: [
+        5, 7, 2, 9, 14, 3, 7, 5, 12, 1, 5, 3, 1, 6, 3, 6, 8, 2, 15, 6, 13, 4, 3
+      ]
     }
   ];
 
@@ -149,22 +179,6 @@ function WatchListColumn() {
               p: 3
             }}
           >
-            <Box display="flex" alignItems="center">
-              <AvatarWrapper>
-                <img
-                  alt="BTC"
-                  src="/static/images/placeholders/logo/bitcoin.png"
-                />
-              </AvatarWrapper>
-              <Box>
-                <Typography variant="h4" noWrap>
-                  Bitcoin
-                </Typography>
-                <Typography variant="subtitle1" noWrap>
-                  BTC
-                </Typography>
-              </Box>
-            </Box>
             <Box
               sx={{
                 display: 'flex',
@@ -173,36 +187,14 @@ function WatchListColumn() {
                 pt: 3
               }}
             >
-              <Typography
-                variant="h2"
-                sx={{
-                  pr: 1,
-                  mb: 1
-                }}
-              >
-                $56,475.99
-              </Typography>
-              <Text color="success">
-                <b>+12.5%</b>
-              </Text>
-            </Box>
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'flex-start'
-              }}
-            >
-              <Label color="success">+$500</Label>
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                sx={{
-                  pl: 1
-                }}
-              >
-                last 24h
-              </Typography>
+              <Box>
+                <Box>
+                  <Typography variant="h2" noWrap>
+                    {date.toLocaleDateString()}
+                  </Typography>
+                </Box>
+                <Label color="secondary">last 24h</Label>
+              </Box>
             </Box>
           </Box>
           <Chart
