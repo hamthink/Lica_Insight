@@ -25,12 +25,14 @@ function HeatMap(props) {
     });
 
     heatmap.setData({
-      max: 25,
+      max: 100,
       data: props.data,
       xMin: 0,
-      xMax: width,
+      xMax: props.range.width,
+      // xMax: 1000,
       yMin: 0,
-      yMax: height
+      yMax: props.range.height
+      // yMax: 600
       // data: [{ x: 165, y: 200, value: 5 }]
     });
   });
@@ -125,17 +127,15 @@ function HeatMap(props) {
                 <div
                   className="Heat"
                   style={{
-                    width: '100%',
-                    height: 600,
+                    width: props.range.width,
+                    // maxWidth: props.range.width,
+                    height: props.range.height,
                     margin: '0 auto',
                     backgroundImage: props.map,
                     // backgroundImage: "url('/static/images/map/map1.png')",
                     backgroundSize: 'cover'
                   }}
-                >
-                  {/* <h1>First Heatmap</h1>
-                            <h2>Heatmap test test test</h2> */}
-                </div>
+                ></div>
               </CardContent>
             </Card>
           </Grid>
