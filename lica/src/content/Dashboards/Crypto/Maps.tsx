@@ -55,7 +55,7 @@ function Maps() {
 
   const offset = { x: 50, y: 20 };
   const domain = { xStart: 0, xEnd: 100, yStart: 0, yEnd: 100 };
-  const range = { width: 1000, height: 600 };
+  const range = { width: 1200, height: 600 };
 
   // dummy end
 
@@ -68,9 +68,9 @@ function Maps() {
     setTab(newValue);
   };
 
-  const heatmap_data = Array.from({ length: 3500 }, () => ({
-    x: faker.datatype.number({ min: 0, max: 500 }),
-    y: faker.datatype.number({ min: 0, max: 200 }),
+  const heatmap_data = Array.from({ length: 1 }, () => ({
+    x: (1200 / 11000) * faker.datatype.number({ min: 0, max: 11000 }),
+    y: (600 / 7000) * faker.datatype.number({ min: 0, max: 7000 }),
     value: faker.datatype.number({ min: 1, max: 5 })
   }));
 
