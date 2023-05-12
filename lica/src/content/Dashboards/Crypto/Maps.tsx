@@ -1,4 +1,4 @@
-import { MouseEvent, useState } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 import {
   Box,
   Card,
@@ -60,6 +60,7 @@ function Maps() {
   // dummy end
 
   const [tabs, setTab] = useState<string | null>('HeatMap');
+  const [date, setDate] = useState(new Date());
 
   const handleViewOrientation = (
     _event: MouseEvent<HTMLElement>,
@@ -96,6 +97,8 @@ function Maps() {
   };
 
   const map = "url('/static/images/map/map1.png')";
+
+  useEffect(() => {});
 
   return (
     <>

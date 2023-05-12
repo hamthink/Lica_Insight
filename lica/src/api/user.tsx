@@ -1,4 +1,4 @@
-import { apiInstance } from 'api';
+import { apiInstance } from '@/api';
 
 const api = apiInstance();
 

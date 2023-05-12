@@ -26,7 +26,7 @@ import Input from '@mui/material/Input';
 
 import Logo from 'src/components/LogoSign';
 import Link from 'src/components/Link';
-import { getEmailVerificationCode } from 'api/user';
+import { getEmailVerificationCode } from '@/api/user';
 
 const HeaderWrapper = styled(Card)(
   ({ theme }) => `
