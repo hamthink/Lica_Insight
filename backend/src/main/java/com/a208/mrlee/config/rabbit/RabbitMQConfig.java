@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
 
 
 @Configuration
-public class RabbitMGConfig {
+public class RabbitMQConfig {
 
     @Value("${spring.rabbitmq.host}")
     private String rabbitmqHost;
@@ -34,7 +34,7 @@ public class RabbitMGConfig {
 
     @Bean
     public Queue queue() {
-        return QueueBuilder.durable(queueName).build();
+        return new Queue(queueName, false, true, false);
     }
 
     @Bean
