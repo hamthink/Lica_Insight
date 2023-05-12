@@ -2,9 +2,8 @@ import Head from 'next/head';
 
 import SidebarLayout from '@/layouts/SidebarLayout';
 
-import PageHeader from '@/content/Dashboards/Crypto/PageHeader';
-import PageTitleWrapper from '@/components/PageTitleWrapper';
-import { Container, Grid } from '@mui/material';
+import { Container, Grid, Box, Typography, styled } from '@mui/material';
+
 import Footer from '@/components/Footer';
 
 import Maps from '@/content/Dashboards/Crypto/Maps';
@@ -15,12 +14,9 @@ function DashboardCrypto() {
   return (
     <>
       <Head>
-        <title>Crypto Dashboard</title>
+        <title>Dashboard</title>
       </Head>
-      <PageTitleWrapper>
-        <PageHeader />
-      </PageTitleWrapper>
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" sx={{ mt: 5 }}>
         <Grid
           container
           direction="row"

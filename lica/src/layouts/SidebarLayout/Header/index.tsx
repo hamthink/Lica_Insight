@@ -9,7 +9,8 @@ import {
   styled,
   useTheme,
   Button,
-  Link
+  Link,
+  Typography
 } from '@mui/material';
 import MenuTwoToneIcon from '@mui/icons-material/MenuTwoTone';
 import { SidebarContext } from 'src/contexts/SidebarContext';
@@ -69,11 +70,8 @@ function Header() {
         maxWidth="1200px"
       >
         <Logo />
-        {/* <LogoSign /> */}
-        <Box />
         <Box display="flex" alignItems="center">
           <Box>
-            {/* <Button component={Link} href="/user/test1" variant="contained" sx={{ ml: 2 }}>TEST 1</Button> */}
             <Button
               component={Link}
               href="/user/signup"
