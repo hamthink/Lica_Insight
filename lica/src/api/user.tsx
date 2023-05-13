@@ -14,4 +14,13 @@ function postJoin(params, success, fail) {
   api.post('/user/join', params).then(success).catch(fail);
 }
 
-export { getEmailVerificationCode, postCheckVerificationCode, postJoin };
+function postLogin(params, success, fail) {
+  api.post('/user/login', params).then(success).catch(fail);
+}
+
+export {
+  getEmailVerificationCode,
+  postCheckVerificationCode,
+  postJoin,
+  postLogin
+};

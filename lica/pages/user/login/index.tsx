@@ -23,6 +23,9 @@ import CardMedia from '@mui/material/CardMedia';
 import Logo from 'src/components/LogoSign';
 import Link from 'src/components/Link';
 import React from 'react';
+import { postLogin } from '@/api/user';
+import { useSetRecoilState } from 'recoil';
+import { authState, userState } from 'atoms';
 
 const HeaderWrapper = styled(Card)(
   ({ theme }) => `
@@ -61,6 +64,9 @@ function UserLogin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const setAccessToken = useSetRecoilState(authState);
+  const setUser = useSetRecoilState(userState);
+
   const changeEmail = (e) => {
     setEmail(e.target.value);
   };
@@ -84,28 +90,29 @@ function UserLogin() {
       // password: `"${password}"`
     });
 
-    fetch('https://k8a208.p.ssafy.io/api/user/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.result) {
-          if (confirm('로그인 성공!')) {
-            console.log(data);
-            // window.location.href = '/dashboards/home';
-          }
+    postLogin(
+      data,
+      ({ data }) => {
+        if (data.result === 'success') {
+          alert('로그인 성공');
+          const accessToken = data['access-token'];
+          setAccessToken({ isLoggedIn: true, accessToken }); // AccessToken 저장
+          setUser({
+            name: email,
+            avatar: '/static/images/avatars/1.jpg',
+            jobtitle: 'SSAFY'
+          });
+          console.log('access-token : ' + accessToken);
+          // window.location.href = '/dashboards/home';
         } else {
-          throw new Error('로그인 실패');
+          alert('로그인 실패');
         }
-      })
-      .catch((error) => {
+      },
+      (error) => {
         console.error(error);
         alert(error.message);
-      });
+      }
+    );
   };
 
   const [open, setOpen] = React.useState(false);
