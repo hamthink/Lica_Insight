@@ -26,7 +26,10 @@ import Input from '@mui/material/Input';
 
 import Logo from 'src/components/LogoSign';
 import Link from 'src/components/Link';
-import { getEmailVerificationCode } from '@/api/user';
+import {
+  getEmailVerificationCode,
+  postCheckVerificationCode
+} from '@/api/user';
 
 const HeaderWrapper = styled(Card)(
   ({ theme }) => `
@@ -154,26 +157,23 @@ function UserSignup() {
       email: email
     };
 
-    fetch('https://k8a208.p.ssafy.io/api/user/auth', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-      .then((response) => {
-        if (response.ok) {
+    postCheckVerificationCode(
+      data,
+      ({ data }) => {
+        if (data.result === 'success') {
+          console.log('result : ' + data.result);
+          setCheckButton(true);
           alert('이메일 인증 성공!!');
-        } else {
-          throw new Error('이메일 인증 실패ㅠㅠ');
+        } else if (data.result === 'fail') {
+          alert('이메일 인증 실패ㅠㅠ');
         }
-      })
-      .catch((error) => {
+      },
+      (error) => {
         console.error(error);
         alert(error.message);
-      });
+      }
+    );
     // setCheckVerification(true);
-    setCheckButton(true);
   }
 
   return (
