@@ -18,6 +18,8 @@ import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone';
 
 import HeaderUserbox from './Userbox';
 import Logo from '@/components/Logo';
+import { useRecoilValue } from 'recoil';
+import { authState } from 'atoms';
 
 const HeaderWrapper = styled(Box)(
   ({ theme }) => `
@@ -41,6 +43,8 @@ const HeaderWrapper = styled(Box)(
 function Header() {
   const { sidebarToggle, toggleSidebar } = useContext(SidebarContext);
   const theme = useTheme();
+
+  const { isLoggedIn } = useRecoilValue(authState);
 
   return (
     <HeaderWrapper
@@ -71,41 +75,48 @@ function Header() {
       >
         <Logo />
         <Box display="flex" alignItems="center">
-          <Box>
-            <Button
-              component={Link}
-              href="/user/signup"
-              variant="contained"
-              sx={{ ml: 2 }}
-            >
-              회원가입
-            </Button>
-            <Button
-              component={Link}
-              href="/user/login"
-              variant="contained"
-              sx={{ ml: 2 }}
-            >
-              로그인
-            </Button>
-          </Box>
-          <HeaderUserbox />
-          <Box
-            component="span"
-            sx={{
-              display: { lg: 'inline-block', xs: 'inline-block' }
-            }}
-          >
-            <Tooltip arrow title="Toggle Menu">
-              <IconButton color="primary" onClick={toggleSidebar}>
-                {!sidebarToggle ? (
-                  <MenuTwoToneIcon fontSize="small" />
-                ) : (
-                  <CloseTwoToneIcon fontSize="small" />
-                )}
-              </IconButton>
-            </Tooltip>
-          </Box>
+          {!isLoggedIn && (
+            <Box>
+              <Button
+                component={Link}
+                href="/user/signup"
+                variant="contained"
+                sx={{ ml: 2 }}
+              >
+                회원가입
+              </Button>
+              <Button
+                component={Link}
+                href="/user/login"
+                variant="contained"
+                sx={{ ml: 2 }}
+              >
+                로그인
+              </Button>
+            </Box>
+          )}
+
+          {isLoggedIn && (
+            <>
+              <HeaderUserbox />
+              <Box
+                component="span"
+                sx={{
+                  display: { lg: 'inline-block', xs: 'inline-block' }
+                }}
+              >
+                <Tooltip arrow title="Toggle Menu">
+                  <IconButton color="primary" onClick={toggleSidebar}>
+                    {!sidebarToggle ? (
+                      <MenuTwoToneIcon fontSize="small" />
+                    ) : (
+                      <CloseTwoToneIcon fontSize="small" />
+                    )}
+                  </IconButton>
+                </Tooltip>
+              </Box>
+            </>
+          )}
         </Box>
       </Box>
     </HeaderWrapper>
