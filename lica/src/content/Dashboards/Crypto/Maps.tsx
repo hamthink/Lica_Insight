@@ -15,6 +15,8 @@ import HeatMap from './Heatmap';
 import DotMap from './Dotmap';
 import Trace from './Trace';
 import { faker } from '@faker-js/faker';
+import { RecoilEnv, useSetRecoilState } from 'recoil';
+import { authState, userState } from 'atoms';
 
 const EmptyResultsWrapper = styled('img')(
   ({ theme }) => `
@@ -23,6 +25,9 @@ const EmptyResultsWrapper = styled('img')(
       height: ${theme.spacing(34)};
 `
 );
+
+// Duplicate atom key 에러 메시지 없애기
+RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
 
 function Maps() {
   // dummy start
@@ -77,8 +82,10 @@ function Maps() {
   };
 
   const heatmap_data = Array.from({ length: 1 }, () => ({
-    x: (1200 / 11000) * faker.datatype.number({ min: 0, max: 11000 }),
-    y: (600 / 7000) * faker.datatype.number({ min: 0, max: 7000 }),
+    x: Math.round(
+      (1140 / 11000) * faker.datatype.number({ min: 0, max: 11000 })
+    ),
+    y: Math.round((600 / 7000) * faker.datatype.number({ min: 0, max: 7000 })),
     value: faker.datatype.number({ min: 1, max: 5 })
   }));
 
@@ -105,7 +112,26 @@ function Maps() {
 
   const map = "url('/static/images/map/map1.png')";
 
-  useEffect(() => {});
+  const setAccessToken = useSetRecoilState(authState);
+  const setUser = useSetRecoilState(userState);
+
+  useEffect(() => {
+    const authString = sessionStorage.getItem('auth');
+    const auth = JSON.parse(authString);
+    console.log(auth);
+    if (auth === null || !auth.isLoggedIn) {
+      // sessionStorage에 값이 없거나(null)이거나, 로그아웃 했을 경우
+      alert('로그인 필요');
+      window.location.href = '/user/login';
+    } else {
+      // sessionStorage에 값이 있고, 로그인 되어 있을 경우
+      // sessionStorage에서 정보 가져와서 atom에 저장
+      const user = JSON.parse(sessionStorage.getItem('user'));
+      console.log(user);
+      setAccessToken(auth);
+      setUser(user);
+    }
+  });
 
   return (
     <>
