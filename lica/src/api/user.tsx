@@ -7,7 +7,11 @@ function getEmailVerificationCode(params, success, fail) {
 }
 
 function postCheckVerificationCode(params, success, fail) {
-  api.post('/user/auth', { params: params }).then(success).catch(fail);
+  api.post('/user/auth', params).then(success).catch(fail);
 }
 
-export { getEmailVerificationCode, postCheckVerificationCode };
+function postJoin(params, success, fail) {
+  api.post('/user/join', params).then(success).catch(fail);
+}
+
+export { getEmailVerificationCode, postCheckVerificationCode, postJoin };

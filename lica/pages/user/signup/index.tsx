@@ -28,7 +28,8 @@ import Logo from 'src/components/LogoSign';
 import Link from 'src/components/Link';
 import {
   getEmailVerificationCode,
-  postCheckVerificationCode
+  postCheckVerificationCode,
+  postJoin
 } from '@/api/user';
 
 const HeaderWrapper = styled(Card)(
@@ -97,6 +98,7 @@ function UserSignup() {
 
     if (password === checkpass) {
       setPassFlag(true);
+
       const data = {
         email: email,
         password: password,
@@ -105,26 +107,22 @@ function UserSignup() {
         gender: gender
       };
 
-      fetch('https://k8a208.p.ssafy.io/api/user/join', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      })
-        .then((response) => {
-          if (response.ok) {
+      postJoin(
+        data,
+        ({ data }) => {
+          if (data.result === 'success') {
             if (confirm('회원가입 성공')) {
               window.location.href = '/user/login';
+            } else {
+              alert('회원가입 실패');
             }
-          } else {
-            throw new Error('회원가입 실패');
           }
-        })
-        .catch((error) => {
+        },
+        (error) => {
           console.error(error);
           alert(error.message);
-        });
+        }
+      );
     } else {
       setPassFlag(false);
     }
@@ -350,8 +348,8 @@ function UserSignup() {
                   <FormControlLabel
                     control={
                       <Radio
-                        value="female"
-                        checked={gender === 'female'}
+                        value="0"
+                        checked={gender === '0'}
                         onChange={changeGender}
                       />
                     }
@@ -360,8 +358,8 @@ function UserSignup() {
                   <FormControlLabel
                     control={
                       <Radio
-                        value="male"
-                        checked={gender === 'male'}
+                        value="1"
+                        checked={gender === '1'}
                         onChange={changeGender}
                       />
                     }
