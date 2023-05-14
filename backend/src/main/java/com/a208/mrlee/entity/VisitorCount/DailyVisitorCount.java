@@ -4,12 +4,16 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.time.LocalDate;
 
 @NoArgsConstructor
+@Getter
 @Entity
-public class DailyVisitorCount implements VisitorCount{
+public class DailyVisitorCount {
     @Id
     @GeneratedValue
     private Long id;
@@ -28,20 +32,6 @@ public class DailyVisitorCount implements VisitorCount{
         this.numVisitor = numVisitor;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    @Override
-    public Long getNumVisitor() {
-        return null;
-    }
-
-    @Override
     public void setNumVisitor(long numVisitor) {
         this.numVisitor = numVisitor;
     }
