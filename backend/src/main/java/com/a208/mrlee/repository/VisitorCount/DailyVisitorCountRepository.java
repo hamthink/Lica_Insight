@@ -1,4 +1,4 @@
-package com.a208.mrlee.repository.DailyVisitorCount;
+package com.a208.mrlee.repository.VisitorCount;
 
 import com.a208.mrlee.entity.VisitorCount.DailyVisitorCount;
 import org.springframework.data.jpa.repository.JpaRepository;
