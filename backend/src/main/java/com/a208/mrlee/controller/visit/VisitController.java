@@ -28,13 +28,12 @@ public class VisitController {
     @GetMapping("")
     public ResponseEntity<?> record(@RequestParam String start, @RequestParam String end) {
         Map<String, Object> resultMap = new HashMap<String, Object>();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
         LocalDateTime startTime = LocalDateTime.parse(start, formatter);
         LocalDateTime endTime = LocalDateTime.parse(end, formatter);
         List<CustomerTrackingInfoDTO> list = visitService.getTrackingInfo(startTime, endTime);
         resultMap.put("infoList", list);
         return ResponseEntity.ok(resultMap);
-
     }
 
     @GetMapping("/track")
