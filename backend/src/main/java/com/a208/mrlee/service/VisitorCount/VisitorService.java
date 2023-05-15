@@ -266,13 +266,14 @@ public class VisitorService {
         return evictorId;
     }
 
-    public WeeklyVisitorStats getWeeklyVisitorStats(String endDateStr) {
+    public WeeklyVisitorStats getWeeklyVisitorStats(String endDate) {
 
         WeeklyVisitorStats weeklyVisitorStats = new WeeklyVisitorStats();
 
-        LocalDate endDate = LocalDate.parse(endDateStr, DateTimeFormatter.ISO_LOCAL_DATE);
+        LocalDate last = LocalDate.parse(endDate, DateTimeFormatter.ISO_LOCAL_DATE);
+        LocalDate first = last.minusWeeks(1L).plusDays(1L);
 
-        for (LocalDate cur = endDate.minusWeeks(1L); cur.compareTo(endDate) <= 0; cur = cur.plusDays(1L)) {
+        for (LocalDate cur = first; cur.compareTo(last) <= 0; cur = cur.plusDays(1L)) {
 
             DailyVisitorCountDto dailyVisitorCountDto = findDailyVisitorCount(cur);
             weeklyVisitorStats.append(
@@ -293,7 +294,7 @@ public class VisitorService {
                 .map(e -> new HourlyVisitor(e.getDateTime(), e.getNumVisitor()))
                 .collect(Collectors.toList());
 
-        return new DailyVisitorStats(dailyStats);
+        return new DailyVisitorStats(date, dailyStats);
     }
 
 
