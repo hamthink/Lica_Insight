@@ -93,7 +93,12 @@ public class VisitorService {
         LocalDateTime start = LocalDateTime.of(date, LocalTime.of(hour, 0, 0));
         LocalDateTime end = LocalDateTime.of(date, LocalTime.of(hour, 59, 59));
 
-        return customerTrackingInfoRepository.countByCreatedBetween(start, end);
+        return customerTrackingInfoRepository.findByCreatedBetween(start, end)
+                .stream()
+                .map(CustomerTrackingInfo::getTid)
+                .collect(Collectors.toSet())
+                .stream()
+                .count();
     }
 
     public DailyVisitorCountDto findDailyVisitorCount(LocalDate date) {
@@ -281,7 +286,8 @@ public class VisitorService {
 
     public DailyVisitorStats getDailyVisitorStats(LocalDate date){
 
-        List<HourlyVisitor> dailyStats = findHourlyVisitorCounts(date).stream()
+        List<HourlyVisitor> dailyStats = findHourlyVisitorCounts(date)
+                .stream()
                 .map(e -> new HourlyVisitor(e.getDateTime(), e.getNumVisitor()))
                 .collect(Collectors.toList());
 
