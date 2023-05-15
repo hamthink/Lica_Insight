@@ -12,8 +12,6 @@ import java.time.format.DateTimeFormatter;
 @NoArgsConstructor
 @Getter
 public class HourlyVisitor {
-    LocalDate date;
-    String weekDay;
     String time;
     Long visitors;
 
@@ -22,8 +20,6 @@ public class HourlyVisitor {
     }
     public HourlyVisitor(LocalDateTime datetime, Long visitors) {
 
-        this.date = datetime.toLocalDate();
-        this.weekDay = date.getDayOfWeek().name();
         this.time = getFormattedTime(
                 LocalTime.of(
                         datetime.getHour(),
@@ -35,10 +31,8 @@ public class HourlyVisitor {
     }
 
     @Builder
-    public HourlyVisitor(LocalDate date, LocalTime time, Long visitors) {
+    public HourlyVisitor(LocalTime time, Long visitors) {
 
-        this.date = date;
-        this.weekDay = date.getDayOfWeek().name();
         this.time = getFormattedTime(time);
         this.visitors = visitors;
     }
