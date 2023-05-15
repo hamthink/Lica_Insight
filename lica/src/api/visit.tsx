@@ -6,4 +6,8 @@ function getVisitTrack(params, success, fail) {
   api.get(`/visit/track`, { params: params }).then(success).catch(fail);
 }
 
-export { getVisitTrack };
+function getVisit(params, success, fail) {
+  api.get('/visit', { params: params }).then(success).catch(fail);
+}
+
+export { getVisitTrack, getVisit };
