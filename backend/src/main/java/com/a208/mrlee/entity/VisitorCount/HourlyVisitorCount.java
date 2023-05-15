@@ -4,15 +4,13 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Getter
 @Entity
+@Table(indexes = @Index(name = "idx_date_time", columnList = "dateTime"))
 public class HourlyVisitorCount {
 
     @Id

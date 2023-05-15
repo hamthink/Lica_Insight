@@ -1,11 +1,9 @@
 package com.a208.mrlee.dto.VisitorCount;
 
 import com.a208.mrlee.entity.VisitorCount.HourlyVisitorCount;
-import com.a208.mrlee.repository.VisitorCount.HourlyVisitorCountRepository;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 

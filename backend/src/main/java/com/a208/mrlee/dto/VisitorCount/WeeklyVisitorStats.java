@@ -16,6 +16,10 @@ public class WeeklyVisitorStats {
         weeklyStats = new ArrayList<>();
     }
 
+    public WeeklyVisitorStats(List<DailyVisitor> weeklyStats) {
+        this.weeklyStats = weeklyStats;
+    }
+
     public void append(DailyVisitor dailyVisitor) {
         weeklyStats.add(dailyVisitor);
     }

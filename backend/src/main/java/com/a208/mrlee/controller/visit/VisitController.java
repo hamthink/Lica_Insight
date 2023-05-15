@@ -29,7 +29,17 @@ public class VisitController {
     private static final String SUCCESS = "success";
     private static final String FAIL = "fail";
     private final VisitService visitService;
-    private final VisitorCountService visitorCountService;
+    private final VisitorService visitorService;
+    private DateTimeFormatter localDateFormatter = DateTimeFormatter.ISO_LOCAL_DATE;
+    private DateTimeFormatter localDateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+
+    private LocalDate toLocalDate(String dateTimeStr) {
+        return LocalDate.parse(dateTimeStr, localDateFormatter);
+    }
+
+    private LocalDateTime toLocalDateTime(String dateTimeStr) {
+        return LocalDateTime.parse(dateTimeStr, localDateTimeFormatter);
+    }
 
     @GetMapping
     public ResponseEntity<?> record(@RequestParam String start, @RequestParam String end) {
@@ -65,22 +75,48 @@ public class VisitController {
 
     // 일주일 전부터 요청한 날짜까지 일간 방문자 통계 데이터를 반환한다
     @GetMapping("/weekly-visitor-statistic")
-    public ResponseEntity<WeeklyVisitorStats> getWeeklyVisitorStats(@RequestParam String endDateStr){
+    public ResponseEntity<WeeklyVisitorStats> getWeeklyVisitorStats(@RequestParam String endDateStr) {
 
-        LocalDate endDate = LocalDate.parse(endDateStr, DateTimeFormatter.ISO_LOCAL_DATE);
-        for(LocalDate cur = endDate.minusWeeks(1L); cur.compareTo(endDate) <= 0; cur = cur.plusDays(1L)){
-
-            DailyVisitorCountDto dto = visitorCountService.findDailyVisitorCount(cur);
-
-        }
-
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok(visitorService.getWeeklyVisitorStats(endDateStr));
     }
 
     // 요청한 날짜의 시간별 방문자 통계 데이터를 반환한다
-    @GetMapping("/daily=visitor-statistic")
-    public ResponseEntity<DailyVisitorStats> getDailyVisitorStats(@RequestParam String dateStr){
+    @GetMapping("/daily-visitor-statistic")
+    public ResponseEntity<DailyVisitorStats> getDailyVisitorStats(@RequestParam String dateStr) {
 
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok(
+                visitorService.getDailyVisitorStats(
+                        toLocalDate(dateStr)
+                ));
+    }
+
+    @PostMapping("/daily-visitor")
+    public ResponseEntity<DailyVisitorCountDto> createDailyVisitor(@RequestParam String dateStr) {
+
+        return ResponseEntity.ok(
+                visitorService.createDailyVisitorCount(
+                        toLocalDate(dateStr)
+                ));
+    }
+
+    @PostMapping("/dummy/daily-visitor")
+    public ResponseEntity<DailyVisitorCountDto> createDailyVisitor(@RequestBody DailyVisitorCountSaveDto dto) {
+
+        return ResponseEntity.ok(visitorService.createDailyVisitorCount(dto));
+    }
+
+    @PostMapping("/hourly-visitor")
+    public ResponseEntity<HourlyVisitorCountDtos> createHourlyVisitor(@RequestParam String dateStr) {
+
+        return ResponseEntity.ok(
+                visitorService.createHourlyVisitorCounts(
+                        toLocalDate(dateStr)
+                ));
+    }
+
+    @PostMapping("/dummy/hourly-visitor")
+    public ResponseEntity<HourlyVisitorCountDto> createHourlyVisitor(@RequestBody HourlyVisitorCountSaveDto dto) {
+
+        return ResponseEntity.ok(visitorService.createHourlyVisitorCount(dto));
     }
 }

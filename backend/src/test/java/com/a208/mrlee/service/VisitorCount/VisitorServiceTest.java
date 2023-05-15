@@ -32,7 +32,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 
 @ExtendWith(MockitoExtension.class)
-class VisitorCountServiceTest {
+class VisitorServiceTest {
 
     @Mock
     private DailyVisitorCountRepository dailyVisitorCountRepository;
@@ -41,7 +41,7 @@ class VisitorCountServiceTest {
     @Mock
     private CustomerTrackingInfoRepository customerTrackingInfoRepository;
     @InjectMocks
-    private VisitorCountService visitorCountService;
+    private VisitorService visitorService;
 
     private LocalDate date;
     private LocalDate dateAlreadyExist;
@@ -94,7 +94,7 @@ class VisitorCountServiceTest {
         given(dailyVisitorCountRepository.save(any(DailyVisitorCount.class)))
                 .willReturn(possibleSaveResult);
 
-        visitorCountService.createDailyVisitorCount(saveDto);
+        visitorService.createDailyVisitorCount(saveDto);
 
         then(dailyVisitorCountRepository)
                 .should()
@@ -111,7 +111,7 @@ class VisitorCountServiceTest {
         given(dailyVisitorCountRepository.save(any(DailyVisitorCount.class)))
                 .willReturn(possibleSaveResult);
 
-        visitorCountService.createDailyVisitorCount(date);
+        visitorService.createDailyVisitorCount(date);
 
         then(dailyVisitorCountRepository)
                 .should()
@@ -131,7 +131,7 @@ class VisitorCountServiceTest {
         // date 칼럼에 Unique 제약이 걸려있으므로 예외가 발생해야한다.
         assertThrows(
                 DateAlreadyExistException.class,
-                () -> visitorCountService.createDailyVisitorCount(saveDto)
+                () -> visitorService.createDailyVisitorCount(saveDto)
         );
     }
 
@@ -143,7 +143,7 @@ class VisitorCountServiceTest {
 
         given(dailyVisitorCountRepository.findByDate(date)).willReturn(Optional.of(expected));
 
-        DailyVisitorCountDto result = visitorCountService.findDailyVisitorCount(date);
+        DailyVisitorCountDto result = visitorService.findDailyVisitorCount(date);
 
         then(dailyVisitorCountRepository)
                 .should()
@@ -167,7 +167,7 @@ class VisitorCountServiceTest {
         // DailyVisitorCountService.findByDate 함수에 예외가 발생해야한다.
         assertThrows(
                 NoSuchElementException.class,
-                () -> visitorCountService.findDailyVisitorCount(date)
+                () -> visitorService.findDailyVisitorCount(date)
         );
     }
 
@@ -182,7 +182,7 @@ class VisitorCountServiceTest {
         given(dailyVisitorCountRepository.findByDate(date))
                 .willReturn(Optional.of(dailyVisitorCount));
 
-        visitorCountService.updateDailyVisitorCount(date, newNumVisitor);
+        visitorService.updateDailyVisitorCount(date, newNumVisitor);
 
         then(dailyVisitorCountRepository)
                 .should()
@@ -200,7 +200,7 @@ class VisitorCountServiceTest {
         // DailyVisitorCountService.updateNumVisitorOfDate 함수에서 예외가 발생해야한다.
         assertThrows(
                 NoSuchElementException.class,
-                () -> visitorCountService.updateDailyVisitorCount(date, numVisitor)
+                () -> visitorService.updateDailyVisitorCount(date, numVisitor)
         );
     }
 
@@ -213,7 +213,7 @@ class VisitorCountServiceTest {
         given(dailyVisitorCountRepository.findByDate(date))
                 .willReturn(Optional.of(dailyVisitorCount));
 
-        visitorCountService.deleteDailyVisitorCount(date);
+        visitorService.deleteDailyVisitorCount(date);
 
         then(dailyVisitorCountRepository)
                 .should()
@@ -229,7 +229,7 @@ class VisitorCountServiceTest {
 
         assertThrows(
                 NoSuchElementException.class,
-                () -> visitorCountService.deleteDailyVisitorCount(date)
+                () -> visitorService.deleteDailyVisitorCount(date)
         );
     }
 }

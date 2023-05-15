@@ -1,9 +1,6 @@
 package com.a208.mrlee.service.VisitorCount;
 
-import com.a208.mrlee.dto.VisitorCount.DailyVisitorCountDto;
-import com.a208.mrlee.dto.VisitorCount.DailyVisitorCountSaveDto;
-import com.a208.mrlee.dto.VisitorCount.HourlyVisitorCountDto;
-import com.a208.mrlee.dto.VisitorCount.HourlyVisitorCountSaveDto;
+import com.a208.mrlee.dto.VisitorCount.*;
 import com.a208.mrlee.entity.VisitorCount.DailyVisitorCount;
 import com.a208.mrlee.entity.VisitorCount.HourlyVisitorCount;
 import com.a208.mrlee.exception.DateAlreadyExistException;
@@ -18,14 +15,16 @@ import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Transactional
 @Service
-public class VisitorCountService {
+public class VisitorService {
 
     private final DailyVisitorCountRepository dailyVisitorCountRepository;
     private final HourlyVisitorCountRepository hourlyVisitorCountRepository;
@@ -140,6 +139,26 @@ public class VisitorCountService {
         return HourlyVisitorCountDto.fromEntity(saved);
     }
 
+    public HourlyVisitorCountDtos createHourlyVisitorCounts(LocalDate date){
+
+        List<HourlyVisitorCountDto> hourlyVisitorList = new ArrayList<>();
+
+        for(int hour = 0; hour < 24; ++hour){
+            long numVisitor = countHourlyVisitors(date, hour); // between ${hour}:00:00 ~ ${hour}:59:59
+            HourlyVisitorCount entity = HourlyVisitorCount.builder()
+                    .dateTime(LocalDateTime.of(
+                            date,
+                            LocalTime.of(hour, 0, 0)
+                    ))
+                    .numVisitor(numVisitor)
+                    .build();
+
+            hourlyVisitorList.add(HourlyVisitorCountDto.fromEntity(entity));
+        }
+
+        return new HourlyVisitorCountDtos(hourlyVisitorList);
+    }
+
     public HourlyVisitorCountDto findHourlyVisitorCount(LocalDate date, int hour) {
 
         if (hour < 0 || hour >= 24) {
@@ -219,6 +238,35 @@ public class VisitorCountService {
         hourlyVisitorCountRepository.delete(evictor);
 
         return evictorId;
+    }
+
+    public WeeklyVisitorStats getWeeklyVisitorStats(String endDateStr){
+
+        WeeklyVisitorStats weeklyVisitorStats = new WeeklyVisitorStats();
+
+        LocalDate endDate = LocalDate.parse(endDateStr, DateTimeFormatter.ISO_LOCAL_DATE);
+
+        for (LocalDate cur = endDate.minusWeeks(1L); cur.compareTo(endDate) <= 0; cur = cur.plusDays(1L)) {
+
+            DailyVisitorCountDto dailyVisitorCountDto = findDailyVisitorCount(cur);
+            weeklyVisitorStats.append(
+                    DailyVisitor.builder()
+                            .date(dailyVisitorCountDto.getDate())
+                            .visitors(dailyVisitorCountDto.getNumVisitor())
+                            .build()
+            );
+        }
+
+        return weeklyVisitorStats;
+    }
+
+    public DailyVisitorStats getDailyVisitorStats(LocalDate date){
+
+        List<HourlyVisitor> dailyStats = findHourlyVisitorCounts(date).stream()
+                .map(e -> new HourlyVisitor(e.getDateTime(), e.getNumVisitor()))
+                .collect(Collectors.toList());
+
+        return new DailyVisitorStats(dailyStats);
     }
 
 
