@@ -2,11 +2,8 @@ package com.a208.mrlee.controller.visit;
 
 import com.a208.mrlee.dto.CustomerTrackingInfo.CustomerTrackingInfoDTO;
 import com.a208.mrlee.dto.CustomerTrackingInfo.TrackXYDTO;
-import com.a208.mrlee.dto.VisitorCount.DailyVisitorCountDto;
-import com.a208.mrlee.dto.VisitorCount.DailyVisitorStats;
-import com.a208.mrlee.dto.VisitorCount.WeeklyVisitorStats;
-import com.a208.mrlee.entity.CustomerTrackingInfo.CustomerTrackingInfo;
-import com.a208.mrlee.service.VisitorCount.VisitorCountService;
+import com.a208.mrlee.dto.VisitorCount.*;
+import com.a208.mrlee.service.VisitorCount.VisitorService;
 import com.a208.mrlee.service.visit.VisitService;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
@@ -47,11 +44,11 @@ public class VisitController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
         LocalDateTime startTime = LocalDateTime.parse(start, formatter);
         LocalDateTime endTime = LocalDateTime.parse(end, formatter);
-        try{
+        try {
             List<CustomerTrackingInfoDTO> list = visitService.getTrackingInfo(startTime, endTime);
             resultMap.put("infoList", list);
             resultMap.put("result", SUCCESS);
-        }catch (Exception e){
+        } catch (Exception e) {
             resultMap.put("result", FAIL);
         }
         return ResponseEntity.ok(resultMap);
@@ -63,11 +60,11 @@ public class VisitController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
         LocalDateTime startTime = LocalDateTime.parse(start, formatter);
         LocalDateTime endTime = LocalDateTime.parse(end, formatter);
-        try{
+        try {
             Map<String, List<TrackXYDTO>> map = visitService.getTrack(startTime, endTime);
             resultMap.put("trackList", map);
             resultMap.put("result", SUCCESS);
-        }catch (Exception e){
+        } catch (Exception e) {
             resultMap.put("result", FAIL);
         }
         return ResponseEntity.ok(resultMap);
