@@ -1,86 +1,73 @@
 import {
   Button,
   Card,
+  Grid,
   Box,
-  CardActions,
   Typography,
-  Avatar,
-  alpha,
-  Stack,
-  Divider,
-  styled,
-  useTheme
+  useTheme,
+  TextField
 } from '@mui/material';
-import Text from 'src/components/Text';
 import Label from 'src/components/Label';
 import { Chart } from 'src/components/Chart';
 import type { ApexOptions } from 'apexcharts';
-import TrendingUpTwoToneIcon from '@mui/icons-material/TrendingUpTwoTone';
-import { useState, useEffect } from 'react';
-
-const AvatarWrapper = styled(Avatar)(
-  ({ theme }) => `
-    margin: ${theme.spacing(0, 0, 1, -0.5)};
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: ${theme.spacing(1)};
-    padding: ${theme.spacing(0.5)};
-    border-radius: 60px;
-    height: ${theme.spacing(5.5)};
-    width: ${theme.spacing(5.5)};
-    background: ${
-      theme.palette.mode === 'dark'
-        ? theme.colors.alpha.trueWhite[30]
-        : alpha(theme.colors.alpha.black[100], 0.07)
-    };
-  
-    img {
-      background: ${theme.colors.alpha.trueWhite[100]};
-      padding: ${theme.spacing(0.5)};
-      display: block;
-      border-radius: inherit;
-      height: ${theme.spacing(4.5)};
-      width: ${theme.spacing(4.5)};
-    }
-`
-);
+import { useState } from 'react';
+import { DatePicker } from '@mui/lab';
+import { getVisitWeekly } from '@/api/visit';
+import { format } from 'date-fns';
 
 function WatchListRow() {
   const theme = useTheme();
 
-  const [date, setDate] = useState(new Date());
+  const [selDate, setSelDate] = useState(null);
+  const [visitorList, setVisitorList] = useState(null);
 
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setDate(new Date());
-    }, 1000);
+  function handleDateChange(date) {
+    setSelDate(date);
+  }
 
-    return () => clearInterval(intervalId);
-  }, []);
+  function handleWeeklyVisitor() {
+    const date = format(new Date(selDate), 'yyyy-MM-dd');
+    getVisitWeekly(
+      {
+        endDate: date
+      },
+      ({ data }) => {
+        console.log('데이터 가져오기 성공');
+        console.log(data.weeklyStats);
+        var list = [];
+        for (var i of data.weeklyStats) {
+          console.log(i.visitors);
+          list.push(parseInt(i.visitors));
+        }
+        // console.log(visitorList);
+        setVisitorList(list);
+      },
+      (error) => {
+        console.error(error);
+        alert(error.messege);
+      }
+    );
+  }
 
-  const today = new Date(); // 현재 날짜를 가져옵니다.
-
-  const day1 = new Date(
-    today.getTime() - 24 * 60 * 60 * 1000
-  ).toLocaleDateString(); // 하루 전의 날짜
+  const today = new Date(selDate); // 현재 날짜를 가져옵니다.
+  const day1 = new Date(today.getTime()).toLocaleDateString(); // 하루 전의 날짜
   const day2 = new Date(
-    today.getTime() - 2 * 24 * 60 * 60 * 1000
+    today.getTime() - 24 * 60 * 60 * 1000
   ).toLocaleDateString(); // 이틀 전의 날짜
   const day3 = new Date(
-    today.getTime() - 3 * 24 * 60 * 60 * 1000
+    today.getTime() - 2 * 24 * 60 * 60 * 1000
   ).toLocaleDateString(); // 사흘 전의 날짜
   const day4 = new Date(
-    today.getTime() - 4 * 24 * 60 * 60 * 1000
+    today.getTime() - 3 * 24 * 60 * 60 * 1000
   ).toLocaleDateString(); // 넷째 날 전의 날짜
   const day5 = new Date(
-    today.getTime() - 5 * 24 * 60 * 60 * 1000
+    today.getTime() - 4 * 24 * 60 * 60 * 1000
   ).toLocaleDateString(); // 다섯째 날 전의 날짜
   const day6 = new Date(
-    today.getTime() - 6 * 24 * 60 * 60 * 1000
+    today.getTime() - 5 * 24 * 60 * 60 * 1000
   ).toLocaleDateString(); // 여섯째 날 전의 날짜
   const day7 = new Date(
-    today.getTime() - 7 * 24 * 60 * 60 * 1000
+    today.getTime() - 6 * 24 * 60 * 60 * 1000
   ).toLocaleDateString(); // 일주일 전의 날짜
 
   const Box1Options: ApexOptions = {
@@ -103,7 +90,7 @@ function WatchListRow() {
     stroke: {
       curve: 'smooth',
       colors: [theme.colors.primary.main],
-      width: 2
+      width: 3
     },
     yaxis: {
       show: false
@@ -122,7 +109,7 @@ function WatchListRow() {
     },
     tooltip: {
       fixed: {
-        enabled: true
+        enabled: false
       },
       x: {
         show: true
@@ -142,78 +129,78 @@ function WatchListRow() {
 
   const Box1Data = [
     {
-      name: 'visitors',
-      data: [55.701, 57.598, 48.607, 46.439, 58.755, 46.978, 58.16]
+      name: 'Visitors per Day',
+      data: visitorList
     }
   ];
 
   return (
-    <Card>
-      <Stack
-        direction="row"
-        justifyContent="space-evenly"
-        alignItems="stretch"
-        divider={<Divider orientation="vertical" flexItem />}
-        spacing={0}
-      >
-        <Box
+    <Grid
+      container
+      direction="row"
+      justifyContent="center"
+      alignItems="stretch"
+      spacing={3}
+    >
+      <Grid item xs={12}>
+        <Card
           sx={{
-            width: '100%',
-            p: 3
+            overflow: 'visible'
           }}
         >
           <Box
-            mt={3}
-            display="flex"
-            alignItems="center"
-            justifyContent="space-between"
+            sx={{
+              p: 3
+            }}
           >
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'flex-start'
-              }}
-            >
-              <Typography
-                variant="h2"
-                sx={{
-                  pr: 1
-                }}
+            <Box>
+              <DatePicker
+                label="Date Picker"
+                value={selDate}
+                onChange={handleDateChange}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Select Date"
+                    variant="standard"
+                    sx={{ m: 1, mr: 3 }}
+                  />
+                )}
+              />
+              <Button
+                variant="contained"
+                onClick={handleWeeklyVisitor}
+                sx={{ mt: 2, mr: 2 }}
               >
-                <Box>
-                  <Box>
-                    <Typography variant="h2" noWrap>
-                      {date.toLocaleDateString()}
-                    </Typography>
-                  </Box>
-                  <Label color="secondary">last 7 days</Label>
-                </Box>
-              </Typography>
+                확인
+              </Button>
             </Box>
+            <Label color="secondary">last 7 days</Label>
           </Box>
-          <Box pt={2}>
+          {visitorList === null ? (
+            <Typography
+              align="center"
+              variant="h2"
+              fontWeight="normal"
+              color="text.secondary"
+              sx={{
+                mt: 3
+              }}
+              gutterBottom
+            >
+              Please select date!
+            </Typography>
+          ) : (
             <Chart
               options={Box1Options}
               series={Box1Data}
-              type="line"
+              type="area"
               height={500}
             />
-          </Box>
-        </Box>
-      </Stack>
-      <Divider />
-      <CardActions
-        disableSpacing
-        sx={{
-          p: 3,
-          display: 'flex',
-          justifyContent: 'center'
-        }}
-      >
-        <Button variant="outlined">View more assets</Button>
-      </CardActions>
-    </Card>
+          )}
+        </Card>
+      </Grid>
+    </Grid>
   );
 }
 

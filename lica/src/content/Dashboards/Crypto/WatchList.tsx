@@ -81,15 +81,6 @@ function WatchList() {
           >
             Click something, anything!
           </Typography>
-          <Button
-            variant="contained"
-            size="large"
-            sx={{
-              mt: 4
-            }}
-          >
-            Maybe, a button?
-          </Button>
         </Card>
       )}
     </>

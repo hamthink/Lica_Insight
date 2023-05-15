@@ -14,9 +14,16 @@ function getVisitDaily(params, success, fail) {
     .catch(fail);
 }
 
+function getVisitWeekly(params, success, fail) {
+  api
+    .get(`/visit/weekly-visitor-statistics`, { params: params })
+    .then(success)
+    .catch(fail);
+}
+
 // 히트맵, 점맵
 function getVisit(params, success, fail) {
   api.get('/visit', { params: params }).then(success).catch(fail);
 }
 
-export { getVisitTrack, getVisitDaily, getVisit };
+export { getVisitTrack, getVisitDaily, getVisitWeekly, getVisit };
