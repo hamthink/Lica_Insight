@@ -24,15 +24,14 @@ public class SwaggerConfig {
     // Swagger - API 기본 설정
     private String API_VERSION = "1.0";
     private String API_TITLE = "LicaInsight";
-    private String API_DESCRIPTION = "A208 API";;
+    private String API_DESCRIPTION = "A208 API";
 
-
-    public Docket getDocket(String groupName, boolean defaultResponseMessage,
-                            // Predicate<String> predicate,
-                            String basePackage) {
+    public Docket getDocket(String groupName, boolean defaultResponseMessage, String basePackage) {
 
         return new Docket(DocumentationType.OAS_30).groupName(groupName)
-                .useDefaultResponseMessages(defaultResponseMessage) // Swagger 에서 제공해주는 기본 응답 코드 표시 여부
+                .useDefaultResponseMessages(defaultResponseMessage)
+//                .consumes(getConsumeContentTypes())
+//                .produces(getProduceContentTypes())
                 .apiInfo(apiInfo()) // apiInfo정보
                 .securityContexts(Arrays.asList(securityContext()))
                 .securitySchemes(Arrays.asList(apiKey()))
@@ -43,7 +42,11 @@ public class SwaggerConfig {
     }
 
     public ApiInfo apiInfo() {
-        return new ApiInfoBuilder().title(API_TITLE).description(API_DESCRIPTION).version(API_VERSION).build();
+        return new ApiInfoBuilder()
+                .title(API_TITLE)
+                .description(API_DESCRIPTION)
+                .version(API_VERSION)
+                .build();
     }
 
     private ApiKey apiKey() {
@@ -55,18 +58,19 @@ public class SwaggerConfig {
                 .securityReferences(Arrays.asList(defaultAuth()))
                 .build();
     }
+
     private SecurityReference defaultAuth() {
         return new SecurityReference("apiKey", new AuthorizationScope[0]);
     }
-    // DEVELOPTING
+
     @Bean
-    public Docket mail() {
-        return getDocket("MAIL", true, "mail");
+    public Docket user() {
+        return getDocket("User", false, "user");
     }
 
     @Bean
     public Docket visit() {
-        return getDocket("VISIT", true, "visit");
+        return getDocket("Visit", false, "visit");
     }
 
 }
