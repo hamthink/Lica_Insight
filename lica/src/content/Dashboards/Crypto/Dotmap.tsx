@@ -112,9 +112,10 @@ function DotMap(props) {
         console.log(data);
         // if (data.result === 'success') {
         console.log('정보 가져오기 성공');
-        // for (var i of data.infoList) {
-        //   i.y = 600 - i.y;
-        // }
+        for (var i of data.infoList) {
+          i.x = Math.round((1140 / 11000) * i.x);
+          i.y = Math.round((600 / 7000) * i.y);
+        }
         setVisit({
           datasets: [
             {
@@ -136,7 +137,7 @@ function DotMap(props) {
       }
     );
 
-    const canvas = document.getElementById('dotmap') as HTMLCanvasElement;
+    // const canvas = document.getElementById('dotmap') as HTMLCanvasElement;
 
     // const newChart = new Chart(canvas, {
     //   type: 'scatter',
@@ -287,9 +288,9 @@ function DotMap(props) {
                     alt="LiCa LOGO"
                   /> */}
                 </Box>
-                <Box>
+                {/* <Box>
                   <canvas id="dotmap"></canvas>
-                </Box>
+                </Box> */}
               </CardContent>
             </Card>
           </Grid>

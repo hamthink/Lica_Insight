@@ -52,7 +52,9 @@ function HeatMap(props) {
         // if (data.result === 'success') {
         console.log('정보 가져오기 성공');
         for (var i of data.infoList) {
-          i.y = 600 - i.y;
+          i.x = Math.round((1140 / 11400) * i.x);
+          i.y = 600 - Math.round((600 / 7000) * i.y);
+          // i.y = 600 - i.y;
         }
         setVisit(data.infoList);
 
@@ -83,7 +85,7 @@ function HeatMap(props) {
 
   function generateHeatmap() {
     heatmap.setData({
-      max: 10,
+      max: 50,
       data: visit === null ? '' : visit,
       xMin: 0,
       xMax: props.range.width,
@@ -216,8 +218,8 @@ function HeatMap(props) {
                     // maxWidth: props.range.width,
                     height: props.range.height,
                     margin: '0 auto',
-                    backgroundImage: props.map,
-                    // backgroundImage: "url('/static/images/map/map1.png')",
+                    // backgroundImage: props.map,
+                    backgroundImage: "url('/static/images/map/map1.png')",
                     backgroundSize: 'cover'
                   }}
                 ></div>
