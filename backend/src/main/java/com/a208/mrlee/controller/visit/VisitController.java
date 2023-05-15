@@ -71,14 +71,14 @@ public class VisitController {
     }
 
     // 일주일 전부터 요청한 날짜까지 일간 방문자 통계 데이터를 반환한다
-    @GetMapping("/weekly-visitor-statistic")
+    @GetMapping("/weekly-visitor-statistics")
     public ResponseEntity<WeeklyVisitorStats> getWeeklyVisitorStats(@RequestParam String endDateStr) {
 
         return ResponseEntity.ok(visitorService.getWeeklyVisitorStats(endDateStr));
     }
 
     // 요청한 날짜의 시간별 방문자 통계 데이터를 반환한다
-    @GetMapping("/daily-visitor-statistic")
+    @GetMapping("/daily-visitor-statistics")
     public ResponseEntity<DailyVisitorStats> getDailyVisitorStats(@RequestParam String dateStr) {
 
         return ResponseEntity.ok(
