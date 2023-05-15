@@ -1,6 +1,7 @@
 package com.a208.mrlee.service.VisitorCount;
 
 import com.a208.mrlee.dto.VisitorCount.*;
+import com.a208.mrlee.entity.CustomerTrackingInfo.CustomerTrackingInfo;
 import com.a208.mrlee.entity.VisitorCount.DailyVisitorCount;
 import com.a208.mrlee.entity.VisitorCount.HourlyVisitorCount;
 import com.a208.mrlee.exception.DateAlreadyExistException;
@@ -19,6 +20,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -73,7 +75,12 @@ public class VisitorService {
                 LocalTime.of(23, 59, 59)
         );
 
-        return customerTrackingInfoRepository.countByCreatedBetween(start, end);
+        Set<String> tids = customerTrackingInfoRepository.findByCreatedBetween(start, end)
+                .stream()
+                .map(CustomerTrackingInfo::getTid)
+                .collect(Collectors.toSet());
+
+        return tids.stream().count();
     }
 
     public long countHourlyVisitors(LocalDate date, int hour) {

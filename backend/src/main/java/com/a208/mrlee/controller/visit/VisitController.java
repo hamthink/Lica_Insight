@@ -72,27 +72,27 @@ public class VisitController {
 
     // 일주일 전부터 요청한 날짜까지 일간 방문자 통계 데이터를 반환한다
     @GetMapping("/weekly-visitor-statistics")
-    public ResponseEntity<WeeklyVisitorStats> getWeeklyVisitorStats(@RequestParam String endDateStr) {
+    public ResponseEntity<WeeklyVisitorStats> getWeeklyVisitorStats(@RequestParam String endDate) {
 
-        return ResponseEntity.ok(visitorService.getWeeklyVisitorStats(endDateStr));
+        return ResponseEntity.ok(visitorService.getWeeklyVisitorStats(endDate));
     }
 
     // 요청한 날짜의 시간별 방문자 통계 데이터를 반환한다
     @GetMapping("/daily-visitor-statistics")
-    public ResponseEntity<DailyVisitorStats> getDailyVisitorStats(@RequestParam String dateStr) {
+    public ResponseEntity<DailyVisitorStats> getDailyVisitorStats(@RequestParam String date) {
 
         return ResponseEntity.ok(
                 visitorService.getDailyVisitorStats(
-                        toLocalDate(dateStr)
+                        toLocalDate(date)
                 ));
     }
 
     @PostMapping("/daily-visitor")
-    public ResponseEntity<DailyVisitorCountDto> createDailyVisitor(@RequestParam String dateStr) {
+    public ResponseEntity<DailyVisitorCountDto> createDailyVisitor(@RequestParam String date) {
 
         return ResponseEntity.ok(
                 visitorService.createDailyVisitorCount(
-                        toLocalDate(dateStr)
+                        toLocalDate(date)
                 ));
     }
 
@@ -103,11 +103,11 @@ public class VisitController {
     }
 
     @PostMapping("/hourly-visitor")
-    public ResponseEntity<HourlyVisitorCountDtos> createHourlyVisitor(@RequestParam String dateStr) {
+    public ResponseEntity<HourlyVisitorCountDtos> createHourlyVisitor(@RequestParam String date) {
 
         return ResponseEntity.ok(
                 visitorService.createHourlyVisitorCounts(
-                        toLocalDate(dateStr)
+                        toLocalDate(date)
                 ));
     }
 
