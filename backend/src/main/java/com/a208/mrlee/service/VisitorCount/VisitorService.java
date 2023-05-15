@@ -93,12 +93,12 @@ public class VisitorService {
         LocalDateTime start = LocalDateTime.of(date, LocalTime.of(hour, 0, 0));
         LocalDateTime end = LocalDateTime.of(date, LocalTime.of(hour, 59, 59));
 
-        return customerTrackingInfoRepository.findByCreatedBetween(start, end)
+        Set<String> tids = customerTrackingInfoRepository.findByCreatedBetween(start, end)
                 .stream()
                 .map(CustomerTrackingInfo::getTid)
-                .collect(Collectors.toSet())
-                .stream()
-                .count();
+                .collect(Collectors.toSet());
+
+        return tids.stream().count();
     }
 
     public DailyVisitorCountDto findDailyVisitorCount(LocalDate date) {
@@ -108,7 +108,8 @@ public class VisitorService {
         dailyVisitorCountRepository.findByDate(date)
                 .ifPresentOrElse(
                         (e) -> result.copyFromEntity(e),
-                        () -> {}
+                        () -> {
+                        }
                 );
 
         return result;
@@ -116,7 +117,7 @@ public class VisitorService {
 
     public DailyVisitorCountDto updateDailyVisitorCount(LocalDate date, long newNumVisitor) {
 
-        if(newNumVisitor < 0L){
+        if (newNumVisitor < 0L) {
             throw new IllegalArgumentException("매개변수 \'newNumVisitor\'는 0 이상이어야 합니다.");
         }
 
@@ -156,19 +157,19 @@ public class VisitorService {
         return HourlyVisitorCountDto.fromEntity(saved);
     }
 
-    public HourlyVisitorCountDtos createHourlyVisitorCounts(LocalDate date){
+    public HourlyVisitorCountDtos createHourlyVisitorCounts(LocalDate date) {
 
         List<HourlyVisitorCountDto> hourlyVisitorList = new ArrayList<>();
 
-        for(int hour = 0; hour < 24; ++hour){
+        for (int hour = 0; hour < 24; ++hour) {
             long numVisitor = countHourlyVisitors(date, hour); // between ${hour}:00:00 ~ ${hour}:59:59
-            HourlyVisitorCount entity = HourlyVisitorCount.builder()
+            HourlyVisitorCount entity = hourlyVisitorCountRepository.save(HourlyVisitorCount.builder()
                     .dateTime(LocalDateTime.of(
                             date,
                             LocalTime.of(hour, 0, 0)
                     ))
                     .numVisitor(numVisitor)
-                    .build();
+                    .build());
 
             hourlyVisitorList.add(HourlyVisitorCountDto.fromEntity(entity));
         }
@@ -193,7 +194,8 @@ public class VisitorService {
         hourlyVisitorCountRepository.findByDateTime(dateTime)
                 .ifPresentOrElse(
                         (e) -> result.copyFromEntity(e),
-                        () -> {}
+                        () -> {
+                        }
                 );
 
         return result;
@@ -220,19 +222,19 @@ public class VisitorService {
         return hourlyVisitorCountDtoList;
     }
 
-    public HourlyVisitorCountDto updateHourlyVisitorCount(LocalDate date, int hour, long newNumVisitor){
+    public HourlyVisitorCountDto updateHourlyVisitorCount(LocalDate date, int hour, long newNumVisitor) {
 
-        if(hour < 0 || hour >= 24){
+        if (hour < 0 || hour >= 24) {
             throw new IllegalArgumentException("매개변수 \'hour\'가 [0, 24) 범위 내의 정수가 아닙니다.");
         }
 
-        if(newNumVisitor < 0L){
+        if (newNumVisitor < 0L) {
             throw new IllegalArgumentException("매개변수 \'newNumVisitor\'는 0 이상이어야 합니다.");
         }
 
         LocalDateTime dateTime = LocalDateTime.of(
                 date,
-                LocalTime.of(hour, 0,0)
+                LocalTime.of(hour, 0, 0)
         );
 
         HourlyVisitorCount entity = hourlyVisitorCountRepository.findByDateTime(dateTime)
@@ -243,7 +245,7 @@ public class VisitorService {
         return HourlyVisitorCountDto.fromEntity(entity);
     }
 
-    public Long deleteHourlyVisitorCount(LocalDate date, int hour){
+    public Long deleteHourlyVisitorCount(LocalDate date, int hour) {
 
         if (hour < 0 || hour >= 24) {
             throw new IllegalArgumentException("매개변수 \'hour\'가 [0, 24) 범위의 정수가 아닙니다.");
@@ -251,7 +253,7 @@ public class VisitorService {
 
         LocalDateTime dateTime = LocalDateTime.of(
                 date,
-                LocalTime.of(hour, 0,0)
+                LocalTime.of(hour, 0, 0)
         );
 
         HourlyVisitorCount evictor = hourlyVisitorCountRepository.findByDateTime(dateTime)
@@ -264,7 +266,7 @@ public class VisitorService {
         return evictorId;
     }
 
-    public WeeklyVisitorStats getWeeklyVisitorStats(String endDateStr){
+    public WeeklyVisitorStats getWeeklyVisitorStats(String endDateStr) {
 
         WeeklyVisitorStats weeklyVisitorStats = new WeeklyVisitorStats();
 
@@ -284,7 +286,7 @@ public class VisitorService {
         return weeklyVisitorStats;
     }
 
-    public DailyVisitorStats getDailyVisitorStats(LocalDate date){
+    public DailyVisitorStats getDailyVisitorStats(LocalDate date) {
 
         List<HourlyVisitor> dailyStats = findHourlyVisitorCounts(date)
                 .stream()
