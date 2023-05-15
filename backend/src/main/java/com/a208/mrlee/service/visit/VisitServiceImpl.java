@@ -1,15 +1,14 @@
 package com.a208.mrlee.service.visit;
 
 import com.a208.mrlee.dto.CustomerTrackingInfo.CustomerTrackingInfoDTO;
+import com.a208.mrlee.dto.CustomerTrackingInfo.TrackXYDTO;
 import com.a208.mrlee.entity.CustomerTrackingInfo.CustomerTrackingInfo;
 import com.a208.mrlee.repository.CustomerTrackingInfo.CustomerTrackingInfoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,15 +26,23 @@ public class VisitServiceImpl implements VisitService{
     }
 
     @Override
-    public  Map<String , List<CustomerTrackingInfoDTO>> getTrack(LocalDateTime start, LocalDateTime end) {
+    public  Map<String , List<TrackXYDTO>> getTrack(LocalDateTime start, LocalDateTime end) {
         List<CustomerTrackingInfoDTO> list = customerTrackingInfoRepository
-                .findByCreatedBetween(start , end)
+                .findByCreatedBetween(start, end)
                 .stream()
-                .map(m->CustomerTrackingInfoDTO.to(m))
+                .map(m -> CustomerTrackingInfoDTO.to(m))
+                .sorted(Comparator.comparing(CustomerTrackingInfoDTO::getTid))
                 .collect(Collectors.toList());
 
-        return list.stream()
-                .sorted(Comparator.comparing(CustomerTrackingInfoDTO::getTid))
-                .collect(Collectors.groupingBy(CustomerTrackingInfoDTO::getTid));
+        Map<String, List<TrackXYDTO>> result = new HashMap<>();
+
+        for (CustomerTrackingInfoDTO dto : list) {
+            TrackXYDTO track = TrackXYDTO.to(dto);
+            result.computeIfAbsent(dto.getTid(), k -> new ArrayList<>()).add(track);
+        }
+
+        return result;
     }
 }
+
+

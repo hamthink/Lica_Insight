@@ -1,9 +1,11 @@
 package com.a208.mrlee.controller.visit;
 
 import com.a208.mrlee.dto.CustomerTrackingInfo.CustomerTrackingInfoDTO;
+import com.a208.mrlee.dto.CustomerTrackingInfo.TrackXYDTO;
 import com.a208.mrlee.dto.VisitorCount.DailyVisitorCountDto;
 import com.a208.mrlee.dto.VisitorCount.DailyVisitorStats;
 import com.a208.mrlee.dto.VisitorCount.WeeklyVisitorStats;
+import com.a208.mrlee.entity.CustomerTrackingInfo.CustomerTrackingInfo;
 import com.a208.mrlee.service.VisitorCount.VisitorCountService;
 import com.a208.mrlee.service.visit.VisitService;
 import io.swagger.annotations.Api;
@@ -52,7 +54,7 @@ public class VisitController {
         LocalDateTime startTime = LocalDateTime.parse(start, formatter);
         LocalDateTime endTime = LocalDateTime.parse(end, formatter);
         try{
-            Map<String, List<CustomerTrackingInfoDTO>> map = visitService.getTrack(startTime, endTime);
+            Map<String, List<TrackXYDTO>> map = visitService.getTrack(startTime, endTime);
             resultMap.put("trackList", map);
             resultMap.put("result", SUCCESS);
         }catch (Exception e){
@@ -81,6 +83,4 @@ public class VisitController {
 
         return ResponseEntity.ok(null);
     }
-
-
 }
