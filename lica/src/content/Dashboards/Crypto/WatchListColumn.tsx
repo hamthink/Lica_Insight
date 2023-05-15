@@ -6,54 +6,66 @@ import {
   Grid,
   alpha,
   useTheme,
-  styled
+  styled,
+  TextField,
+  Button
 } from '@mui/material';
 import Label from 'src/components/Label';
 import Text from 'src/components/Text';
 import { Chart } from 'src/components/Chart';
 import type { ApexOptions } from 'apexcharts';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { DatePicker } from '@mui/lab';
+import { getVisitDaily } from '@/api/visit';
+import { format } from 'date-fns';
+import { error } from 'console';
 
-const AvatarWrapper = styled(Avatar)(
-  ({ theme }) => `
-    margin: ${theme.spacing(0, 0, 1, -0.5)};
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: ${theme.spacing(1)};
-    padding: ${theme.spacing(0.5)};
-    border-radius: 60px;
-    height: ${theme.spacing(5.5)};
-    width: ${theme.spacing(5.5)};
-    background: ${
-      theme.palette.mode === 'dark'
-        ? theme.colors.alpha.trueWhite[30]
-        : alpha(theme.colors.alpha.black[100], 0.07)
-    };
-  
-    img {
-      background: ${theme.colors.alpha.trueWhite[100]};
-      padding: ${theme.spacing(0.5)};
-      display: block;
-      border-radius: inherit;
-      height: ${theme.spacing(4.5)};
-      width: ${theme.spacing(4.5)};
-    }
-`
-);
-
-function WatchListColumn() {
+function WatchListColumn(props) {
   const theme = useTheme();
 
   const [date, setDate] = useState(new Date());
+  const [selDate, setSelDate] = useState(null);
+
+  function handleDateChange(date) {
+    setSelDate(date);
+  }
+
+  function handleDailyVisitor() {
+    const date = format(new Date(selDate), 'yyyy-MM-dd');
+    getVisitDaily(
+      {
+        date: date
+      },
+      ({ data }) => {
+        console.log('데이터 가져오기 성공');
+        console.log(data.dailyStats);
+        var list = [];
+        for (var i of data.dailyStats) {
+          // console.log(i.visitors);
+          list.push(parseInt(i.visitors));
+        }
+        // console.log(visitorList);
+        setVisitorList(list);
+      },
+      (error) => {
+        console.error(error);
+        alert(error.messege);
+      }
+    );
+  }
+
+  const [visitorList, setVisitorList] = useState(null);
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      setDate(new Date());
-    }, 1000);
-
-    return () => clearInterval(intervalId);
-  }, []);
+    const params = { date: date };
+    getVisitDaily(
+      params,
+      ({ data }) => {
+        props.data = data;
+      },
+      console.log('getVisitDaily error')
+    );
+  }, [date]);
 
   const chartOptions: ApexOptions = {
     chart: {
@@ -142,7 +154,7 @@ function WatchListColumn() {
       y: {
         title: {
           formatter: function () {
-            return 'Price: $';
+            return 'visitors : ';
           }
         }
       },
@@ -151,12 +163,11 @@ function WatchListColumn() {
       }
     }
   };
+
   const chart1Data = [
     {
-      name: 'Bitcoin Price',
-      data: [
-        5, 7, 2, 9, 14, 3, 7, 5, 12, 1, 5, 3, 1, 6, 3, 6, 8, 2, 15, 6, 13, 4, 3
-      ]
+      name: 'Visitors per Hour',
+      data: visitorList
     }
   ];
 
@@ -179,30 +190,34 @@ function WatchListColumn() {
               p: 3
             }}
           >
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'flex-start',
-                pt: 3
-              }}
-            >
-              <Box>
-                <Box>
-                  <Typography variant="h2" noWrap>
-                    {date.toLocaleDateString()}
-                  </Typography>
-                </Box>
-                <Label color="secondary">last 24h</Label>
-              </Box>
+            <Box>
+              <DatePicker
+                label="Date Picker"
+                value={selDate}
+                onChange={handleDateChange}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Select Date"
+                    variant="standard"
+                    sx={{ m: 1, mr: 3 }}
+                  />
+                )}
+              />
+              <Button onClick={handleDailyVisitor}>확인</Button>
             </Box>
+            <Label color="secondary">last 24h</Label>
           </Box>
-          <Chart
-            options={chartOptions}
-            series={chart1Data}
-            type="area"
-            height={500}
-          />
+          {visitorList === null ? (
+            <div>데이터가 없습니다.</div>
+          ) : (
+            <Chart
+              options={chartOptions}
+              series={chart1Data}
+              type="area"
+              height={500}
+            />
+          )}
         </Card>
       </Grid>
     </Grid>
