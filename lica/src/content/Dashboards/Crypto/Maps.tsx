@@ -163,9 +163,7 @@ function Maps() {
         <HeatMap data={heatmap_data} map={map} range={range} />
       )}
 
-      {tabs === 'DotMap' && (
-        <DotMap dataset={dotmap_data} map={map} range={range} />
-      )}
+      {tabs === 'DotMap' && <DotMap map={map} range={range} />}
 
       {tabs === 'Trace' && (
         <Trace
