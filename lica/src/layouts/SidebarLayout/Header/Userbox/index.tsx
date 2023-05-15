@@ -138,7 +138,7 @@ function HeaderUserbox() {
               <ListItemText primary="My Profile" />
             </ListItem>
           </NextLink>
-          <NextLink href="/applications/messenger" passHref>
+          {/* <NextLink href="/applications/messenger" passHref>
             <ListItem button>
               <InboxTwoToneIcon fontSize="small" />
               <ListItemText primary="Messenger" />
@@ -149,7 +149,7 @@ function HeaderUserbox() {
               <AccountTreeTwoToneIcon fontSize="small" />
               <ListItemText primary="Account Settings" />
             </ListItem>
-          </NextLink>
+          </NextLink> */}
         </List>
         <Divider />
         <Box sx={{ m: 1 }}>

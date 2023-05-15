@@ -67,7 +67,7 @@ function Maps() {
 
   const offset = { x: -25, y: 30 };
   const domain = { xStart: 0, xEnd: 11000, yStart: 0, yEnd: 7000 };
-  const range = { width: 1200, height: 600 };
+  const range = { width: 1140, height: 600 };
 
   // dummy end
 
@@ -79,35 +79,6 @@ function Maps() {
     newValue: string | null
   ) => {
     setTab(newValue);
-  };
-
-  const heatmap_data = Array.from({ length: 1 }, () => ({
-    x: Math.round(
-      (1140 / 11000) * faker.datatype.number({ min: 0, max: 11000 })
-    ),
-    y: Math.round((600 / 7000) * faker.datatype.number({ min: 0, max: 7000 })),
-    value: faker.datatype.number({ min: 1, max: 5 })
-  }));
-
-  const dotmap_data = {
-    datasets: [
-      {
-        label: 'A dataset',
-        data: Array.from({ length: 500 }, () => ({
-          x: faker.datatype.number({ min: 0, max: 100 }),
-          y: faker.datatype.number({ min: 0, max: 100 })
-        })),
-        backgroundColor: 'rgba(255, 99, 132, 1)'
-      },
-      {
-        label: 'B dataset',
-        data: Array.from({ length: 500 }, () => ({
-          x: faker.datatype.number({ min: 0, max: 100 }),
-          y: faker.datatype.number({ min: 0, max: 100 })
-        })),
-        backgroundColor: 'rgba(0, 200, 132, 1)'
-      }
-    ]
   };
 
   const map = "url('/static/images/map/map1.png')";
@@ -159,9 +130,7 @@ function Maps() {
         </ToggleButtonGroup>
       </Box>
 
-      {tabs === 'HeatMap' && (
-        <HeatMap data={heatmap_data} map={map} range={range} />
-      )}
+      {tabs === 'HeatMap' && <HeatMap map={map} range={range} />}
 
       {tabs === 'DotMap' && <DotMap map={map} range={range} />}
 
