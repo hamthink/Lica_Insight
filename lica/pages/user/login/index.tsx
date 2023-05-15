@@ -97,13 +97,25 @@ function UserLogin() {
           alert('로그인 성공');
           const accessToken = data['access-token'];
           setAccessToken({ isLoggedIn: true, accessToken }); // AccessToken 저장
+          sessionStorage.setItem(
+            'auth',
+            JSON.stringify({ isLoggedIn: true, accessToken })
+          );
           setUser({
             name: email,
             avatar: '/static/images/avatars/1.jpg',
             jobtitle: 'SSAFY'
           });
+          sessionStorage.setItem(
+            'user',
+            JSON.stringify({
+              name: email,
+              avatar: '/static/images/avatars/1.jpg',
+              jobtitle: 'SSAFY'
+            })
+          );
           console.log('access-token : ' + accessToken);
-          // window.location.href = '/dashboards/home';
+          window.location.href = '/dashboards/home';
         } else {
           alert('로그인 실패');
         }

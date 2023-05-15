@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import h337 from 'heatmap.js';
 
 import {
@@ -10,23 +10,83 @@ import {
   InputLabel,
   FormControl,
   TextField,
-  Grid
+  Grid,
+  Button
 } from '@mui/material';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { DateTimePicker } from '@mui/lab';
+import { getVisit } from '@/api/visit';
+import { format } from 'date-fns';
 
 function HeatMap(props) {
-  const width = props.range.width;
-  const height = props.range.height;
+  // const width = props.range.width;
+  // const height = props.range.height;
 
-  useEffect(() => {
-    var heatmap = h337.create({
+  const [floor, setFloor] = useState('1');
+  const [store, setStore] = useState('휴게실');
+  const [startDate, setStartDate] = useState(
+    format(new Date(), 'yyyy-MM-dd hh:mm:ss')
+  );
+  const [endDate, setEndDate] = useState(
+    format(new Date(), 'yyyy-MM-dd hh:mm:ss')
+  );
+  const [visit, setVisit] = useState(null);
+
+  function handleHeatmap() {
+    const startD = format(new Date(startDate), "yyyy-MM-dd'T'HH:mm:ss");
+    const endD = format(new Date(endDate), "yyyy-MM-dd'T'HH:mm:ss");
+
+    // console.log('start date : ' + startDate.toString());
+    // console.log('end date : ' + endDate.toString());
+
+    console.log('start date : ' + startD);
+    console.log('end date : ' + endD);
+
+    getVisit(
+      {
+        start: startD,
+        end: endD
+      },
+      ({ data }) => {
+        console.log(data);
+        // if (data.result === 'success') {
+        console.log('정보 가져오기 성공');
+        for (var i of data.infoList) {
+          i.x = Math.round((1140 / 11400) * i.x);
+          i.y = 600 - Math.round((600 / 7000) * i.y);
+          // i.y = 600 - i.y;
+        }
+        setVisit(data.infoList);
+
+        // console.log(visit);
+        // } else {
+        //   console.log('정보 가져오기 실패');
+        // }
+      },
+      (error) => {
+        console.error(error);
+        alert(error.message);
+      }
+    );
+
+    // setHeatmap(null);
+    // createHeatmap();
+    // generateHeatmap();
+    // setHeatmap(heatmap);
+  }
+
+  var [heatmap, setHeatmap] = useState(null);
+
+  function createHeatmap() {
+    heatmap = h337.create({
       container: document.querySelector('.Heat')
     });
+  }
 
+  function generateHeatmap() {
     heatmap.setData({
-      max: 100,
-      data: props.data,
+      max: 50,
+      data: visit === null ? '' : visit,
       xMin: 0,
       xMax: props.range.width,
       // xMax: 1000,
@@ -35,11 +95,16 @@ function HeatMap(props) {
       // yMax: 600
       // data: [{ x: 165, y: 200, value: 5 }]
     });
-  });
+  }
 
-  const [floor, setFloor] = React.useState('1');
-  const [store, setStore] = React.useState('휴게실');
-  const [date, setDate] = React.useState(new Date());
+  useEffect(() => {
+    createHeatmap();
+    generateHeatmap();
+
+    console.log(format(new Date(), 'yyyy-MM-dd HH:mm:ss'));
+
+    // handleHeatmap(startDate, endDate);
+  });
 
   const FloorhandleChange = (event: SelectChangeEvent) => {
     setFloor(event.target.value);
@@ -108,18 +173,40 @@ function HeatMap(props) {
                     </FormControl>
 
                     <DateTimePicker
-                      label="date time picker"
-                      value={date}
-                      onChange={(newDate) => setDate(newDate)}
+                      label="date time picker start"
+                      value={startDate}
+                      inputFormat="yyyy-MM-dd HH:mm:ss"
+                      onChange={(newDate) => setStartDate(newDate)}
                       renderInput={(params) => (
                         <TextField
                           {...params}
-                          label="Date"
+                          label="Start Date"
                           variant="standard"
                           sx={{ m: 1, mr: 3 }}
                         />
                       )}
                     />
+                    <DateTimePicker
+                      label="date time picker end"
+                      value={endDate}
+                      inputFormat="yyyy-MM-dd HH:mm:ss"
+                      onChange={(newDate) => setEndDate(newDate)}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label="End Date"
+                          variant="standard"
+                          sx={{ m: 1, mr: 3 }}
+                        />
+                      )}
+                    />
+                    <Button
+                      variant="contained"
+                      onClick={handleHeatmap}
+                      sx={{ mt: 2, mr: 2 }}
+                    >
+                      확인
+                    </Button>
                   </Box>
                 </Box>
               </Box>
@@ -131,8 +218,8 @@ function HeatMap(props) {
                     // maxWidth: props.range.width,
                     height: props.range.height,
                     margin: '0 auto',
-                    backgroundImage: props.map,
-                    // backgroundImage: "url('/static/images/map/map1.png')",
+                    // backgroundImage: props.map,
+                    backgroundImage: "url('/static/images/map/map1.png')",
                     backgroundSize: 'cover'
                   }}
                 ></div>

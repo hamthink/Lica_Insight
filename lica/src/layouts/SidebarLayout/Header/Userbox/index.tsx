@@ -71,6 +71,7 @@ function HeaderUserbox() {
   // };
 
   const setAccessToken = useSetRecoilState(authState);
+  const setUserStatus = useSetRecoilState(userState);
 
   const ref = useRef<any>(null);
   const [isOpen, setOpen] = useState<boolean>(false);
@@ -84,7 +85,13 @@ function HeaderUserbox() {
   };
 
   function handleLogOut() {
-    setAccessToken({ isLoggedIn: false, accessToken: null });
+    // setAccessToken({ isLoggedIn: false, accessToken: null });
+    // setUserStatus({
+    //   name: null,
+    //   avatar: '/static/images/avatars/1.jpg',
+    //   jobtitle: null
+    // });
+    sessionStorage.clear();
     alert('로그아웃 되었습니다.');
     window.location.href = '/';
   }
