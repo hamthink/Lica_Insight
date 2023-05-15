@@ -2,28 +2,24 @@ import {
   Card,
   Box,
   Typography,
-  Avatar,
   Grid,
-  alpha,
   useTheme,
-  styled,
   TextField,
   Button
 } from '@mui/material';
 import Label from 'src/components/Label';
-import Text from 'src/components/Text';
 import { Chart } from 'src/components/Chart';
 import type { ApexOptions } from 'apexcharts';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { DatePicker } from '@mui/lab';
 import { getVisitDaily } from '@/api/visit';
 import { format } from 'date-fns';
-import { error } from 'console';
 
-function WatchListColumn(props) {
+function WatchListColumn() {
   const theme = useTheme();
 
   const [selDate, setSelDate] = useState(null);
+  const [visitorList, setVisitorList] = useState(null);
 
   function handleDateChange(date) {
     setSelDate(date);
@@ -53,10 +49,11 @@ function WatchListColumn(props) {
     );
   }
 
-  const [visitorList, setVisitorList] = useState(null);
-
   const chartOptions: ApexOptions = {
     chart: {
+      animations: {
+        enabled: false
+      },
       background: 'transparent',
       toolbar: {
         show: false
