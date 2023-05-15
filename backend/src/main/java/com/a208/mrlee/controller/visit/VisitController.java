@@ -43,8 +43,13 @@ public class VisitController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
         LocalDateTime startTime = LocalDateTime.parse(start, formatter);
         LocalDateTime endTime = LocalDateTime.parse(end, formatter);
-        List<CustomerTrackingInfoDTO> list = visitService.getTrackingInfo(startTime, endTime);
-        resultMap.put("infoList", list);
+        try{
+            List<CustomerTrackingInfoDTO> list = visitService.getTrackingInfo(startTime, endTime);
+            resultMap.put("infoList", list);
+            resultMap.put("result", SUCCESS);
+        }catch (Exception e){
+            resultMap.put("result", FAIL);
+        }
         return ResponseEntity.ok(resultMap);
     }
 
@@ -54,8 +59,13 @@ public class VisitController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
         LocalDateTime startTime = LocalDateTime.parse(start, formatter);
         LocalDateTime endTime = LocalDateTime.parse(end, formatter);
-        Map<String, List<CustomerTrackingInfoDTO>> map = visitService.getTrack(startTime, endTime);
-        resultMap.put("trackList", map);
+        try{
+            Map<String, List<CustomerTrackingInfoDTO>> map = visitService.getTrack(startTime, endTime);
+            resultMap.put("trackList", map);
+            resultMap.put("result", SUCCESS);
+        }catch (Exception e){
+            resultMap.put("result", FAIL);
+        }
         return ResponseEntity.ok(resultMap);
     }
 
