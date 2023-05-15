@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
   Card,
@@ -10,7 +10,8 @@ import {
   FormControl,
   TextField,
   Grid,
-  CardMedia
+  CardMedia,
+  Button
 } from '@mui/material';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { DateTimePicker } from '@mui/lab';
@@ -24,6 +25,8 @@ import {
   Legend
 } from 'chart.js';
 import { Chart, Scatter } from 'react-chartjs-2';
+import { format } from 'date-fns';
+import { getVisit } from '@/api/visit';
 
 ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend);
 
@@ -49,11 +52,18 @@ const plugin = {
 };
 
 function DotMap(props) {
-  const [floor, setFloor] = React.useState('8');
-  const [store, setStore] = React.useState('휴게실');
-  const [date, setDate] = React.useState(new Date());
-  const [dataset, setDataset] = React.useState(props.dataset);
-  // const [time, setTime] = React.useState('');
+  const [floor, setFloor] = useState('8');
+  const [store, setStore] = useState('휴게실');
+  // const [dataset, setDataset] = useState(props.dataset);
+
+  const [startDate, setStartDate] = useState(
+    format(new Date(), 'yyyy-MM-dd hh:mm:ss')
+  );
+  const [endDate, setEndDate] = useState(
+    format(new Date(), 'yyyy-MM-dd hh:mm:ss')
+  );
+  const [visit, setVisit] = useState(null);
+  const [chart, setChart] = useState<typeof Chart | null>(null);
 
   const FloorhandleChange = (event: SelectChangeEvent) => {
     setFloor(event.target.value);
@@ -82,6 +92,81 @@ function DotMap(props) {
       }
     }
   };
+
+  function handleDotmap() {
+    const startD = format(new Date(startDate), "yyyy-MM-dd'T'HH:mm:ss");
+    const endD = format(new Date(endDate), "yyyy-MM-dd'T'HH:mm:ss");
+
+    // console.log('start date : ' + startDate.toString());
+    // console.log('end date : ' + endDate.toString());
+
+    console.log('start date : ' + startD);
+    console.log('end date : ' + endD);
+
+    getVisit(
+      {
+        start: startD,
+        end: endD
+      },
+      ({ data }) => {
+        console.log(data);
+        // if (data.result === 'success') {
+        console.log('정보 가져오기 성공');
+        for (var i of data.infoList) {
+          i.x = Math.round((1140 / 11000) * i.x);
+          i.y = Math.round((600 / 7000) * i.y);
+        }
+        setVisit({
+          datasets: [
+            {
+              label: 'A dataset',
+              data: data.infoList,
+              backgroundColor: 'rgba(255, 99, 132, 1)'
+            }
+          ]
+        });
+
+        // console.log(visit);
+        // } else {
+        //   console.log('정보 가져오기 실패');
+        // }
+      },
+      (error) => {
+        console.error(error);
+        alert(error.message);
+      }
+    );
+
+    // const canvas = document.getElementById('dotmap') as HTMLCanvasElement;
+
+    // const newChart = new Chart(canvas, {
+    //   type: 'scatter',
+    //   data: {
+    //     datasets: [
+    //       {
+    //         label: 'visit',
+    //         data: visit
+    //       }
+    //     ]
+    //   },
+    //   options: {
+    //     responsive: true,
+    //     scales: {
+    //       x: {
+    //         type: 'linear',
+    //         position: 'bottom'
+    //       },
+    //       y: {
+    //         type: 'linear',
+    //         position: 'left'
+    //       }
+    //     }
+    //   }
+    // });
+
+    // setChart(newChart);
+    console.log('end');
+  }
 
   useEffect(() => {});
 
@@ -143,18 +228,40 @@ function DotMap(props) {
                     </FormControl>
 
                     <DateTimePicker
-                      label="date time picker"
-                      value={date}
-                      onChange={(newDate) => setDate(newDate)}
+                      label="date time picker start"
+                      value={startDate}
+                      inputFormat="yyyy-MM-dd HH:mm:ss"
+                      onChange={(newDate) => setStartDate(newDate)}
                       renderInput={(params) => (
                         <TextField
                           {...params}
-                          label="Date"
+                          label="Start Date"
                           variant="standard"
                           sx={{ m: 1, mr: 3 }}
                         />
                       )}
                     />
+                    <DateTimePicker
+                      label="date time picker end"
+                      value={endDate}
+                      inputFormat="yyyy-MM-dd HH:mm:ss"
+                      onChange={(newDate) => setEndDate(newDate)}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label="End Date"
+                          variant="standard"
+                          sx={{ m: 1, mr: 3 }}
+                        />
+                      )}
+                    />
+                    <Button
+                      variant="contained"
+                      onClick={handleDotmap}
+                      sx={{ mt: 2, mr: 2 }}
+                    >
+                      확인
+                    </Button>
                   </Box>
                 </Box>
               </Box>
@@ -165,7 +272,15 @@ function DotMap(props) {
                     backgroundSize: 'cover'
                   }}
                 >
-                  <Scatter options={options} data={dataset} />
+                  {visit != null && (
+                    <Scatter
+                      options={options}
+                      data={visit === null ? { datasets: [] } : visit}
+
+                      // data={props.dataset}
+                    />
+                  )}
+
                   {/* <CardMedia
                     component="img"
                     sx={{ width: '100%', mt: 7 }}
@@ -173,6 +288,9 @@ function DotMap(props) {
                     alt="LiCa LOGO"
                   /> */}
                 </Box>
+                {/* <Box>
+                  <canvas id="dotmap"></canvas>
+                </Box> */}
               </CardContent>
             </Card>
           </Grid>

@@ -15,7 +15,7 @@ const data = Array.from({ length: 20000 }, () => ({
 
 // console.log(data);
 
-const range = { width: 1140, height: 600 };
+const range = { width: 11400, height: 6000 };
 const map = "url('/static/images/map/map1.png')";
 
 function StatisticsHeatMap() {
