@@ -23,8 +23,8 @@ public class SwaggerConfig {
 
     // Swagger - API 기본 설정
     private String API_VERSION = "1.0";
-    private String API_TITLE = "Churros Project";
-    private String API_DESCRIPTION = "A503 API";;
+    private String API_TITLE = "LicaInsight";
+    private String API_DESCRIPTION = "A208 API";;
 
 
     public Docket getDocket(String groupName, boolean defaultResponseMessage,

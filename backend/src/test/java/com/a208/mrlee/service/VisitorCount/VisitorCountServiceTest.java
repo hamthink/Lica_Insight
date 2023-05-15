@@ -105,8 +105,8 @@ class VisitorCountServiceTest {
     @DisplayName(".createDailyVisitorCount(Date) 중복되는 날짜가 없는 경우 방문자의 수와 상관없이 레코드 생성에 성공한다.")
     void shouldCreateSuccessfully1() {
 
-        given(customerTrackingInfoRepository.findByCreatedBetween(start, end))
-                .willReturn(possibleFindCreatedBetweenResult);
+//        given(customerTrackingInfoRepository.findByCreatedBetween(start, end))
+//                .willReturn(possibleFindCreatedBetweenResult);
 
         given(dailyVisitorCountRepository.save(any(DailyVisitorCount.class)))
                 .willReturn(possibleSaveResult);
