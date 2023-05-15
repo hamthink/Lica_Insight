@@ -68,38 +68,22 @@ function HeatMap(props) {
         alert(error.message);
       }
     );
-
-    // setHeatmap(null);
-    // createHeatmap();
-    // generateHeatmap();
-    // setHeatmap(heatmap);
   }
 
-  var [heatmap, setHeatmap] = useState(null);
-
-  function createHeatmap() {
-    heatmap = h337.create({
+  useEffect(() => {
+    var heatmap = h337.create({
       container: document.querySelector('.Heat')
     });
-  }
 
-  function generateHeatmap() {
     heatmap.setData({
       max: 50,
       data: visit === null ? '' : visit,
       xMin: 0,
       xMax: props.range.width,
-      // xMax: 1000,
       yMin: 0,
       yMax: props.range.height
-      // yMax: 600
       // data: [{ x: 165, y: 200, value: 5 }]
     });
-  }
-
-  useEffect(() => {
-    createHeatmap();
-    generateHeatmap();
 
     console.log(format(new Date(), 'yyyy-MM-dd HH:mm:ss'));
 
@@ -218,8 +202,8 @@ function HeatMap(props) {
                     // maxWidth: props.range.width,
                     height: props.range.height,
                     margin: '0 auto',
-                    // backgroundImage: props.map,
-                    backgroundImage: "url('/static/images/map/map1.png')",
+                    backgroundImage: props.map,
+                    // backgroundImage: "url('/static/images/map/map1.png')",
                     backgroundSize: 'cover'
                   }}
                 ></div>
