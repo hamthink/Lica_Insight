@@ -8,7 +8,6 @@ import com.a208.mrlee.service.VisitorCount.VisitorCountService;
 import com.a208.mrlee.service.visit.VisitService;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,8 +35,13 @@ public class VisitController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
         LocalDateTime startTime = LocalDateTime.parse(start, formatter);
         LocalDateTime endTime = LocalDateTime.parse(end, formatter);
-        List<CustomerTrackingInfoDTO> list = visitService.getTrackingInfo(startTime, endTime);
-        resultMap.put("infoList", list);
+        try{
+            List<CustomerTrackingInfoDTO> list = visitService.getTrackingInfo(startTime, endTime);
+            resultMap.put("infoList", list);
+            resultMap.put("result", SUCCESS);
+        }catch (Exception e){
+            resultMap.put("result", FAIL);
+        }
         return ResponseEntity.ok(resultMap);
     }
 
@@ -47,8 +51,13 @@ public class VisitController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
         LocalDateTime startTime = LocalDateTime.parse(start, formatter);
         LocalDateTime endTime = LocalDateTime.parse(end, formatter);
-        Map<String, List<CustomerTrackingInfoDTO>> map = visitService.getTrack(startTime, endTime);
-        resultMap.put("trackList", map);
+        try{
+            Map<String, List<CustomerTrackingInfoDTO>> map = visitService.getTrack(startTime, endTime);
+            resultMap.put("trackList", map);
+            resultMap.put("result", SUCCESS);
+        }catch (Exception e){
+            resultMap.put("result", FAIL);
+        }
         return ResponseEntity.ok(resultMap);
     }
 
