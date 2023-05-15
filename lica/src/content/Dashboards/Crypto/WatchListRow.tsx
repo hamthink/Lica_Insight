@@ -9,7 +9,8 @@ import {
   Stack,
   Divider,
   styled,
-  useTheme
+  useTheme,
+  TextField
 } from '@mui/material';
 import Text from 'src/components/Text';
 import Label from 'src/components/Label';
@@ -17,47 +18,44 @@ import { Chart } from 'src/components/Chart';
 import type { ApexOptions } from 'apexcharts';
 import TrendingUpTwoToneIcon from '@mui/icons-material/TrendingUpTwoTone';
 import { useState, useEffect } from 'react';
-
-const AvatarWrapper = styled(Avatar)(
-  ({ theme }) => `
-    margin: ${theme.spacing(0, 0, 1, -0.5)};
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: ${theme.spacing(1)};
-    padding: ${theme.spacing(0.5)};
-    border-radius: 60px;
-    height: ${theme.spacing(5.5)};
-    width: ${theme.spacing(5.5)};
-    background: ${
-      theme.palette.mode === 'dark'
-        ? theme.colors.alpha.trueWhite[30]
-        : alpha(theme.colors.alpha.black[100], 0.07)
-    };
-  
-    img {
-      background: ${theme.colors.alpha.trueWhite[100]};
-      padding: ${theme.spacing(0.5)};
-      display: block;
-      border-radius: inherit;
-      height: ${theme.spacing(4.5)};
-      width: ${theme.spacing(4.5)};
-    }
-`
-);
+import { DatePicker } from '@mui/lab';
+import { getVisitWeekly } from '@/api/visit';
+import { format } from 'date-fns';
+import { error } from 'console';
 
 function WatchListRow() {
   const theme = useTheme();
 
-  const [date, setDate] = useState(new Date());
+  const [selDate, setSelDate] = useState(null);
+  const [visitorList, setVisitorList] = useState(null);
 
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setDate(new Date());
-    }, 1000);
+  function handleDateChange(date) {
+    setSelDate(date);
+  }
 
-    return () => clearInterval(intervalId);
-  }, []);
+  function handleWeeklyVisitor() {
+    const date = format(new Date(selDate), 'yyyy-MM-dd');
+    getVisitWeekly(
+      {
+        endDate: date
+      },
+      ({ data }) => {
+        console.log('데이터 가져오기 성공');
+        console.log(data.weeklyStats);
+        var list = [];
+        for (var i of data.weeklyStats) {
+          console.log(i.visitors);
+          list.push(parseInt(i.visitors));
+        }
+        // console.log(visitorList);
+        setVisitorList(list);
+      },
+      (error) => {
+        console.error(error);
+        alert(error.messege);
+      }
+    );
+  }
 
   const today = new Date(); // 현재 날짜를 가져옵니다.
 
@@ -142,8 +140,8 @@ function WatchListRow() {
 
   const Box1Data = [
     {
-      name: 'visitors',
-      data: [55.701, 57.598, 48.607, 46.439, 58.755, 46.978, 58.16]
+      name: 'Visitors per Day',
+      data: visitorList
     }
   ];
 
@@ -183,9 +181,26 @@ function WatchListRow() {
               >
                 <Box>
                   <Box>
-                    <Typography variant="h2" noWrap>
-                      {date.toLocaleDateString()}
-                    </Typography>
+                    <DatePicker
+                      label="Date Picker"
+                      value={selDate}
+                      onChange={handleDateChange}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label="Select Date"
+                          variant="standard"
+                          sx={{ m: 1, mr: 3 }}
+                        />
+                      )}
+                    />
+                    <Button
+                      variant="contained"
+                      onClick={handleWeeklyVisitor}
+                      sx={{ mt: 2, mr: 2 }}
+                    >
+                      확인
+                    </Button>
                   </Box>
                   <Label color="secondary">last 7 days</Label>
                 </Box>
@@ -193,26 +208,36 @@ function WatchListRow() {
             </Box>
           </Box>
           <Box pt={2}>
-            <Chart
+            {visitorList === null ? (
+              <Typography
+                align="center"
+                variant="h2"
+                fontWeight="normal"
+                color="text.secondary"
+                sx={{
+                  mt: 3
+                }}
+                gutterBottom
+              >
+                Please select date!
+              </Typography>
+            ) : (
+              <Chart
+                options={Box1Options}
+                series={Box1Data}
+                type="area"
+                height={500}
+              />
+            )}
+            {/* <Chart
               options={Box1Options}
               series={Box1Data}
               type="line"
               height={500}
-            />
+            /> */}
           </Box>
         </Box>
       </Stack>
-      <Divider />
-      <CardActions
-        disableSpacing
-        sx={{
-          p: 3,
-          display: 'flex',
-          justifyContent: 'center'
-        }}
-      >
-        <Button variant="outlined">View more assets</Button>
-      </CardActions>
     </Card>
   );
 }

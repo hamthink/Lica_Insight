@@ -14,7 +14,7 @@ import Label from 'src/components/Label';
 import Text from 'src/components/Text';
 import { Chart } from 'src/components/Chart';
 import type { ApexOptions } from 'apexcharts';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { DatePicker } from '@mui/lab';
 import { getVisitDaily } from '@/api/visit';
 import { format } from 'date-fns';
@@ -23,7 +23,6 @@ import { error } from 'console';
 function WatchListColumn(props) {
   const theme = useTheme();
 
-  const [date, setDate] = useState(new Date());
   const [selDate, setSelDate] = useState(null);
 
   function handleDateChange(date) {
@@ -55,17 +54,6 @@ function WatchListColumn(props) {
   }
 
   const [visitorList, setVisitorList] = useState(null);
-
-  // useEffect(() => {
-  //   const params = { date: date };
-  //   getVisitDaily(
-  //     params,
-  //     ({ data }) => {
-  //       props.data = data;
-  //     },
-  //     console.log('getVisitDaily error')
-  //   );
-  // }, [date]);
 
   const chartOptions: ApexOptions = {
     chart: {
@@ -107,30 +95,30 @@ function WatchListColumn(props) {
       show: false
     },
     labels: [
-      '0',
-      '1',
-      '2',
-      '3',
-      '4',
-      '5',
-      '6',
-      '7',
-      '8',
-      '9',
-      '10',
-      '11',
-      '12',
-      '13',
-      '14',
-      '15',
-      '16',
-      '17',
-      '18',
-      '19',
-      '20',
-      '21',
-      '22',
-      '23'
+      '00:00 - 00:59',
+      '01:00 - 01:59',
+      '02:00 - 02:59',
+      '03:00 - 03:59',
+      '04:00 - 04:59',
+      '05:00 - 05:59',
+      '06:00 - 06:59',
+      '07:00 - 07:59',
+      '08:00 - 08:59',
+      '09:00 - 09:59',
+      '10:00 - 10:59',
+      '11:00 - 11:59',
+      '12:00 - 12:59',
+      '13:00 - 13:59',
+      '14:00 - 14:59',
+      '15:00 - 15:59',
+      '16:00 - 16:59',
+      '17:00 - 17:59',
+      '18:00 - 18:59',
+      '19:00 - 19:59',
+      '20:00 - 20:59',
+      '21:00 - 21:59',
+      '22:00 - 22:59',
+      '23:00 - 23:59'
     ],
     xaxis: {
       labels: {
@@ -204,12 +192,29 @@ function WatchListColumn(props) {
                   />
                 )}
               />
-              <Button onClick={handleDailyVisitor}>확인</Button>
+              <Button
+                variant="contained"
+                onClick={handleDailyVisitor}
+                sx={{ mt: 2, mr: 2 }}
+              >
+                확인
+              </Button>
             </Box>
             <Label color="secondary">last 24h</Label>
           </Box>
           {visitorList === null ? (
-            <div>데이터가 없습니다.</div>
+            <Typography
+              align="center"
+              variant="h2"
+              fontWeight="normal"
+              color="text.secondary"
+              sx={{
+                mt: 3
+              }}
+              gutterBottom
+            >
+              Please select date!
+            </Typography>
           ) : (
             <Chart
               options={chartOptions}
