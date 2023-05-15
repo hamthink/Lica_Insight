@@ -56,16 +56,16 @@ function WatchListColumn(props) {
 
   const [visitorList, setVisitorList] = useState(null);
 
-  useEffect(() => {
-    const params = { date: date };
-    getVisitDaily(
-      params,
-      ({ data }) => {
-        props.data = data;
-      },
-      console.log('getVisitDaily error')
-    );
-  }, [date]);
+  // useEffect(() => {
+  //   const params = { date: date };
+  //   getVisitDaily(
+  //     params,
+  //     ({ data }) => {
+  //       props.data = data;
+  //     },
+  //     console.log('getVisitDaily error')
+  //   );
+  // }, [date]);
 
   const chartOptions: ApexOptions = {
     chart: {
