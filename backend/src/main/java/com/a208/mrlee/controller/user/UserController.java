@@ -1,4 +1,4 @@
-package com.a208.mrlee.controller.mail;
+package com.a208.mrlee.controller.user;
 
 import com.a208.mrlee.dto.user.UserDTO;
 import com.a208.mrlee.service.Jwt.JwtService;
