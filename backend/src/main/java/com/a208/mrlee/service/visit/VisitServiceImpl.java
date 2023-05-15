@@ -20,7 +20,7 @@ public class VisitServiceImpl implements VisitService{
     @Override
     public List<CustomerTrackingInfoDTO> getTrackingInfo(LocalDateTime start, LocalDateTime end) {
         List<CustomerTrackingInfo> list = customerTrackingInfoRepository
-                .findByCreatedBetween(start , end).orElse(null);
+                .findByCreatedBetween(start , end);
         return list.stream()
                 .map(m->CustomerTrackingInfoDTO.to(m))
                 .collect(Collectors.toList());
@@ -29,7 +29,7 @@ public class VisitServiceImpl implements VisitService{
     @Override
     public  Map<String , List<CustomerTrackingInfoDTO>> getTrack(LocalDateTime start, LocalDateTime end) {
         List<CustomerTrackingInfoDTO> list = customerTrackingInfoRepository
-                .findByCreatedBetween(start , end).orElse(null)
+                .findByCreatedBetween(start , end)
                 .stream()
                 .map(m->CustomerTrackingInfoDTO.to(m))
                 .collect(Collectors.toList());
