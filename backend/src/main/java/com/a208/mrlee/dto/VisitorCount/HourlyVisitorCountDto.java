@@ -33,6 +33,12 @@ public class HourlyVisitorCountDto {
         );
     }
 
+    public void copyFromEntity(HourlyVisitorCount entity){
+        this.id = entity.getId();
+        this.dateTime = entity.getDateTime();
+        this.numVisitor = entity.getNumVisitor();
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.JSON_STYLE)

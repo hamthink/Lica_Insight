@@ -91,10 +91,15 @@ public class VisitorService {
 
     public DailyVisitorCountDto findDailyVisitorCount(LocalDate date) {
 
-        DailyVisitorCount entity = dailyVisitorCountRepository.findByDate(date)
-                .orElseThrow(() -> new NoSuchElementException());
+        DailyVisitorCountDto result = new DailyVisitorCountDto(null, date, 0L);
 
-        return DailyVisitorCountDto.fromEntity(entity);
+        dailyVisitorCountRepository.findByDate(date)
+                .ifPresentOrElse(
+                        (e) -> result.copyFromEntity(e),
+                        () -> {}
+                );
+
+        return result;
     }
 
     public DailyVisitorCountDto updateDailyVisitorCount(LocalDate date, long newNumVisitor) {
@@ -165,14 +170,21 @@ public class VisitorService {
             throw new IllegalArgumentException("매개변수 \'hour\'가 [0, 24) 범위의 정수가 아닙니다.");
         }
 
-        HourlyVisitorCount entity = hourlyVisitorCountRepository.findByDateTime(
-                LocalDateTime.of(
-                        date,
-                        LocalTime.of(hour, 0, 0)
-                )
-        ).orElseThrow(NoSuchElementException::new);
+        // 시간별 방문자 수는 ${hour}:00:00을 기준으로 탐색한다
+        LocalDateTime dateTime = LocalDateTime.of(
+                date,
+                LocalTime.of(hour, 0, 0)
+        );
 
-        return HourlyVisitorCountDto.fromEntity(entity);
+        HourlyVisitorCountDto result = new HourlyVisitorCountDto(null, dateTime, 0L);
+
+        hourlyVisitorCountRepository.findByDateTime(dateTime)
+                .ifPresentOrElse(
+                        (e) -> result.copyFromEntity(e),
+                        () -> {}
+                );
+
+        return result;
     }
 
     public List<HourlyVisitorCountDto> findHourlyVisitorCounts(LocalDate date) {

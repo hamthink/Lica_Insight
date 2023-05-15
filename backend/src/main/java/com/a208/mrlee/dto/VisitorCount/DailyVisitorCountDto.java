@@ -32,6 +32,12 @@ public class DailyVisitorCountDto {
         );
     }
 
+    public void copyFromEntity(DailyVisitorCount entity){
+        this.id = entity.getId();
+        this.date = entity.getDate();
+        this.numVisitor = entity.getNumVisitor();
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.JSON_STYLE)
