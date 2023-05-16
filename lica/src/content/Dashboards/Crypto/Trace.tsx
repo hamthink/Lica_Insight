@@ -69,32 +69,10 @@ function Trace(props) {
     } catch (error) {
       console.log(error);
     }
-
-    // getVisitTrack(
-    //   {
-    //     start: startD,
-    //     end: endD
-    //   },
-    //   ({ data }) => {
-    //     console.log('성공!');
-    //     // console.log(data.trackList);
-    //     console.log(Object.values(data.trackList));
-    //     setTrackData(Object.values(data.trackList));
-    //     console.log('------------');
-    //     drawChart(svg, props);
-
-    //     // console.log(trackData);
-    //     // trackData = data;
-    //   },
-    //   (error) => {
-    //     console.error(error);
-    //     // alert(error.message);
-    //     console.log('getVisitTrack error');
-    //   }
-    // );
   }
 
   function drawChart(svg, props) {
+    svg.selectAll('*').remove();
     const xScale = d3
       .scaleLinear()
       .domain([props.domain.xStart, props.domain.xEnd])
@@ -114,13 +92,12 @@ function Trace(props) {
       })
       .curve(d3.curveCatmullRom.alpha(0.5)); // 곡선 형태 지정
 
-    const xAxis = d3.axisBottom(xScale);
-    const yAxis = d3.axisLeft(yScale);
-
     svg.attr('width', props.range.width).attr('height', props.range.height);
 
-    // svg.append('g').attr('transform', 'translate(30, 370)').call(xAxis);
-    // svg.append('g').attr('transform', 'translate(30, -30)').call(yAxis);
+    const highlightedStyle = {
+      strokeWidth: 10,
+      stroke: 'red'
+    };
 
     svg
       .selectAll('.line')
@@ -145,6 +122,21 @@ function Trace(props) {
         .attr('stroke', randomColor())
         .attr('stroke-width', 10)
         .attr('fill', 'none');
+    });
+
+    trackData.forEach((array, index) => {
+      const isHighlighted = index === props.highlightedGraph;
+
+      svg
+        .append('path')
+        .datum(array)
+        .attr('d', line)
+        .style('stroke', isHighlighted ? highlightedStyle.stroke : 'steelblue')
+        .style('stroke-width', isHighlighted ? highlightedStyle.strokeWidth : 1)
+        .style('fill', 'none')
+        .on('click', () => {
+          props.onGraphSelect(index);
+        });
     });
   }
 
@@ -259,9 +251,7 @@ function Trace(props) {
                   <svg
                     ref={svgRef}
                     transform={`translate(${props.offset.x},${props.offset.y})`}
-                  >
-                    {/* SVG 내용 */}
-                  </svg>
+                  />
                 </Box>
               </CardContent>
             </Card>

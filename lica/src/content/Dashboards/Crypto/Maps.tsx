@@ -52,6 +52,14 @@ function Maps() {
   const setAccessToken = useSetRecoilState(authState);
   const setUser = useSetRecoilState(userState);
 
+  // trace graph 선택
+  const highlightedGraph = 2; // 강조할 그래프의 인덱스
+  const handleGraphSelect = (graphIndex) => {
+    console.log('선택된 그래프:', graphIndex);
+    // 그래프 선택 처리 로직을 작성합니다.
+  };
+  // trace graph 선택 end
+
   useEffect(() => {
     const authString = sessionStorage.getItem('auth');
     const auth = JSON.parse(authString);
@@ -101,7 +109,14 @@ function Maps() {
       {tabs === 'DotMap' && <DotMap map={map} range={range} />}
 
       {tabs === 'Trace' && (
-        <Trace offset={offset} range={range} domain={domain} map={map} />
+        <Trace
+          offset={offset}
+          range={range}
+          domain={domain}
+          map={map}
+          highlightedGraph={highlightedGraph}
+          onGraphSelect={handleGraphSelect}
+        />
       )}
 
       {!tabs && (
