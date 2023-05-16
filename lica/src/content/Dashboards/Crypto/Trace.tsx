@@ -18,6 +18,7 @@ import { DateTimePicker } from '@mui/lab';
 import { getVisitTrack } from '@/api/visit';
 import { start } from 'nprogress';
 import { format } from 'date-fns';
+import { Style } from '@mui/icons-material';
 
 function Trace(props) {
   let svgRef = useRef(null);
@@ -113,7 +114,7 @@ function Trace(props) {
 
     svg
       .selectAll('circle')
-      .data(props.data)
+      .data(trackData)
       .enter()
       .append('circle')
       .attr('cx', function (d) {
@@ -243,6 +244,8 @@ function Trace(props) {
               <CardContent>
                 <Box
                   sx={{
+                    ml: 3,
+                    mr: 3,
                     backgroundImage: props.map,
                     backgroundSize: 'cover'
                   }}
