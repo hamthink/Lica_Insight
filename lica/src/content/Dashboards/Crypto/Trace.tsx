@@ -18,6 +18,7 @@ import { DateTimePicker } from '@mui/lab';
 import { getVisitTrack } from '@/api/visit';
 import { start } from 'nprogress';
 import { format } from 'date-fns';
+import { apiInstance } from '@/api';
 
 function Trace(props) {
   let svgRef = useRef(null);
@@ -41,7 +42,7 @@ function Trace(props) {
     setStore(event.target.value);
   };
 
-  function handleTrack() {
+  async function handleTrack() {
     const svg = d3.select(svgRef.current);
 
     let startD = null;
@@ -57,29 +58,40 @@ function Trace(props) {
     console.log('start date : ' + startD);
     console.log('end date : ' + endD);
 
-    getVisitTrack(
-      {
-        start: startD,
-        end: endD
-      },
-      ({ data }) => {
-        console.log('성공!');
-        // console.log(data.trackList);
-        console.log(Object.values(data.trackList));
-        setTrackData(Object.values(data.trackList));
+    const api = apiInstance();
 
-        console.log('------------');
-        console.log(trackData);
-        // trackData = data;
-      },
-      (error) => {
-        console.error(error);
-        // alert(error.message);
-        console.log('getVisitTrack error');
-      }
-    );
+    try {
+      const response = await api.get(`/visit/track/throttled`, {
+        params: { start: startD, end: endD }
+      });
+      console.log(response.data);
+      setTrackData(Object.values(response.data.trackList));
+    } catch (error) {
+      console.log(error);
+    }
 
-    drawChart(svg, props);
+    // getVisitTrack(
+    //   {
+    //     start: startD,
+    //     end: endD
+    //   },
+    //   ({ data }) => {
+    //     console.log('성공!');
+    //     // console.log(data.trackList);
+    //     console.log(Object.values(data.trackList));
+    //     setTrackData(Object.values(data.trackList));
+    //     console.log('------------');
+    //     drawChart(svg, props);
+
+    //     // console.log(trackData);
+    //     // trackData = data;
+    //   },
+    //   (error) => {
+    //     console.error(error);
+    //     // alert(error.message);
+    //     console.log('getVisitTrack error');
+    //   }
+    // );
   }
 
   function drawChart(svg, props) {
@@ -131,17 +143,15 @@ function Trace(props) {
         .datum(array)
         .attr('d', line)
         .attr('stroke', randomColor())
-        .attr('stroke-width', 2)
+        .attr('stroke-width', 3)
         .attr('fill', 'none');
     });
   }
 
   useEffect(() => {
-    handleTrack();
-
     const svg = d3.select(svgRef.current);
     drawChart(svg, props);
-  }, []);
+  }, [trackData]);
 
   return (
     <>
