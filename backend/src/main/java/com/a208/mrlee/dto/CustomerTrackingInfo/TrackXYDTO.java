@@ -18,4 +18,11 @@ public class TrackXYDTO {
                 .y(info.getY())
                 .build();
     }
+
+    public static double getMagnitude(TrackXYDTO u, TrackXYDTO v){
+        double dx = u.getX() - v.getX();
+        double dy = u.getY() - v.getY();
+
+        return dx * dx + dy * dy;
+    }
 }

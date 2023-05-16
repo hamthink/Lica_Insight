@@ -7,6 +7,7 @@ import com.a208.mrlee.repository.CustomerTrackingInfo.CustomerTrackingInfoReposi
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.sound.midi.Track;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -42,6 +43,43 @@ public class VisitServiceImpl implements VisitService{
         }
 
         return result;
+    }
+
+    @Override
+    public Map<String, List<TrackXYDTO>> getThrottledAndFilteredTrackingInfo(LocalDateTime start, LocalDateTime end) {
+
+        final double MIN_MAGNITUDE_THRESHOLD = 1000 * 1000;
+        final int MIN_STEP_COUNT_THRESHOLD = 5;
+
+        List<CustomerTrackingInfoDTO> customerTrackingInfoDTOList
+                = customerTrackingInfoRepository.findByCreatedBetweenAndOrderByCreatedAsc(start, end)
+                .stream()
+                .map(CustomerTrackingInfoDTO::copyFromEntity)
+                .collect(Collectors.toList());
+
+        Map<String, List<TrackXYDTO>> throttled = new HashMap<>();
+        for(CustomerTrackingInfoDTO dto: customerTrackingInfoDTOList){
+
+            TrackXYDTO xy = new TrackXYDTO(dto.getX(), dto.getY());
+
+            throttled.computeIfPresent(dto.getTid(), (k, v) -> {
+                TrackXYDTO prev = v.get(v.size() - -1);
+                if(TrackXYDTO.getMagnitude(prev, xy) >= MIN_MAGNITUDE_THRESHOLD){
+                    v.add(xy);
+                }
+                return v;
+            });
+
+            throttled.computeIfAbsent(dto.getTid(), k -> new ArrayList<>())
+                    .add(xy);
+        }
+
+        Map<String, List<TrackXYDTO>> throttledAndFiltered = throttled.entrySet()
+                .stream()
+                .filter(entry -> entry.getValue().size() >= MIN_STEP_COUNT_THRESHOLD)
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+
+        return throttledAndFiltered;
     }
 }
 

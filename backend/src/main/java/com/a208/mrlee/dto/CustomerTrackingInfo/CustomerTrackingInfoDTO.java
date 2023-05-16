@@ -40,4 +40,14 @@ public class CustomerTrackingInfoDTO {
                 .created(info.getCreated().toString())
                 .build();
     }
+
+    public static CustomerTrackingInfoDTO copyFromEntity(CustomerTrackingInfo info){
+        return CustomerTrackingInfoDTO.builder()
+                .storeId(info.getStoreId())
+                .tid(info.getTid())
+                .x(info.getX())
+                .y(info.getY())
+                .created(info.getCreated().toString())
+                .build();
+    }
 }
