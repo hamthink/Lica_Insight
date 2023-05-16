@@ -13,20 +13,21 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class VisitServiceImpl implements VisitService{
+public class VisitServiceImpl implements VisitService {
 
     private final CustomerTrackingInfoRepository customerTrackingInfoRepository;
+
     @Override
     public List<CustomerTrackingInfoDTO> getTrackingInfo(LocalDateTime start, LocalDateTime end) {
         List<CustomerTrackingInfo> list = customerTrackingInfoRepository
-                .findByCreatedBetween(start , end);
+                .findByCreatedBetween(start, end);
         return list.stream()
-                .map(m->CustomerTrackingInfoDTO.to(m))
+                .map(m -> CustomerTrackingInfoDTO.to(m))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public  Map<String , List<TrackXYDTO>> getTrack(LocalDateTime start, LocalDateTime end) {
+    public Map<String, List<TrackXYDTO>> getTrack(LocalDateTime start, LocalDateTime end) {
         List<CustomerTrackingInfoDTO> list = customerTrackingInfoRepository
                 .findByCreatedBetween(start, end)
                 .stream()
@@ -57,20 +58,20 @@ public class VisitServiceImpl implements VisitService{
                 .collect(Collectors.toList());
 
         Map<String, List<TrackXYDTO>> throttled = new HashMap<>();
-        for(CustomerTrackingInfoDTO dto: customerTrackingInfoDTOList){
 
-            TrackXYDTO xy = new TrackXYDTO(dto.getX(), dto.getY());
+        for (CustomerTrackingInfoDTO dto : customerTrackingInfoDTOList) {
 
-            throttled.computeIfPresent(dto.getTid(), (k, v) -> {
+            String tid = dto.getTid();
 
-                TrackXYDTO prev = v.get(v.size() - 1);
-                if(TrackXYDTO.getMagnitude(prev, xy) >= MIN_MAGNITUDE_THRESHOLD){
-                    v.add(xy);
-                }
-                return v;
-            });
+            TrackXYDTO xy = TrackXYDTO.builder()
+                    .x(dto.getX())
+                    .y(dto.getY())
+                    .build();
 
-            throttled.computeIfAbsent(dto.getTid(), v -> new ArrayList<>()).add(xy);
+            List<TrackXYDTO> v = throttled.computeIfAbsent(tid, k -> new ArrayList<>());
+            if (v.isEmpty() || (TrackXYDTO.getMagnitude(v.get(v.size() - 1), xy) >= MIN_MAGNITUDE_THRESHOLD)) {
+                v.add(xy);
+            }
         }
 
         Map<String, List<TrackXYDTO>> throttledAndFiltered = throttled.entrySet()
