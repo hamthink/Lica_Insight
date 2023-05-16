@@ -10,4 +10,6 @@ import java.util.Map;
 public interface VisitService {
     List<CustomerTrackingInfoDTO> getTrackingInfo(LocalDateTime start , LocalDateTime end);
     Map<String , List<TrackXYDTO>> getTrack(LocalDateTime start , LocalDateTime end);
+
+    Map<String, List<TrackXYDTO>> getThrottledAndFilteredTrackingInfo(LocalDateTime start, LocalDateTime end);
 }

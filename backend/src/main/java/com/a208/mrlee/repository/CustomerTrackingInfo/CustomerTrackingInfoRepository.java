@@ -10,5 +10,6 @@ import java.util.Optional;
 
 public interface CustomerTrackingInfoRepository extends JpaRepository<CustomerTrackingInfo, Long> {
     List<CustomerTrackingInfo> findByCreatedBetween(LocalDateTime start, LocalDateTime end);
-    long countByCreatedBetween(LocalDateTime start, LocalDateTime end);
+
+    List<CustomerTrackingInfo> findByCreatedBetweenAndOrderByCreatedAsc(LocalDateTime start, LocalDateTime end);
 }
