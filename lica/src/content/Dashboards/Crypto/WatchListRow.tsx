@@ -108,9 +108,6 @@ function WatchListRow() {
       mode: theme.palette.mode
     },
     tooltip: {
-      fixed: {
-        enabled: false
-      },
       x: {
         show: true
       },

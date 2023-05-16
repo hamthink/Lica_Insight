@@ -27,9 +27,9 @@ function DashboardCrypto() {
           <Grid item xs={12}>
             <Maps />
           </Grid>
-          <Grid item xs={12}>
+          {/* <Grid item xs={12}>
             <Camera />
-          </Grid>
+          </Grid> */}
           <Grid item xs={12}>
             <WatchList />
           </Grid>
