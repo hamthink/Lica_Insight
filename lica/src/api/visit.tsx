@@ -3,7 +3,7 @@ import { apiInstance } from '@/api';
 const api = apiInstance();
 
 // 동선
-async function getVisitTrack(params, success, fail) {
+function getVisitTrack(params, success, fail) {
   api
     .get(`/visit/track/throttled`, { params: params })
     .then(success)

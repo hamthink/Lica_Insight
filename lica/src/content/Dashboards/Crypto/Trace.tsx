@@ -143,7 +143,7 @@ function Trace(props) {
         .datum(array)
         .attr('d', line)
         .attr('stroke', randomColor())
-        .attr('stroke-width', 3)
+        .attr('stroke-width', 10)
         .attr('fill', 'none');
     });
   }
