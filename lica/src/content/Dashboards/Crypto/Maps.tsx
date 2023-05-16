@@ -67,7 +67,7 @@ function Maps() {
 
   const offset = { x: -25, y: 30 };
   const domain = { xStart: 0, xEnd: 11000, yStart: 0, yEnd: 7000 };
-  const range = { width: 1140, height: 600 };
+  const range = { width: 1100, height: 600 };
 
   // dummy end
 
