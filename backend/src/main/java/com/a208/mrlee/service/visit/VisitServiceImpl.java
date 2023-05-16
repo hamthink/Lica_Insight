@@ -7,7 +7,6 @@ import com.a208.mrlee.repository.CustomerTrackingInfo.CustomerTrackingInfoReposi
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.sound.midi.Track;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -52,7 +51,7 @@ public class VisitServiceImpl implements VisitService{
         final int MIN_STEP_COUNT_THRESHOLD = 5;
 
         List<CustomerTrackingInfoDTO> customerTrackingInfoDTOList
-                = customerTrackingInfoRepository.findByCreatedBetweenAndOrderByCreatedAsc(start, end)
+                = customerTrackingInfoRepository.findByCreatedBetweenOrderByCreatedAsc(start, end)
                 .stream()
                 .map(CustomerTrackingInfoDTO::copyFromEntity)
                 .collect(Collectors.toList());
