@@ -41,10 +41,6 @@ function Trace(props) {
     setStore(event.target.value);
   };
 
-  // function handleEndTimeChange(event) {
-  //   setEndTime(new Date(event.target.value));
-  // }
-
   function handleTrack() {
     const svg = d3.select(svgRef.current);
 
@@ -58,14 +54,17 @@ function Trace(props) {
       alert('날짜를 다시 입력하세요.');
     }
 
-    const params = { start: startD, end: endD };
-
     console.log('start date : ' + startD);
     console.log('end date : ' + endD);
 
     getVisitTrack(
-      params,
+      {
+        start: startD,
+        end: endD
+      },
       ({ data }) => {
+        console.log('성공!');
+        // console.log(data.trackList);
         console.log(Object.values(data.trackList));
         setTrackData(Object.values(data.trackList));
 
@@ -112,10 +111,10 @@ function Trace(props) {
     // svg.append('g').attr('transform', 'translate(30, -30)').call(yAxis);
 
     svg
-      .selectAll('circle')
-      .data(props.data)
+      .selectAll('.line')
+      .data(trackData)
       .enter()
-      .append('circle')
+      .append('path')
       .attr('cx', function (d) {
         return xScale(d.x) + 30;
       })
