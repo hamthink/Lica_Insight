@@ -67,7 +67,7 @@ function Maps() {
 
   const offset = { x: -25, y: 30 };
   const domain = { xStart: 0, xEnd: 11000, yStart: 0, yEnd: 7000 };
-  const range = { width: 1100, height: 600 };
+  const range = { width: 1140, height: 700 };
 
   // dummy end
 
@@ -135,13 +135,7 @@ function Maps() {
       {tabs === 'DotMap' && <DotMap map={map} range={range} />}
 
       {tabs === 'Trace' && (
-        <Trace
-          data={newdata}
-          offset={offset}
-          range={range}
-          domain={domain}
-          map={map}
-        />
+        <Trace offset={offset} range={range} domain={domain} map={map} />
       )}
 
       {!tabs && (

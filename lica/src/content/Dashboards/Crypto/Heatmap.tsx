@@ -53,7 +53,7 @@ function HeatMap(props) {
         console.log('정보 가져오기 성공');
         for (var i of data.infoList) {
           i.x = Math.round((1140 / 11400) * i.x);
-          i.y = 600 - Math.round((600 / 7000) * i.y);
+          i.y = 700 - Math.round((700 / 7000) * i.y);
           // i.y = 600 - i.y;
         }
         setVisit(data.infoList);

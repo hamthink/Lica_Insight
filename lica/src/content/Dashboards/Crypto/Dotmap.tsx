@@ -74,6 +74,8 @@ function DotMap(props) {
   };
 
   const options = {
+    maintainAspectRatio: false,
+    responsive: true,
     scales: {
       y: {
         display: false,
@@ -114,7 +116,7 @@ function DotMap(props) {
         console.log('정보 가져오기 성공');
         for (var i of data.infoList) {
           i.x = Math.round((1140 / 11000) * i.x);
-          i.y = Math.round((600 / 7000) * i.y);
+          i.y = Math.round((700 / 7000) * i.y);
         }
         setVisit({
           datasets: [
@@ -136,36 +138,6 @@ function DotMap(props) {
         alert(error.message);
       }
     );
-
-    // const canvas = document.getElementById('dotmap') as HTMLCanvasElement;
-
-    // const newChart = new Chart(canvas, {
-    //   type: 'scatter',
-    //   data: {
-    //     datasets: [
-    //       {
-    //         label: 'visit',
-    //         data: visit
-    //       }
-    //     ]
-    //   },
-    //   options: {
-    //     responsive: true,
-    //     scales: {
-    //       x: {
-    //         type: 'linear',
-    //         position: 'bottom'
-    //       },
-    //       y: {
-    //         type: 'linear',
-    //         position: 'left'
-    //       }
-    //     }
-    //   }
-    // });
-
-    // setChart(newChart);
-    console.log('end');
   }
 
   useEffect(() => {});
@@ -268,29 +240,19 @@ function DotMap(props) {
               <CardContent>
                 <Box
                   sx={{
+                    ml: 3,
+                    mr: 3,
                     backgroundImage: props.map,
-                    backgroundSize: 'cover'
+                    backgroundSize: 'cover',
+                    height: '700px'
                   }}
                 >
-                  {visit != null && (
-                    <Scatter
-                      options={options}
-                      data={visit === null ? { datasets: [] } : visit}
-
-                      // data={props.dataset}
-                    />
-                  )}
-
-                  {/* <CardMedia
-                    component="img"
-                    sx={{ width: '100%', mt: 7 }}
-                    image="/static/images/map/map1.png"
-                    alt="LiCa LOGO"
-                  /> */}
+                  <Scatter
+                    options={options}
+                    data={visit === null ? { datasets: [] } : visit}
+                    style={{ height: props.range.height }}
+                  />
                 </Box>
-                {/* <Box>
-                  <canvas id="dotmap"></canvas>
-                </Box> */}
               </CardContent>
             </Card>
           </Grid>
