@@ -1,11 +1,10 @@
-package com.a208.mrlee.service.VisitorCount;
+package com.a208.mrlee.service.visitor;
 
 import com.a208.mrlee.dto.VisitorCount.*;
 import com.a208.mrlee.entity.CustomerTrackingInfo.CustomerTrackingInfo;
-import com.a208.mrlee.entity.VisitorCount.DailyVisitorCount;
-import com.a208.mrlee.entity.VisitorCount.HourlyVisitorCount;
-import com.a208.mrlee.exception.DateAlreadyExistException;
-import com.a208.mrlee.exception.DateTimeAlreadyExistException;
+import com.a208.mrlee.entity.visitor.DailyVisitorCount;
+import com.a208.mrlee.entity.visitor.HourlyVisitorCount;
+import com.a208.mrlee.exception.UniqueConstraintViolationException;
 import com.a208.mrlee.repository.CustomerTrackingInfo.CustomerTrackingInfoRepository;
 import com.a208.mrlee.repository.VisitorCount.DailyVisitorCountRepository;
 import com.a208.mrlee.repository.VisitorCount.HourlyVisitorCountRepository;
@@ -35,7 +34,7 @@ public class VisitorService {
     public DailyVisitorCountDto createDailyVisitorCount(DailyVisitorCountSaveDto dto) {
 
         if (dailyVisitorCountRepository.existsByDate(dto.getDate())) {
-            throw new DateAlreadyExistException("주어진 날짜에 해당하는 엔티티가 이미 존재합니다.");
+            throw new UniqueConstraintViolationException("주어진 날짜에 해당하는 엔티티가 이미 존재합니다.");
         }
 
         DailyVisitorCount saved = dailyVisitorCountRepository.save(dto.toEntity());
@@ -46,7 +45,7 @@ public class VisitorService {
     public DailyVisitorCountDto createDailyVisitorCount(LocalDate date) {
 
         if (dailyVisitorCountRepository.existsByDate(date)) {
-            throw new DateAlreadyExistException("주어진 날짜에 해당하는 엔티티가 이미 존재합니다.");
+            throw new UniqueConstraintViolationException("주어진 날짜에 해당하는 엔티티가 이미 존재합니다.");
         }
 
         long numVisitor = countDailyVisitors(date);
@@ -144,7 +143,7 @@ public class VisitorService {
     public HourlyVisitorCountDto createHourlyVisitorCount(HourlyVisitorCountSaveDto dto) {
 
         if (hourlyVisitorCountRepository.existsByDateTime(dto.getDateTime())) {
-            throw new DateTimeAlreadyExistException("주어진 날짜, 시간에 해당하는 엔티티가 이미 존재합니다.");
+            throw new UniqueConstraintViolationException("주어진 날짜, 시간에 해당하는 엔티티가 이미 존재합니다.");
         }
 
         HourlyVisitorCount entity = HourlyVisitorCount.builder()

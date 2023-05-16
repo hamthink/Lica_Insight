@@ -1,6 +1,7 @@
 package com.a208.mrlee.controller.user;
 
 import com.a208.mrlee.dto.user.UserDTO;
+import com.a208.mrlee.exception.UniqueConstraintViolationException;
 import com.a208.mrlee.service.Jwt.JwtService;
 import com.a208.mrlee.service.User.UserService;
 import io.swagger.annotations.Api;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 @RestController
 @CrossOrigin("*")
@@ -75,6 +77,20 @@ public class UserController {
     @GetMapping("/test")
     public void test(String jwt){
         System.out.println(jwtService.convert(jwt));
+    }
+
+    @GetMapping("/test/exception")
+    public void test(int testCase){
+        switch (testCase){
+            case 1:
+                throw new NoSuchElementException("1");
+            case 2:
+                throw new IllegalArgumentException("2");
+            case 3:
+                throw new UniqueConstraintViolationException("3");
+            default:
+                throw new RuntimeException("unhandled exception");
+        }
     }
 
 }

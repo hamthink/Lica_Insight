@@ -1,33 +1,33 @@
-package com.a208.mrlee.entity.VisitorCount;
+package com.a208.mrlee.entity.visitor;
 
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @NoArgsConstructor
 @Getter
 @Entity
-@Table(indexes = @Index(name = "idx_date_time", columnList = "dateTime"))
-public class HourlyVisitorCount {
+@Table(indexes = @Index(name = "idx_date", columnList = "date"))
+public class DailyVisitorCount {
 
     @Id
     @GeneratedValue
     private Long id;
 
     @Column(unique = true, nullable = false)
-    private LocalDateTime dateTime;
+    private LocalDate date;
 
     @Column(nullable = false)
     private Long numVisitor;
 
     @Builder
-    public HourlyVisitorCount(Long id, LocalDateTime dateTime, Long numVisitor) {
+    public DailyVisitorCount(Long id, LocalDate date, Long numVisitor) {
 
         this.id = id;
-        this.dateTime = dateTime;
+        this.date = date;
         this.numVisitor = numVisitor;
     }
 
