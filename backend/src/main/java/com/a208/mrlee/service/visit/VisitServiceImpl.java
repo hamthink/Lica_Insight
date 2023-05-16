@@ -62,6 +62,7 @@ public class VisitServiceImpl implements VisitService{
             TrackXYDTO xy = new TrackXYDTO(dto.getX(), dto.getY());
 
             throttled.computeIfPresent(dto.getTid(), (k, v) -> {
+
                 TrackXYDTO prev = v.get(v.size() - -1);
                 if(TrackXYDTO.getMagnitude(prev, xy) >= MIN_MAGNITUDE_THRESHOLD){
                     v.add(xy);
@@ -69,8 +70,7 @@ public class VisitServiceImpl implements VisitService{
                 return v;
             });
 
-            throttled.computeIfAbsent(dto.getTid(), k -> new ArrayList<>())
-                    .add(xy);
+            throttled.computeIfAbsent(dto.getTid(), v -> new ArrayList<>()).add(xy);
         }
 
         Map<String, List<TrackXYDTO>> throttledAndFiltered = throttled.entrySet()

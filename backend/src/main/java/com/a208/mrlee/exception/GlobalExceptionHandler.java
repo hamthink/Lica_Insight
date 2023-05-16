@@ -77,6 +77,7 @@ public class GlobalExceptionHandler {
                         .code(INTERNAL_SERVER_ERROR)
                         .message(ex.getMessage())
                         .path(req.getRequestURL().toString())
+                        .stackTrace(ex.getStackTrace().toString())
                         .build());
     }
 }

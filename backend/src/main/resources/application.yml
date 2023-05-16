@@ -91,7 +91,7 @@ spring:
     error:
       include-message: always
       include-binding-errors: always
-      include-stacktrace: on_trace_param
+      include-stacktrace: always
 
   datasource:
     url: jdbc:postgresql://k8a2081.p.ssafy.io:3306/lica
