@@ -1,6 +1,6 @@
 package com.a208.mrlee.dto.VisitorCount;
 
-import com.a208.mrlee.entity.VisitorCount.HourlyVisitorCount;
+import com.a208.mrlee.entity.visitor.HourlyVisitorCount;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

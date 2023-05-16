@@ -3,7 +3,7 @@ package com.a208.mrlee.controller.visit;
 import com.a208.mrlee.dto.CustomerTrackingInfo.CustomerTrackingInfoDTO;
 import com.a208.mrlee.dto.CustomerTrackingInfo.TrackXYDTO;
 import com.a208.mrlee.dto.VisitorCount.*;
-import com.a208.mrlee.service.VisitorCount.VisitorService;
+import com.a208.mrlee.service.visitor.VisitorService;
 import com.a208.mrlee.service.visit.VisitService;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;

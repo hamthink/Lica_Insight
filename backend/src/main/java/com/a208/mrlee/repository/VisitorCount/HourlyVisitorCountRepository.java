@@ -1,6 +1,6 @@
 package com.a208.mrlee.repository.VisitorCount;
 
-import com.a208.mrlee.entity.VisitorCount.HourlyVisitorCount;
+import com.a208.mrlee.entity.visitor.HourlyVisitorCount;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDateTime;

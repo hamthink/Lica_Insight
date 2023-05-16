@@ -1,6 +1,6 @@
 package com.a208.mrlee.dto.VisitorCount;
 
-import com.a208.mrlee.entity.VisitorCount.DailyVisitorCount;
+import com.a208.mrlee.entity.visitor.DailyVisitorCount;
 import lombok.Builder;
 import lombok.Getter;
 import org.apache.commons.lang3.builder.ToStringBuilder;

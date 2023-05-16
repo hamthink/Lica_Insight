@@ -1,10 +1,10 @@
-package com.a208.mrlee.service.VisitorCount;
+package com.a208.mrlee.service.visitor;
 
 import com.a208.mrlee.dto.VisitorCount.DailyVisitorCountDto;
 import com.a208.mrlee.dto.VisitorCount.DailyVisitorCountSaveDto;
 import com.a208.mrlee.entity.CustomerTrackingInfo.CustomerTrackingInfo;
-import com.a208.mrlee.entity.VisitorCount.DailyVisitorCount;
-import com.a208.mrlee.exception.DateAlreadyExistException;
+import com.a208.mrlee.entity.visitor.DailyVisitorCount;
+import com.a208.mrlee.exception.UniqueConstraintViolationException;
 import com.a208.mrlee.repository.CustomerTrackingInfo.CustomerTrackingInfoRepository;
 import com.a208.mrlee.repository.VisitorCount.DailyVisitorCountRepository;
 import com.a208.mrlee.repository.VisitorCount.HourlyVisitorCountRepository;
@@ -130,7 +130,7 @@ class VisitorServiceTest {
 
         // date 칼럼에 Unique 제약이 걸려있으므로 예외가 발생해야한다.
         assertThrows(
-                DateAlreadyExistException.class,
+                UniqueConstraintViolationException.class,
                 () -> visitorService.createDailyVisitorCount(saveDto)
         );
     }

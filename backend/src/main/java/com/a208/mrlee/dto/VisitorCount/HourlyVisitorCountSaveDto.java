@@ -1,13 +1,11 @@
 package com.a208.mrlee.dto.VisitorCount;
 
-import com.a208.mrlee.entity.VisitorCount.DailyVisitorCount;
-import com.a208.mrlee.entity.VisitorCount.HourlyVisitorCount;
+import com.a208.mrlee.entity.visitor.HourlyVisitorCount;
 import lombok.Builder;
 import lombok.Getter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
