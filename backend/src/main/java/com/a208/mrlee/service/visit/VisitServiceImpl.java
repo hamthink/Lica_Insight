@@ -63,7 +63,7 @@ public class VisitServiceImpl implements VisitService{
 
             throttled.computeIfPresent(dto.getTid(), (k, v) -> {
 
-                TrackXYDTO prev = v.get(v.size() - -1);
+                TrackXYDTO prev = v.get(v.size() - 1);
                 if(TrackXYDTO.getMagnitude(prev, xy) >= MIN_MAGNITUDE_THRESHOLD){
                     v.add(xy);
                 }
