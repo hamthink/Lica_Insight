@@ -14,7 +14,6 @@ import TimelineTwoToneIcon from '@mui/icons-material/TimelineTwoTone';
 import HeatMap from './Heatmap';
 import DotMap from './Dotmap';
 import Trace from './Trace';
-import { faker } from '@faker-js/faker';
 import { RecoilEnv, useSetRecoilState } from 'recoil';
 import { authState, userState } from 'atoms';
 
@@ -30,12 +29,9 @@ const EmptyResultsWrapper = styled('img')(
 RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
 
 function Maps() {
-  // dummy start
   const offset = { x: -25, y: 30 };
   const domain = { xStart: 0, xEnd: 11000, yStart: 0, yEnd: 7000 };
   const range = { width: 1100, height: 600 };
-
-  // dummy end
 
   const [tabs, setTab] = useState<string | null>('HeatMap');
   const [date, setDate] = useState(new Date());
@@ -51,14 +47,6 @@ function Maps() {
 
   const setAccessToken = useSetRecoilState(authState);
   const setUser = useSetRecoilState(userState);
-
-  // trace graph 선택
-  const highlightedGraph = 2; // 강조할 그래프의 인덱스
-  const handleGraphSelect = (graphIndex) => {
-    console.log('선택된 그래프:', graphIndex);
-    // 그래프 선택 처리 로직을 작성합니다.
-  };
-  // trace graph 선택 end
 
   useEffect(() => {
     const authString = sessionStorage.getItem('auth');
@@ -109,14 +97,7 @@ function Maps() {
       {tabs === 'DotMap' && <DotMap map={map} range={range} />}
 
       {tabs === 'Trace' && (
-        <Trace
-          offset={offset}
-          range={range}
-          domain={domain}
-          map={map}
-          highlightedGraph={highlightedGraph}
-          onGraphSelect={handleGraphSelect}
-        />
+        <Trace offset={offset} range={range} domain={domain} map={map} />
       )}
 
       {!tabs && (

@@ -33,6 +33,7 @@ function Trace(props) {
     format(new Date(), "yyyy-MM-dd'T'HH:mm:ss")
   );
   const [trackData, setTrackData] = React.useState([]);
+  const [highlightedGraph, setHighlightedGraph] = React.useState(null);
 
   const FloorhandleChange = (event: SelectChangeEvent) => {
     setFloor(event.target.value);
@@ -71,7 +72,8 @@ function Trace(props) {
     }
   }
 
-  function drawChart(svg, props) {
+  function drawChart(props) {
+    const svg = d3.select(svgRef.current);
     svg.selectAll('*').remove();
     const xScale = d3
       .scaleLinear()
@@ -94,56 +96,107 @@ function Trace(props) {
 
     svg.attr('width', props.range.width).attr('height', props.range.height);
 
-    const highlightedStyle = {
-      strokeWidth: 10,
-      stroke: 'red'
+    const handleGraphSelect = (graphIndex) => {
+      if (graphIndex == highlightedGraph) {
+        setHighlightedGraph(null);
+      } else {
+        setHighlightedGraph(graphIndex);
+      }
+      console.log('선택된 그래프:', graphIndex);
     };
 
-    svg
-      .selectAll('.line')
-      .data(trackData)
-      .enter()
-      .append('path')
-      .attr('cx', function (d) {
-        return xScale(d.x) + 30;
-      })
-      .attr('cy', function (d) {
-        return yScale(d.y) - 30;
-      })
-      .attr('r', 3)
-      .attr('fill', randomColor());
+    // svg
+    //   .selectAll('.line')
+    //   .data(trackData)
+    //   .enter()
+    //   .append('path')
+    //   .attr('cx', function (d) {
+    //     return xScale(d.x) + 30;
+    //   })
+    //   .attr('cy', function (d) {
+    //     return yScale(d.y) - 30;
+    //   })
+    //   .attr('r', 3)
+    //   .attr('fill', randomColor());
 
     // 곡선 추가
-    trackData.forEach((array) => {
-      svg
-        .append('path')
-        .datum(array)
-        .attr('d', line)
-        .attr('stroke', randomColor())
-        .attr('stroke-width', 10)
-        .attr('fill', 'none');
-    });
+    // trackData.forEach((array) => {
+    //   svg
+    //     .append('circle')
+    //     .datum(array)
+    //     .attr('d', line)
+    //     .attr('stroke', randomColor())
+    //     .attr('stroke-width', 10)
+    //     .attr('fill', 'none');
+    // });
+
+    if (highlightedGraph == null) {
+      trackData.forEach((array, index) => {
+        svg
+          .append('path')
+          .datum(array)
+          .attr('d', line)
+          .attr('class', 'graph-path')
+          .style('stroke', randomColor())
+          .style('stroke-width', 10)
+          .style('fill', 'none');
+      });
+    }
 
     trackData.forEach((array, index) => {
-      const isHighlighted = index === props.highlightedGraph;
+      if (index !== highlightedGraph) {
+        const path = svg
+          .append('path')
+          .datum(array)
+          .attr('d', line)
+          .attr('class', 'graph-path')
+          .style('stroke', 'steelblue')
+          .style('stroke-width', 10)
+          .style('fill', 'none')
+          .style('opacity', 0.5)
+          .on('click', () => {
+            handleGraphSelect(index);
+          });
 
-      svg
-        .append('path')
-        .datum(array)
-        .attr('d', line)
-        .style('stroke', isHighlighted ? highlightedStyle.stroke : 'steelblue')
-        .style('stroke-width', isHighlighted ? highlightedStyle.strokeWidth : 1)
-        .style('fill', 'none')
-        .on('click', () => {
-          props.onGraphSelect(index);
-        });
+        path
+          .on('mouseover', () => {
+            path.style('stroke', 'green'); // 외곽선 색상 변경
+          })
+          .on('mouseout', () => {
+            path.style('stroke', 'steelblue'); // 기본 외곽선 색상 복원
+          });
+      }
     });
+
+    if (highlightedGraph !== null) {
+      const selectedGraphData = trackData[highlightedGraph];
+
+      const path = svg
+        .append('path')
+        .datum(selectedGraphData)
+        .attr('d', line)
+        .attr('class', 'graph-path')
+        .style('stroke', 'red')
+        .style('stroke-width', 15)
+        .style('fill', 'none')
+        .style('opacity', 1)
+        .on('click', () => {
+          handleGraphSelect(highlightedGraph);
+        });
+
+      path
+        .on('mouseover', () => {
+          path.style('stroke', 'green'); // 외곽선 색상 변경
+        })
+        .on('mouseout', () => {
+          path.style('stroke', 'red'); // 기본 외곽선 색상 복원
+        });
+    }
   }
 
   useEffect(() => {
-    const svg = d3.select(svgRef.current);
-    drawChart(svg, props);
-  }, [trackData]);
+    drawChart(props);
+  }, [trackData, highlightedGraph]);
 
   return (
     <>
