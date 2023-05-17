@@ -49,7 +49,7 @@ public class VisitServiceImpl implements VisitService {
     public Map<String, List<TrackXYDTO>> getThrottledAndFilteredTrackingInfo(LocalDateTime start, LocalDateTime end) {
 
         final double MIN_MAGNITUDE_THRESHOLD = 500 * 500;
-        final int MIN_STEP_COUNT_THRESHOLD = 5;
+        final int MIN_STEP_COUNT_THRESHOLD = 2;
 
         List<CustomerTrackingInfoDTO> customerTrackingInfoDTOList
                 = customerTrackingInfoRepository.findByCreatedBetweenOrderByCreatedAsc(start, end)
