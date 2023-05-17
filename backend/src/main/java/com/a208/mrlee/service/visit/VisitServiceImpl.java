@@ -52,7 +52,7 @@ public class VisitServiceImpl implements VisitService {
         final int MIN_STEP_COUNT_THRESHOLD = 2;
 
         List<CustomerTrackingInfoDTO> customerTrackingInfoDTOList
-                = customerTrackingInfoRepository.findByCreatedBetweenOrderByCreatedAsc(start, end)
+                = customerTrackingInfoRepository.findByCreatedBetween(start, end)
                 .stream()
                 .map(CustomerTrackingInfoDTO::copyFromEntity)
                 .collect(Collectors.toList());
