@@ -25,10 +25,10 @@ function HeatMap(props) {
   const [floor, setFloor] = useState('1');
   const [store, setStore] = useState('휴게실');
   const [startDate, setStartDate] = useState(
-    format(new Date(), 'yyyy-MM-dd hh:mm:ss')
+    format(new Date(), 'yyyy-MM-dd hh:mm')
   );
   const [endDate, setEndDate] = useState(
-    format(new Date(), 'yyyy-MM-dd hh:mm:ss')
+    format(new Date(), 'yyyy-MM-dd hh:mm')
   );
   const [visit, setVisit] = useState(null);
 
@@ -159,7 +159,7 @@ function HeatMap(props) {
                     <DateTimePicker
                       label="date time picker start"
                       value={startDate}
-                      inputFormat="yyyy-MM-dd HH:mm:ss"
+                      inputFormat="yyyy-MM-dd HH:mm"
                       onChange={(newDate) => setStartDate(newDate)}
                       renderInput={(params) => (
                         <TextField
@@ -173,7 +173,7 @@ function HeatMap(props) {
                     <DateTimePicker
                       label="date time picker end"
                       value={endDate}
-                      inputFormat="yyyy-MM-dd HH:mm:ss"
+                      inputFormat="yyyy-MM-dd HH:mm"
                       onChange={(newDate) => setEndDate(newDate)}
                       renderInput={(params) => (
                         <TextField

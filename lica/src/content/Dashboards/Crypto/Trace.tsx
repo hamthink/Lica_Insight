@@ -27,10 +27,10 @@ function Trace(props) {
   const [floor, setFloor] = React.useState('8');
   const [store, setStore] = React.useState('휴게실');
   const [startDate, setStartDate] = React.useState(
-    format(new Date(), "yyyy-MM-dd'T'HH:mm:ss")
+    format(new Date(), "yyyy-MM-dd'T'HH:mm")
   );
   const [endDate, setEndDate] = React.useState(
-    format(new Date(), "yyyy-MM-dd'T'HH:mm:ss")
+    format(new Date(), "yyyy-MM-dd'T'HH:mm")
   );
   const [trackData, setTrackData] = React.useState([]);
   const [highlightedGraph, setHighlightedGraph] = React.useState(null);
@@ -267,7 +267,7 @@ function Trace(props) {
                     <DateTimePicker
                       label="date start time picker"
                       value={startDate}
-                      inputFormat="yyyy-MM-dd HH:mm:ss"
+                      inputFormat="yyyy-MM-dd HH:mm"
                       onChange={(startTime) => setStartDate(startTime)}
                       renderInput={(params) => (
                         <TextField
@@ -281,7 +281,7 @@ function Trace(props) {
                     <DateTimePicker
                       label="date end time picker"
                       value={endDate}
-                      inputFormat="yyyy-MM-dd HH:mm:ss"
+                      inputFormat="yyyy-MM-dd HH:mm"
                       onChange={(endTime) => setEndDate(endTime)}
                       renderInput={(params) => (
                         <TextField
