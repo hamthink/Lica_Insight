@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import { ReactElement, useState } from 'react';
-import BaseLayout from 'src/layouts/BaseLayout';
 
 import Footer from '@/components/Footer';
 import { styled } from '@mui/material/styles';
@@ -23,23 +22,13 @@ import FormHelperText from '@mui/material/FormHelperText';
 import InputLabel from '@mui/material/InputLabel';
 import Input from '@mui/material/Input';
 
-import Logo from 'src/components/LogoSign';
 import Link from 'src/components/Link';
 import {
   getEmailVerificationCode,
   postCheckVerificationCode,
   postJoin
 } from '@/api/user';
-
-const HeaderWrapper = styled(Card)(
-  ({ theme }) => `
-    width: 100%;
-    display: flex;
-    align-items: center;
-    height: ${theme.spacing(10)};
-    margin-bottom: ${theme.spacing(10)};
-    `
-);
+import SidebarLayout from '@/layouts/SidebarLayout';
 
 const SignupWrapper = styled(Box)(
   ({ theme }) => `
@@ -182,40 +171,7 @@ function UserSignup() {
       <Head>
         <title>회원가입</title>
       </Head>
-      <HeaderWrapper>
-        <Container maxWidth="lg">
-          <Box display="flex" alignItems="center">
-            <Logo />
-            <Box
-              display="flex"
-              alignItems="center"
-              justifyContent="space-between"
-              flex={1}
-            >
-              <Box />
-              <Box>
-                <Button
-                  component={Link}
-                  href="/user/signup"
-                  variant="contained"
-                  sx={{ ml: 2 }}
-                >
-                  {' '}
-                  회원가입{' '}
-                </Button>
-                <Button
-                  component={Link}
-                  href="/user/login"
-                  variant="contained"
-                  sx={{ ml: 2 }}
-                >
-                  로그인
-                </Button>
-              </Box>
-            </Box>
-          </Box>
-        </Container>
-      </HeaderWrapper>
+
       <Container maxWidth="sm" sx={{ mt: 8 }}>
         <Typography variant="h1" component="h1" gutterBottom align="center">
           회원가입
@@ -390,8 +346,6 @@ function UserSignup() {
   );
 }
 
-UserSignup.getLayout = function getLayout(page: ReactElement) {
-  return <BaseLayout>{page}</BaseLayout>;
-};
+UserSignup.getLayout = (page) => <SidebarLayout>{page}</SidebarLayout>;
 
 export default UserSignup;

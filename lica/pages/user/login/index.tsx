@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import { ReactElement, useState } from 'react';
-import BaseLayout from 'src/layouts/BaseLayout';
 
 import Footer from '@/components/Footer';
 import { styled } from '@mui/material/styles';
@@ -19,22 +18,11 @@ import {
 
 import CardMedia from '@mui/material/CardMedia';
 
-import Logo from 'src/components/LogoSign';
-import Link from 'src/components/Link';
 import React from 'react';
 import { postLogin } from '@/api/user';
 import { useSetRecoilState } from 'recoil';
 import { authState, userState } from 'atoms';
-
-const HeaderWrapper = styled(Card)(
-  ({ theme }) => `
-    width: 100%;
-    display: flex;
-    align-items: center;
-    height: ${theme.spacing(10)};
-    margin-bottom: ${theme.spacing(10)};
-    `
-);
+import SidebarLayout from '@/layouts/SidebarLayout';
 
 const SignupWrapper = styled(Box)(
   ({ theme }) => `
@@ -143,40 +131,7 @@ function UserLogin() {
       <Head>
         <title>로그인</title>
       </Head>
-      <HeaderWrapper>
-        <Container maxWidth="lg">
-          <Box display="flex" alignItems="center">
-            <Logo />
-            <Box
-              display="flex"
-              alignItems="center"
-              justifyContent="space-between"
-              flex={1}
-            >
-              <Box />
-              <Box>
-                <Button
-                  component={Link}
-                  href="/user/signup"
-                  variant="contained"
-                  sx={{ ml: 2 }}
-                >
-                  {' '}
-                  회원가입{' '}
-                </Button>
-                <Button
-                  component={Link}
-                  href="/user/login"
-                  variant="contained"
-                  sx={{ ml: 2 }}
-                >
-                  로그인
-                </Button>
-              </Box>
-            </Box>
-          </Box>
-        </Container>
-      </HeaderWrapper>
+
       <Container maxWidth="sm" sx={{ mt: 8 }}>
         <Typography variant="h1" component="h1" gutterBottom align="center">
           로그인
@@ -257,8 +212,6 @@ function UserLogin() {
   );
 }
 
-UserLogin.getLayout = function getLayout(page: ReactElement) {
-  return <BaseLayout>{page}</BaseLayout>;
-};
+UserLogin.getLayout = (page) => <SidebarLayout>{page}</SidebarLayout>;
 
 export default UserLogin;
