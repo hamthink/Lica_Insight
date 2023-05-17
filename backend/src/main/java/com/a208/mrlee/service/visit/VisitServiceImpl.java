@@ -48,7 +48,7 @@ public class VisitServiceImpl implements VisitService {
     @Override
     public Map<String, List<TrackXYDTO>> getThrottledAndFilteredTrackingInfo(LocalDateTime start, LocalDateTime end) {
 
-        final double MIN_MAGNITUDE_THRESHOLD = 1000 * 1000;
+        final double MIN_MAGNITUDE_THRESHOLD = 500 * 500;
         final int MIN_STEP_COUNT_THRESHOLD = 5;
 
         List<CustomerTrackingInfoDTO> customerTrackingInfoDTOList
