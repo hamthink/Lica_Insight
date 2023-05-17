@@ -1,5 +1,4 @@
 import Head from 'next/head';
-// import SidebarLayout from '@/layouts/SidebarLayout';
 import { ReactElement, useState } from 'react';
 import BaseLayout from 'src/layouts/BaseLayout';
 
@@ -305,14 +304,6 @@ function UserSignup() {
                   onChange={changeCheckPass}
                 />
               </FormControl>
-              {/* {passflag && (
-                <Box sx={{ ml: 2, width: '90%', color: 'green' }}>
-                  인증 성공!
-                </Box>
-              )}
-              {!passflag && (
-                <Box sx={{ ml: 2, width: '90%', color: 'red' }}>인증 실패!</Box>
-              )} */}
               <FormControl variant="standard" sx={{ m: 2, width: '90%' }}>
                 <InputLabel htmlFor="name">이름</InputLabel>
                 <Input
@@ -394,10 +385,6 @@ function UserSignup() {
     </SignupWrapper>
   );
 }
-
-// UserSignUp.getLayout = (page) => (
-//   <SidebarLayout>{page}</SidebarLayout>
-// );
 
 UserSignup.getLayout = function getLayout(page: ReactElement) {
   return <BaseLayout>{page}</BaseLayout>;

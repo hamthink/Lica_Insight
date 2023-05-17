@@ -5,7 +5,7 @@ const api = apiInstance();
 // 동선
 function getVisitTrack(params, success, fail) {
   api
-    .get(`/visit/track/throttled`, { params: params })
+    .get(`/visit/track/filtered`, { params: params })
     .then(success)
     .catch(fail);
 }

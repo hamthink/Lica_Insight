@@ -15,12 +15,7 @@ import { SidebarContext } from 'src/contexts/SidebarContext';
 
 import DesignServicesTwoToneIcon from '@mui/icons-material/DesignServicesTwoTone';
 import BrightnessLowTwoToneIcon from '@mui/icons-material/BrightnessLowTwoTone';
-import MmsTwoToneIcon from '@mui/icons-material/MmsTwoTone';
-import TableChartTwoToneIcon from '@mui/icons-material/TableChartTwoTone';
-import AccountCircleTwoToneIcon from '@mui/icons-material/AccountCircleTwoTone';
-import DisplaySettingsTwoToneIcon from '@mui/icons-material/DisplaySettingsTwoTone';
 import GroupsTwoToneIcon from '@mui/icons-material/GroupsTwoTone';
-import VideocamTwoToneIcon from '@mui/icons-material/VideocamTwoTone';
 import BlurOnTwoToneIcon from '@mui/icons-material/BlurOnTwoTone';
 import EggAltTwoToneIcon from '@mui/icons-material/EggAltTwoTone';
 import TimelineTwoToneIcon from '@mui/icons-material/TimelineTwoTone';
@@ -219,19 +214,6 @@ function SidebarMenu() {
                   </Button>
                 </NextLink>
               </ListItem>
-              <ListItem component="div">
-                <NextLink href="/user/auth" passHref>
-                  <Button
-                    className={currentRoute === '/user/auth' ? 'active' : ''}
-                    disableRipple
-                    component="a"
-                    onClick={closeSidebar}
-                    startIcon={<BrightnessLowTwoToneIcon />}
-                  >
-                    Auth
-                  </Button>
-                </NextLink>
-              </ListItem>
             </List>
           </SubMenuWrapper>
         </List>
@@ -309,35 +291,6 @@ function SidebarMenu() {
             </List>
           </SubMenuWrapper>
         </List>
-
-        {/* <List
-          component="div"
-          subheader={
-            <ListSubheader component="div" disableSticky>
-              Videos
-            </ListSubheader>
-          }
-        >
-          <SubMenuWrapper>
-            <List component="div">
-              <ListItem component="div">
-                <NextLink href="/videos/camera" passHref>
-                  <Button
-                    className={
-                      currentRoute === '/videos/camera' ? 'active' : ''
-                    }
-                    disableRipple
-                    component="a"
-                    onClick={closeSidebar}
-                    startIcon={<VideocamTwoToneIcon />}
-                  >
-                    Live Camera
-                  </Button>
-                </NextLink>
-              </ListItem>
-            </List>
-          </SubMenuWrapper>
-        </List> */}
       </MenuWrapper>
     </>
   );

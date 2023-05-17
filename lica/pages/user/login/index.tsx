@@ -1,5 +1,4 @@
 import Head from 'next/head';
-// import SidebarLayout from '@/layouts/SidebarLayout';
 import { ReactElement, useState } from 'react';
 import BaseLayout from 'src/layouts/BaseLayout';
 
@@ -245,49 +244,14 @@ function UserLogin() {
                 </Box>
               </Modal>
             </Grid>
-            {/* <Grid item>
-              <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid> */}
           </Grid>
         </Box>
-
-        {/* <Card sx={{ mt: 10, mb: 15 }}>
-          <CardContent>
-            <Box component="form" sx={{ '& .MuiTextField-root': { m: 1, width: '25ch' }}} noValidate autoComplete="off">
-              <FormControl variant="standard" sx={{ m: 2, width: '90%'}}>
-                <InputLabel htmlFor="email">이메일</InputLabel>
-                <Input id="email" type='text' />
-              </FormControl>
-              <FormControl variant="standard" sx={{ m: 2, mb: 10, width: '90%'}}>
-                <InputLabel htmlFor="password">비밀번호</InputLabel>
-                <Input id="password" type='password' />
-                <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
-              </FormControl> */}
-        {/* <Button component={Link} href="/user/signup" variant="contained" sx={{ ml: 2 }} >회원가입</Button> */}
-        {/* <Button component={Link} href="/dashboards/home" variant="contained" sx={{ ml: 2 }}>확인</Button>
-              <Grid container>
-                <Grid item xs>
-                  <Link href="#" variant="body2">Forgot password?</Link>
-                </Grid>
-                <Grid item>
-                  <Link href="#" variant="body2">{"Don't have an account? Sign Up"}</Link>
-                </Grid>
-              </Grid>
-            </Box>
-          </CardContent>
-        </Card> */}
       </Container>
 
       <Footer />
     </SignupWrapper>
   );
 }
-
-// UserSignUp.getLayout = (page) => (
-//   <SidebarLayout>{page}</SidebarLayout>
-// );
 
 UserLogin.getLayout = function getLayout(page: ReactElement) {
   return <BaseLayout>{page}</BaseLayout>;

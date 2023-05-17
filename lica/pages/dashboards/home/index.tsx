@@ -2,12 +2,11 @@ import Head from 'next/head';
 
 import SidebarLayout from '@/layouts/SidebarLayout';
 
-import { Container, Grid, Box, Typography, styled } from '@mui/material';
+import { Container, Grid } from '@mui/material';
 
 import Footer from '@/components/Footer';
 
 import Maps from '@/content/Dashboards/Crypto/Maps';
-import Camera from '@/content/Dashboards/Crypto/Camera';
 import WatchList from '@/content/Dashboards/Crypto/WatchList';
 
 function DashboardCrypto() {
@@ -27,9 +26,6 @@ function DashboardCrypto() {
           <Grid item xs={12}>
             <Maps />
           </Grid>
-          {/* <Grid item xs={12}>
-            <Camera />
-          </Grid> */}
           <Grid item xs={12}>
             <WatchList />
           </Grid>
