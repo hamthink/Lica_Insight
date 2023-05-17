@@ -14,7 +14,6 @@ import TimelineTwoToneIcon from '@mui/icons-material/TimelineTwoTone';
 import HeatMap from './Heatmap';
 import DotMap from './Dotmap';
 import Trace from './Trace';
-import { faker } from '@faker-js/faker';
 import { RecoilEnv, useSetRecoilState } from 'recoil';
 import { authState, userState } from 'atoms';
 
@@ -30,46 +29,9 @@ const EmptyResultsWrapper = styled('img')(
 RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
 
 function Maps() {
-  // dummy start
-  const data = [
-    [
-      { x: 20, y: 20 },
-      { x: 20, y: 50 },
-      { x: 30, y: 20 },
-      { x: 40, y: 50 },
-      { x: 50, y: 20 },
-      { x: 60, y: 50 }
-    ],
-    [
-      { x: 10, y: 10 },
-      { x: 60, y: 80 },
-      { x: 70, y: 60 },
-      { x: 80, y: 80 },
-      { x: 90, y: 60 },
-      { x: 100, y: 80 }
-    ],
-    [
-      { x: 10, y: 80 },
-      { x: 30, y: 20 },
-      { x: 50, y: 50 },
-      { x: 70, y: 80 },
-      { x: 90, y: 60 },
-      { x: 100, y: 10 }
-    ]
-  ];
-
-  const newdata = [
-    [
-      { x: 0, y: 0 },
-      { x: 11000, y: 7000 }
-    ]
-  ];
-
   const offset = { x: -25, y: 30 };
   const domain = { xStart: 0, xEnd: 11000, yStart: 0, yEnd: 7000 };
   const range = { width: 1140, height: 700 };
-
-  // dummy end
 
   const [tabs, setTab] = useState<string | null>('HeatMap');
   const [date, setDate] = useState(new Date());

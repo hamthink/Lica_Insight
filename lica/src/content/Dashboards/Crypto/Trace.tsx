@@ -33,6 +33,7 @@ function Trace(props) {
     format(new Date(), "yyyy-MM-dd'T'HH:mm:ss")
   );
   const [trackData, setTrackData] = React.useState([]);
+  const [highlightedGraph, setHighlightedGraph] = React.useState(null);
 
   const FloorhandleChange = (event: SelectChangeEvent) => {
     setFloor(event.target.value);
@@ -42,9 +43,6 @@ function Trace(props) {
     setStore(event.target.value);
   };
 
-  // function handleEndTimeChange(event) {
-  //   setEndTime(new Date(event.target.value));
-  // }
 
   function handleTrack() {
     let startD = null;
@@ -56,8 +54,6 @@ function Trace(props) {
       console.error(error);
       alert('날짜를 다시 입력하세요.');
     }
-
-    const params = { start: startD, end: endD };
 
     console.log('start date : ' + startD);
     console.log('end date : ' + endD);
@@ -80,7 +76,9 @@ function Trace(props) {
     );
   }
 
-  function drawChart(svg, props) {
+  function drawChart(props) {
+    const svg = d3.select(svgRef.current);
+    svg.selectAll('*').remove();
     const xScale = d3
       .scaleLinear()
       .domain([props.domain.xStart, props.domain.xEnd])
@@ -105,42 +103,107 @@ function Trace(props) {
 
     svg.attr('width', props.range.width).attr('height', props.range.height);
 
-    // svg.append('g').attr('transform', 'translate(30, 370)').call(xAxis);
-    // svg.append('g').attr('transform', 'translate(30, -30)').call(yAxis);
+    const handleGraphSelect = (graphIndex) => {
+      if (graphIndex == highlightedGraph) {
+        setHighlightedGraph(null);
+      } else {
+        setHighlightedGraph(graphIndex);
+      }
+      console.log('선택된 그래프:', graphIndex);
+    };
 
-    svg
-      .selectAll('circle')
-      .data(trackData)
-      .enter()
-      .append('circle')
-      .attr('cx', function (d) {
-        return xScale(d.x) + 30;
-      })
-      .attr('cy', function (d) {
-        return yScale(d.y) - 30;
-      })
-      .attr('r', 3)
-      .attr('fill', randomColor());
+    // svg
+    //   .selectAll('.line')
+    //   .data(trackData)
+    //   .enter()
+    //   .append('path')
+    //   .attr('cx', function (d) {
+    //     return xScale(d.x) + 30;
+    //   })
+    //   .attr('cy', function (d) {
+    //     return yScale(d.y) - 30;
+    //   })
+    //   .attr('r', 3)
+    //   .attr('fill', randomColor());
 
     // 곡선 추가
-    trackData.forEach((array) => {
-      svg
-        .append('path')
-        .datum(array)
-        .attr('d', line)
-        .attr('stroke', randomColor())
-        .attr('stroke-width', 2)
-        .attr('fill', 'none');
+    // trackData.forEach((array) => {
+    //   svg
+    //     .append('circle')
+    //     .datum(array)
+    //     .attr('d', line)
+    //     .attr('stroke', randomColor())
+    //     .attr('stroke-width', 10)
+    //     .attr('fill', 'none');
+    // });
+
+    if (highlightedGraph == null) {
+      trackData.forEach((array, index) => {
+        svg
+          .append('path')
+          .datum(array)
+          .attr('d', line)
+          .attr('class', 'graph-path')
+          .style('stroke', randomColor())
+          .style('stroke-width', 10)
+          .style('fill', 'none');
+      });
+    }
+
+    trackData.forEach((array, index) => {
+      if (index !== highlightedGraph) {
+        const path = svg
+          .append('path')
+          .datum(array)
+          .attr('d', line)
+          .attr('class', 'graph-path')
+          .style('stroke', 'steelblue')
+          .style('stroke-width', 10)
+          .style('fill', 'none')
+          .style('opacity', 0.5)
+          .on('click', () => {
+            handleGraphSelect(index);
+          });
+
+        path
+          .on('mouseover', () => {
+            path.style('stroke', 'green'); // 외곽선 색상 변경
+          })
+          .on('mouseout', () => {
+            path.style('stroke', 'steelblue'); // 기본 외곽선 색상 복원
+          });
+      }
     });
+
+    if (highlightedGraph !== null) {
+      const selectedGraphData = trackData[highlightedGraph];
+
+      const path = svg
+        .append('path')
+        .datum(selectedGraphData)
+        .attr('d', line)
+        .attr('class', 'graph-path')
+        .style('stroke', 'red')
+        .style('stroke-width', 15)
+        .style('fill', 'none')
+        .style('opacity', 1)
+        .on('click', () => {
+          handleGraphSelect(highlightedGraph);
+        });
+
+      path
+        .on('mouseover', () => {
+          path.style('stroke', 'green'); // 외곽선 색상 변경
+        })
+        .on('mouseout', () => {
+          path.style('stroke', 'red'); // 기본 외곽선 색상 복원
+        });
+    }
   }
 
   useEffect(() => {
-    const svg = d3.select(svgRef.current);
-
-    svg.selectAll('*').remove();
-
-    drawChart(svg, props);
-  }, [trackData]);
+    drawChart(props);
+  }, [trackData, highlightedGraph]);
 
   return (
     <>
@@ -250,9 +313,7 @@ function Trace(props) {
                   <svg
                     ref={svgRef}
                     transform={`translate(${props.offset.x},${props.offset.y})`}
-                  >
-                    {/* SVG 내용 */}
-                  </svg>
+                  />
                 </Box>
               </CardContent>
             </Card>
