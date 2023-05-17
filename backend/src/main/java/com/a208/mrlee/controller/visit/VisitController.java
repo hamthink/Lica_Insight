@@ -70,15 +70,15 @@ public class VisitController {
         return ResponseEntity.ok(resultMap);
     }
 
-    @GetMapping("/track/throttled")
-    public ResponseEntity<?> getThrottledAndFilteredTrackingInfoGroupByTid(
+    @GetMapping("/track/filtered")
+    public ResponseEntity<?> getFilteredTrackingInfoGroupByTid(
             @RequestParam String start,
             @RequestParam String end) {
 
         Map<String, Object> resultMap = new HashMap<>();
 
         resultMap.put("trackList",
-                visitService.getThrottledAndFilteredTrackingInfo(
+                visitService.getFilteredTrackingInfo(
                         toLocalDateTime(start),
                         toLocalDateTime(end)));
 

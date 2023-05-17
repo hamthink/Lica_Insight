@@ -46,7 +46,7 @@ public class VisitServiceImpl implements VisitService {
     }
 
     @Override
-    public Map<String, List<TrackXYDTO>> getThrottledAndFilteredTrackingInfo(LocalDateTime start, LocalDateTime end) {
+    public Map<String, List<TrackXYDTO>> getFilteredTrackingInfo(LocalDateTime start, LocalDateTime end) {
 
         final double MIN_MAGNITUDE_THRESHOLD = 500 * 500;
         final int MIN_STEP_COUNT_THRESHOLD = 2;
@@ -57,7 +57,7 @@ public class VisitServiceImpl implements VisitService {
                 .map(CustomerTrackingInfoDTO::copyFromEntity)
                 .collect(Collectors.toList());
 
-        Map<String, List<TrackXYDTO>> throttled = new HashMap<>();
+        Map<String, List<TrackXYDTO>> afterMagnitudeFiltering = new HashMap<>();
 
         for (CustomerTrackingInfoDTO dto : customerTrackingInfoDTOList) {
 
@@ -68,18 +68,18 @@ public class VisitServiceImpl implements VisitService {
                     .y(dto.getY())
                     .build();
 
-            List<TrackXYDTO> v = throttled.computeIfAbsent(tid, k -> new ArrayList<>());
+            List<TrackXYDTO> v = afterMagnitudeFiltering.computeIfAbsent(tid, k -> new ArrayList<>());
             if (v.isEmpty() || (TrackXYDTO.getMagnitude(v.get(v.size() - 1), xy) >= MIN_MAGNITUDE_THRESHOLD)) {
                 v.add(xy);
             }
         }
 
-        Map<String, List<TrackXYDTO>> throttledAndFiltered = throttled.entrySet()
+        Map<String, List<TrackXYDTO>> afterStepCountFiltering = afterMagnitudeFiltering.entrySet()
                 .stream()
                 .filter(entry -> entry.getValue().size() >= MIN_STEP_COUNT_THRESHOLD)
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
-        return throttledAndFiltered;
+        return afterStepCountFiltering;
     }
 }
 
