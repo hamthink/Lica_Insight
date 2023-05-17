@@ -96,35 +96,39 @@ function UserSignup() {
   function handleSubmit() {
     // e.preventDefault();
 
-    if (password === checkpass) {
-      setPassFlag(true);
+    if (email === '') alert('이메일을 입력하세요!');
+    else if (password === '') alert('비밀번호를 입력하세요!');
+    else {
+      if (password === checkpass) {
+        setPassFlag(true);
 
-      const data = {
-        email: email,
-        password: password,
-        name: name,
-        birthday: birthday,
-        gender: gender
-      };
+        const data = {
+          email: email,
+          password: password,
+          name: name,
+          birthday: birthday,
+          gender: gender
+        };
 
-      postJoin(
-        data,
-        ({ data }) => {
-          if (data.result === 'success') {
-            if (confirm('회원가입 성공')) {
-              window.location.href = '/user/login';
-            } else {
-              alert('회원가입 실패');
+        postJoin(
+          data,
+          ({ data }) => {
+            if (data.result === 'success') {
+              if (confirm('회원가입 성공')) {
+                window.location.href = '/user/login';
+              } else {
+                alert('회원가입 실패');
+              }
             }
+          },
+          (error) => {
+            console.error(error);
+            alert(error.message);
           }
-        },
-        (error) => {
-          console.error(error);
-          alert(error.message);
-        }
-      );
-    } else {
-      setPassFlag(false);
+        );
+      } else {
+        setPassFlag(false);
+      }
     }
   }
 

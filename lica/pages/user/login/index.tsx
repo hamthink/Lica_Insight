@@ -76,55 +76,59 @@ function UserLogin() {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    if (email === '') alert('이메일을 입력하세요!');
+    else if (password === '') alert('비밀번호를 입력하세요!');
+    else {
+      e.preventDefault();
 
-    const data = {
-      email: email,
-      password: password
-    };
+      const data = {
+        email: email,
+        password: password
+      };
 
-    console.log({
-      email: data.email,
-      password: data.password
-      // email: `"${email}"`,
-      // password: `"${password}"`
-    });
+      console.log({
+        email: data.email,
+        password: data.password
+        // email: `"${email}"`,
+        // password: `"${password}"`
+      });
 
-    postLogin(
-      data,
-      ({ data }) => {
-        if (data.result === 'success') {
-          alert('로그인 성공');
-          const accessToken = data['access-token'];
-          setAccessToken({ isLoggedIn: true, accessToken }); // AccessToken 저장
-          sessionStorage.setItem(
-            'auth',
-            JSON.stringify({ isLoggedIn: true, accessToken })
-          );
-          setUser({
-            name: email,
-            avatar: '/static/images/avatars/1.jpg',
-            jobtitle: 'SSAFY'
-          });
-          sessionStorage.setItem(
-            'user',
-            JSON.stringify({
+      postLogin(
+        data,
+        ({ data }) => {
+          if (data.result === 'success') {
+            alert('로그인 성공');
+            const accessToken = data['access-token'];
+            setAccessToken({ isLoggedIn: true, accessToken }); // AccessToken 저장
+            sessionStorage.setItem(
+              'auth',
+              JSON.stringify({ isLoggedIn: true, accessToken })
+            );
+            setUser({
               name: email,
               avatar: '/static/images/avatars/1.jpg',
               jobtitle: 'SSAFY'
-            })
-          );
-          console.log('access-token : ' + accessToken);
-          window.location.href = '/dashboards/home';
-        } else {
-          alert('로그인 실패');
+            });
+            sessionStorage.setItem(
+              'user',
+              JSON.stringify({
+                name: email,
+                avatar: '/static/images/avatars/1.jpg',
+                jobtitle: 'SSAFY'
+              })
+            );
+            console.log('access-token : ' + accessToken);
+            window.location.href = '/dashboards/home';
+          } else {
+            alert('로그인 실패');
+          }
+        },
+        (error) => {
+          console.error(error);
+          alert(error.message);
         }
-      },
-      (error) => {
-        console.error(error);
-        alert(error.message);
-      }
-    );
+      );
+    }
   };
 
   const [open, setOpen] = React.useState(false);
