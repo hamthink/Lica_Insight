@@ -57,10 +57,10 @@ function DotMap(props) {
   // const [dataset, setDataset] = useState(props.dataset);
 
   const [startDate, setStartDate] = useState(
-    format(new Date(), 'yyyy-MM-dd hh:mm:ss')
+    format(new Date(), 'yyyy-MM-dd hh:mm')
   );
   const [endDate, setEndDate] = useState(
-    format(new Date(), 'yyyy-MM-dd hh:mm:ss')
+    format(new Date(), 'yyyy-MM-dd hh:mm')
   );
   const [visit, setVisit] = useState(null);
   const [chart, setChart] = useState<typeof Chart | null>(null);
@@ -99,9 +99,9 @@ function DotMap(props) {
     const red = Math.floor(Math.random() * 256);
     const green = Math.floor(Math.random() * 256);
     const blue = Math.floor(Math.random() * 256);
-    const alpha = Math.random().toFixed(2); // 투명도는 0부터 1 사이의 값을 가집니다
+    // const alpha = Math.random().toFixed(2); // 투명도는 0부터 1 사이의 값을 가집니다
 
-    return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
+    return `rgba(${red}, ${green}, ${blue}, ${0.9})`;
   }
 
   function handleDotmap() {
@@ -132,14 +132,16 @@ function DotMap(props) {
         for (var key of Object.keys(data.trackList)) {
           // console.log(key + ' : ' + data.trackList[key]);
           for (var i of data.trackList[key]) {
-            i.x = Math.round((1140 / 11000) * i.x);
-            i.y = Math.round((700 / 7000) * i.y);
+            i.x = Math.round((1140 / 11000) * i.x) + 70;
+            i.y = Math.round((700 / 7000) * i.y) + 20;
           }
 
           datasets.datasets.push({
             label: key,
             data: data.trackList[key],
-            backgroundColor: getRandomRGBA()
+            backgroundColor: getRandomRGBA(),
+            pointRadius: 7,
+            pointHoverRadius: 15
           });
         }
 
@@ -156,43 +158,7 @@ function DotMap(props) {
         alert(error.message);
       }
     );
-
-    // getVisit(
-    //   {
-    //     start: startD,
-    //     end: endD
-    //   },
-    //   ({ data }) => {
-    //     console.log(data);
-    //     // if (data.result === 'success') {
-    //     console.log('정보 가져오기 성공');
-    //     for (var i of data.infoList) {
-    //       i.x = Math.round((1140 / 11000) * i.x);
-    //       i.y = Math.round((700 / 7000) * i.y);
-    //     }
-    //     setVisit({
-    //       datasets: [
-    //         {
-    //           label: 'A dataset',
-    //           data: data.infoList,
-    //           backgroundColor: 'rgba(255, 99, 132, 1)'
-    //         }
-    //       ]
-    //     });
-
-    //     // console.log(visit);
-    //     // } else {
-    //     //   console.log('정보 가져오기 실패');
-    //     // }
-    //   },
-    //   (error) => {
-    //     console.error(error);
-    //     alert(error.message);
-    //   }
-    // );
   }
-
-  useEffect(() => {});
 
   return (
     <>
@@ -254,7 +220,7 @@ function DotMap(props) {
                     <DateTimePicker
                       label="date time picker start"
                       value={startDate}
-                      inputFormat="yyyy-MM-dd HH:mm:ss"
+                      inputFormat="yyyy-MM-dd HH:mm"
                       onChange={(newDate) => setStartDate(newDate)}
                       renderInput={(params) => (
                         <TextField
@@ -268,7 +234,7 @@ function DotMap(props) {
                     <DateTimePicker
                       label="date time picker end"
                       value={endDate}
-                      inputFormat="yyyy-MM-dd HH:mm:ss"
+                      inputFormat="yyyy-MM-dd HH:mm"
                       onChange={(newDate) => setEndDate(newDate)}
                       renderInput={(params) => (
                         <TextField

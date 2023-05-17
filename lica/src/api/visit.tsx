@@ -4,7 +4,10 @@ const api = apiInstance();
 
 // 동선
 function getVisitTrack(params, success, fail) {
-  api.get(`/visit/track`, { params: params }).then(success).catch(fail);
+  api
+    .get(`/visit/track/throttled`, { params: params })
+    .then(success)
+    .catch(fail);
 }
 
 function getVisitDaily(params, success, fail) {
