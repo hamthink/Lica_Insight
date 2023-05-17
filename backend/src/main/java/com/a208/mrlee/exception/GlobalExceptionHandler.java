@@ -2,6 +2,8 @@ package com.a208.mrlee.exception;
 
 import com.a208.mrlee.exception.ErrorResponse;
 import com.a208.mrlee.exception.UniqueConstraintViolationException;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 @RestControllerAdvice(basePackages = "com.a208.mrlee.controller")
@@ -70,6 +73,12 @@ public class GlobalExceptionHandler {
             HttpServletRequest req
     ){
 
+        ToStringBuilder stackTraceStringBuilder = new ToStringBuilder(StackTraceElement.class, ToStringStyle.MULTI_LINE_STYLE);
+        for (StackTraceElement e: ex.getStackTrace()){
+            stackTraceStringBuilder.append(e.toString());
+        }
+        String fullStackTrace = stackTraceStringBuilder.toString();
+
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(ErrorResponse
@@ -77,6 +86,7 @@ public class GlobalExceptionHandler {
                         .code(INTERNAL_SERVER_ERROR)
                         .message(ex.getMessage())
                         .path(req.getRequestURL().toString())
+                        .stackTrace(fullStackTrace)
                         .build());
     }
 }

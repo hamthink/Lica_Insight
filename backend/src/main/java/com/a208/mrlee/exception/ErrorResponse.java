@@ -13,12 +13,14 @@ public class ErrorResponse {
     private final String message;
     private String cause;
     private String path;
+    private String stackTrace;
 
     @Builder
-    public ErrorResponse(int code, String message, String cause, String path){
+    public ErrorResponse(int code, String message, String cause, String path, String stackTrace){
         this.code = code;
         this.message = message;
         this.cause = cause;
         this.path = path;
+        this.stackTrace = stackTrace;
     }
 }

@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 
 @Getter
 public class WeeklyVisitorStats {
-
     private List<DailyVisitor> weeklyStats;
 
     public WeeklyVisitorStats() {
@@ -17,6 +16,7 @@ public class WeeklyVisitorStats {
     }
 
     public WeeklyVisitorStats(List<DailyVisitor> weeklyStats) {
+
         this.weeklyStats = weeklyStats;
     }
 

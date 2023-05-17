@@ -9,7 +9,8 @@ import org.springframework.cache.CacheManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -63,23 +64,41 @@ public class UserServiceImpl implements UserService {
     }
 
     public void join(UserDTO userDto){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         User user = User.builder()
                 .email(userDto.getEmail())
                 .name(userDto.getName())
                 .gender(userDto.getGender())
                 .password(passwordEncoder.encode(userDto.getPassword()))
-                .date(LocalDateTime.now())
+                .date(LocalDate.parse(userDto.getBirthday(), formatter))
                 .build();
         userRepository.save(user);
     }
 
     @Override
-    public boolean checkExist(String id) {
-//        String code = cacheManager.getCache("auth").get(id, String.class);
-        User user = userRepository.findByEmail(id).orElse(null);
+    public boolean joinCheck(UserDTO userDTO , Map<String, Object> resultMap) {
+        String code = cacheManager.getCache("auth").get(userDTO.getEmail(), String.class);
+        User user = userRepository.findByEmail(userDTO.getEmail()).orElse(null);
         if(user != null
-//                || code == null
+                || code == null
         ){
+            resultMap.put("msg" , "이미 존재하는 아이디입니다");
+            return true;
+        }
+        if(userDTO.getEmail().length() < 6){
+            resultMap.put("msg" , "아이디 유효성");
+            return true;
+        }
+        if(userDTO.getPassword().length() < 6){
+            resultMap.put("msg" , "비밀번호 유효성");
+            return true;
+        }
+        if(userDTO.getName().length() < 2){
+            resultMap.put("msg" , "이름 유효성");
+            return true;
+        }
+        if(userDTO.getGender().length() != 1){
+            resultMap.put("msg" , "성별 유효성");
             return true;
         }
         return false;

@@ -3,8 +3,8 @@ package com.a208.mrlee.controller.visit;
 import com.a208.mrlee.dto.CustomerTrackingInfo.CustomerTrackingInfoDTO;
 import com.a208.mrlee.dto.CustomerTrackingInfo.TrackXYDTO;
 import com.a208.mrlee.dto.VisitorCount.*;
-import com.a208.mrlee.service.visitor.VisitorService;
 import com.a208.mrlee.service.visit.VisitService;
+import com.a208.mrlee.service.visitor.VisitorService;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -67,6 +67,21 @@ public class VisitController {
         } catch (Exception e) {
             resultMap.put("result", FAIL);
         }
+        return ResponseEntity.ok(resultMap);
+    }
+
+    @GetMapping("/track/filtered")
+    public ResponseEntity<?> getFilteredTrackingInfoGroupByTid(
+            @RequestParam String start,
+            @RequestParam String end) {
+
+        Map<String, Object> resultMap = new HashMap<>();
+
+        resultMap.put("trackList",
+                visitService.getFilteredTrackingInfo(
+                        toLocalDateTime(start),
+                        toLocalDateTime(end)));
+
         return ResponseEntity.ok(resultMap);
     }
 

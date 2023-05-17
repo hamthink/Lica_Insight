@@ -5,10 +5,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 public interface CustomerTrackingInfoRepository extends JpaRepository<CustomerTrackingInfo, Long> {
     List<CustomerTrackingInfo> findByCreatedBetween(LocalDateTime start, LocalDateTime end);
-    long countByCreatedBetween(LocalDateTime start, LocalDateTime end);
+
+    List<CustomerTrackingInfo> findByCreatedBetweenOrderByCreatedAsc(LocalDateTime start, LocalDateTime end);
 }
