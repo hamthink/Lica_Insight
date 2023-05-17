@@ -29,7 +29,7 @@ const EmptyResultsWrapper = styled('img')(
 RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
 
 function Maps() {
-  const offset = { x: -25, y: 30 };
+  const offset = { x: 45, y: 10 };
   const domain = { xStart: 0, xEnd: 11000, yStart: 0, yEnd: 7000 };
   const range = { width: 1140, height: 700 };
 
