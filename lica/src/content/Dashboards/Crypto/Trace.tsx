@@ -18,7 +18,7 @@ import { DateTimePicker } from '@mui/lab';
 import { getVisitTrack } from '@/api/visit';
 import { start } from 'nprogress';
 import { format } from 'date-fns';
-import { apiInstance } from '@/api';
+import { Style } from '@mui/icons-material';
 
 function Trace(props) {
   let svgRef = useRef(null);
@@ -43,9 +43,8 @@ function Trace(props) {
     setStore(event.target.value);
   };
 
-  async function handleTrack() {
-    const svg = d3.select(svgRef.current);
 
+  function handleTrack() {
     let startD = null;
     let endD = null;
     try {
@@ -59,17 +58,22 @@ function Trace(props) {
     console.log('start date : ' + startD);
     console.log('end date : ' + endD);
 
-    const api = apiInstance();
+    getVisitTrack(
+      params,
+      ({ data }) => {
+        console.log(Object.values(data.trackList));
+        setTrackData(Object.values(data.trackList));
 
-    try {
-      const response = await api.get(`/visit/track/throttled`, {
-        params: { start: startD, end: endD }
-      });
-      console.log(response.data);
-      setTrackData(Object.values(response.data.trackList));
-    } catch (error) {
-      console.log(error);
-    }
+        console.log('------------');
+        console.log(trackData);
+        // trackData = data;
+      },
+      (error) => {
+        console.error(error);
+        // alert(error.message);
+        console.log('getVisitTrack error');
+      }
+    );
   }
 
   function drawChart(props) {
@@ -93,6 +97,9 @@ function Trace(props) {
         return yScale(d.y) - 30;
       })
       .curve(d3.curveCatmullRom.alpha(0.5)); // 곡선 형태 지정
+
+    // const xAxis = d3.axisBottom(xScale);
+    // const yAxis = d3.axisLeft(yScale);
 
     svg.attr('width', props.range.width).attr('height', props.range.height);
 
@@ -297,6 +304,8 @@ function Trace(props) {
               <CardContent>
                 <Box
                   sx={{
+                    ml: 3,
+                    mr: 3,
                     backgroundImage: props.map,
                     backgroundSize: 'cover'
                   }}

@@ -26,7 +26,7 @@ import {
 } from 'chart.js';
 import { Chart, Scatter } from 'react-chartjs-2';
 import { format } from 'date-fns';
-import { getVisit } from '@/api/visit';
+import { getVisit, getVisitTrack } from '@/api/visit';
 
 ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend);
 
@@ -57,10 +57,10 @@ function DotMap(props) {
   // const [dataset, setDataset] = useState(props.dataset);
 
   const [startDate, setStartDate] = useState(
-    format(new Date(), 'yyyy-MM-dd hh:mm:ss')
+    format(new Date(), 'yyyy-MM-dd hh:mm')
   );
   const [endDate, setEndDate] = useState(
-    format(new Date(), 'yyyy-MM-dd hh:mm:ss')
+    format(new Date(), 'yyyy-MM-dd hh:mm')
   );
   const [visit, setVisit] = useState(null);
   const [chart, setChart] = useState<typeof Chart | null>(null);
@@ -74,6 +74,8 @@ function DotMap(props) {
   };
 
   const options = {
+    maintainAspectRatio: false,
+    responsive: true,
     scales: {
       y: {
         display: false,
@@ -93,6 +95,15 @@ function DotMap(props) {
     }
   };
 
+  function getRandomRGBA() {
+    const red = Math.floor(Math.random() * 256);
+    const green = Math.floor(Math.random() * 256);
+    const blue = Math.floor(Math.random() * 256);
+    // const alpha = Math.random().toFixed(2); // 투명도는 0부터 1 사이의 값을 가집니다
+
+    return `rgba(${red}, ${green}, ${blue}, ${0.9})`;
+  }
+
   function handleDotmap() {
     const startD = format(new Date(startDate), "yyyy-MM-dd'T'HH:mm:ss");
     const endD = format(new Date(endDate), "yyyy-MM-dd'T'HH:mm:ss");
@@ -103,28 +114,39 @@ function DotMap(props) {
     console.log('start date : ' + startD);
     console.log('end date : ' + endD);
 
-    getVisit(
+    getVisitTrack(
       {
         start: startD,
         end: endD
       },
       ({ data }) => {
         console.log(data);
+        // console.log(data.trackList);
         // if (data.result === 'success') {
         console.log('정보 가져오기 성공');
-        for (var i of data.infoList) {
-          i.x = Math.round((1140 / 11000) * i.x);
-          i.y = Math.round((600 / 7000) * i.y);
+
+        let datasets = {
+          datasets: []
+        };
+
+        for (var key of Object.keys(data.trackList)) {
+          // console.log(key + ' : ' + data.trackList[key]);
+          for (var i of data.trackList[key]) {
+            i.x = Math.round((1140 / 11000) * i.x) + 70;
+            i.y = Math.round((700 / 7000) * i.y) + 20;
+          }
+
+          datasets.datasets.push({
+            label: key,
+            data: data.trackList[key],
+            backgroundColor: getRandomRGBA(),
+            pointRadius: 7,
+            pointHoverRadius: 15
+          });
         }
-        setVisit({
-          datasets: [
-            {
-              label: 'A dataset',
-              data: data.infoList,
-              backgroundColor: 'rgba(255, 99, 132, 1)'
-            }
-          ]
-        });
+
+        console.log('datasets : ' + datasets);
+        setVisit(datasets);
 
         // console.log(visit);
         // } else {
@@ -136,39 +158,7 @@ function DotMap(props) {
         alert(error.message);
       }
     );
-
-    // const canvas = document.getElementById('dotmap') as HTMLCanvasElement;
-
-    // const newChart = new Chart(canvas, {
-    //   type: 'scatter',
-    //   data: {
-    //     datasets: [
-    //       {
-    //         label: 'visit',
-    //         data: visit
-    //       }
-    //     ]
-    //   },
-    //   options: {
-    //     responsive: true,
-    //     scales: {
-    //       x: {
-    //         type: 'linear',
-    //         position: 'bottom'
-    //       },
-    //       y: {
-    //         type: 'linear',
-    //         position: 'left'
-    //       }
-    //     }
-    //   }
-    // });
-
-    // setChart(newChart);
-    console.log('end');
   }
-
-  useEffect(() => {});
 
   return (
     <>
@@ -230,7 +220,7 @@ function DotMap(props) {
                     <DateTimePicker
                       label="date time picker start"
                       value={startDate}
-                      inputFormat="yyyy-MM-dd HH:mm:ss"
+                      inputFormat="yyyy-MM-dd HH:mm"
                       onChange={(newDate) => setStartDate(newDate)}
                       renderInput={(params) => (
                         <TextField
@@ -244,7 +234,7 @@ function DotMap(props) {
                     <DateTimePicker
                       label="date time picker end"
                       value={endDate}
-                      inputFormat="yyyy-MM-dd HH:mm:ss"
+                      inputFormat="yyyy-MM-dd HH:mm"
                       onChange={(newDate) => setEndDate(newDate)}
                       renderInput={(params) => (
                         <TextField
@@ -268,29 +258,19 @@ function DotMap(props) {
               <CardContent>
                 <Box
                   sx={{
+                    ml: 3,
+                    mr: 3,
                     backgroundImage: props.map,
-                    backgroundSize: 'cover'
+                    backgroundSize: 'cover',
+                    height: '700px'
                   }}
                 >
-                  {visit != null && (
-                    <Scatter
-                      options={options}
-                      data={visit === null ? { datasets: [] } : visit}
-
-                      // data={props.dataset}
-                    />
-                  )}
-
-                  {/* <CardMedia
-                    component="img"
-                    sx={{ width: '100%', mt: 7 }}
-                    image="/static/images/map/map1.png"
-                    alt="LiCa LOGO"
-                  /> */}
+                  <Scatter
+                    options={options}
+                    data={visit === null ? { datasets: [] } : visit}
+                    style={{ height: props.range.height }}
+                  />
                 </Box>
-                {/* <Box>
-                  <canvas id="dotmap"></canvas>
-                </Box> */}
               </CardContent>
             </Card>
           </Grid>

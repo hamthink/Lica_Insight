@@ -31,7 +31,7 @@ RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
 function Maps() {
   const offset = { x: -25, y: 30 };
   const domain = { xStart: 0, xEnd: 11000, yStart: 0, yEnd: 7000 };
-  const range = { width: 1100, height: 600 };
+  const range = { width: 1140, height: 700 };
 
   const [tabs, setTab] = useState<string | null>('HeatMap');
   const [date, setDate] = useState(new Date());

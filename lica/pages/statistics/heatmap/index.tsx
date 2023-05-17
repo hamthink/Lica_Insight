@@ -15,7 +15,7 @@ import { faker } from '@faker-js/faker';
 
 // console.log(data);
 
-const range = { width: 1140, height: 600 };
+const range = { width: 1140, height: 700 };
 const map = "url('/static/images/map/map1.png')";
 
 function StatisticsHeatMap() {
