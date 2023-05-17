@@ -173,28 +173,29 @@ function WatchListRow() {
               </Button>
             </Box>
             <Label color="secondary">last 7 days</Label>
+            {visitorList === null ? (
+              <Typography
+                align="center"
+                variant="h2"
+                fontWeight="normal"
+                color="text.secondary"
+                sx={{
+                  mt: 3,
+                  mb: 3
+                }}
+                gutterBottom
+              >
+                Please select date!
+              </Typography>
+            ) : (
+              <Chart
+                options={Box1Options}
+                series={Box1Data}
+                type="area"
+                height={500}
+              />
+            )}
           </Box>
-          {visitorList === null ? (
-            <Typography
-              align="center"
-              variant="h2"
-              fontWeight="normal"
-              color="text.secondary"
-              sx={{
-                mt: 3
-              }}
-              gutterBottom
-            >
-              Please select date!
-            </Typography>
-          ) : (
-            <Chart
-              options={Box1Options}
-              series={Box1Data}
-              type="area"
-              height={500}
-            />
-          )}
         </Card>
       </Grid>
     </Grid>

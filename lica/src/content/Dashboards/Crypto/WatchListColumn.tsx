@@ -170,11 +170,7 @@ function WatchListColumn() {
             overflow: 'visible'
           }}
         >
-          <Box
-            sx={{
-              p: 3
-            }}
-          >
+          <Box sx={{ p: 3 }}>
             <Box>
               <DatePicker
                 label="Date Picker"
@@ -198,28 +194,29 @@ function WatchListColumn() {
               </Button>
             </Box>
             <Label color="secondary">last 24h</Label>
+            {visitorList === null ? (
+              <Typography
+                align="center"
+                variant="h2"
+                fontWeight="normal"
+                color="text.secondary"
+                sx={{
+                  mt: 3,
+                  mb: 3
+                }}
+                gutterBottom
+              >
+                Please select date!
+              </Typography>
+            ) : (
+              <Chart
+                options={chartOptions}
+                series={chart1Data}
+                type="area"
+                height={500}
+              />
+            )}
           </Box>
-          {visitorList === null ? (
-            <Typography
-              align="center"
-              variant="h2"
-              fontWeight="normal"
-              color="text.secondary"
-              sx={{
-                mt: 3
-              }}
-              gutterBottom
-            >
-              Please select date!
-            </Typography>
-          ) : (
-            <Chart
-              options={chartOptions}
-              series={chart1Data}
-              type="area"
-              height={500}
-            />
-          )}
         </Card>
       </Grid>
     </Grid>
