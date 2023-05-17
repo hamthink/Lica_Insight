@@ -47,8 +47,6 @@ function Trace(props) {
   // }
 
   function handleTrack() {
-    const svg = d3.select(svgRef.current);
-
     let startD = null;
     let endD = null;
     try {
@@ -80,8 +78,6 @@ function Trace(props) {
         console.log('getVisitTrack error');
       }
     );
-
-    drawChart(svg, props);
   }
 
   function drawChart(svg, props) {
@@ -104,8 +100,8 @@ function Trace(props) {
       })
       .curve(d3.curveCatmullRom.alpha(0.5)); // 곡선 형태 지정
 
-    const xAxis = d3.axisBottom(xScale);
-    const yAxis = d3.axisLeft(yScale);
+    // const xAxis = d3.axisBottom(xScale);
+    // const yAxis = d3.axisLeft(yScale);
 
     svg.attr('width', props.range.width).attr('height', props.range.height);
 
@@ -139,11 +135,12 @@ function Trace(props) {
   }
 
   useEffect(() => {
-    handleTrack();
-
     const svg = d3.select(svgRef.current);
+
+    svg.selectAll('*').remove();
+
     drawChart(svg, props);
-  }, []);
+  }, [trackData]);
 
   return (
     <>
