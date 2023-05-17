@@ -43,7 +43,6 @@ function Trace(props) {
     setStore(event.target.value);
   };
 
-
   function handleTrack() {
     let startD = null;
     let endD = null;
@@ -57,6 +56,8 @@ function Trace(props) {
 
     console.log('start date : ' + startD);
     console.log('end date : ' + endD);
+
+    const params = { start: startD, end: endD };
 
     getVisitTrack(
       params,
