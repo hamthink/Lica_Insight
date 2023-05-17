@@ -4,7 +4,8 @@ import {
   TooltipProps,
   tooltipClasses,
   styled,
-  CardMedia
+  CardMedia,
+  Typography
 } from '@mui/material';
 import Link from 'src/components/Link';
 
@@ -36,6 +37,23 @@ const TooltipWrapper = styled(({ className, ...props }: TooltipProps) => (
   }
 }));
 
+const LogoTextWrapper = styled(Box)(
+  ({ theme }) => `
+        padding-left: ${theme.spacing(2)};
+        
+`
+);
+
+const LogoText = styled(Box)(
+  ({ theme }) => `
+        font-size: ${theme.typography.pxToRem(30)};
+        font-weight: ${theme.typography.fontWeightBold};
+        margin: 0 auto;
+        display: flex;
+        color: ${theme.colors.alpha.white[70]};
+`
+);
+
 function Logo() {
   return (
     <TooltipWrapper title="LiCa" arrow>
@@ -43,10 +61,18 @@ function Logo() {
         <CardMedia
           component="img"
           sx={{ width: 50 }}
-          image="/static/images/logo/footprint.png"
+          image="/static/images/logo/footprint_sidebar.png"
           alt="LiCa LOGO"
         />
         <Box />
+        <Box
+          component="span"
+          sx={{ display: { xs: 'none', sm: 'inline-block' }, mt: 0.7 }}
+        >
+          <LogoTextWrapper>
+            <LogoText>LiCa</LogoText>
+          </LogoTextWrapper>
+        </Box>
       </LogoWrapper>
     </TooltipWrapper>
   );
