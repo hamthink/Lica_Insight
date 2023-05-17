@@ -2,50 +2,58 @@ import {
   Card,
   Box,
   Typography,
-  Avatar,
   Grid,
-  alpha,
   useTheme,
-  styled
+  TextField,
+  Button
 } from '@mui/material';
 import Label from 'src/components/Label';
-import Text from 'src/components/Text';
 import { Chart } from 'src/components/Chart';
 import type { ApexOptions } from 'apexcharts';
-
-const AvatarWrapper = styled(Avatar)(
-  ({ theme }) => `
-    margin: ${theme.spacing(0, 0, 1, -0.5)};
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: ${theme.spacing(1)};
-    padding: ${theme.spacing(0.5)};
-    border-radius: 60px;
-    height: ${theme.spacing(5.5)};
-    width: ${theme.spacing(5.5)};
-    background: ${
-      theme.palette.mode === 'dark'
-        ? theme.colors.alpha.trueWhite[30]
-        : alpha(theme.colors.alpha.black[100], 0.07)
-    };
-  
-    img {
-      background: ${theme.colors.alpha.trueWhite[100]};
-      padding: ${theme.spacing(0.5)};
-      display: block;
-      border-radius: inherit;
-      height: ${theme.spacing(4.5)};
-      width: ${theme.spacing(4.5)};
-    }
-`
-);
+import { useState } from 'react';
+import { DatePicker } from '@mui/lab';
+import { getVisitDaily } from '@/api/visit';
+import { format } from 'date-fns';
 
 function WatchListColumn() {
   const theme = useTheme();
 
+  const [selDate, setSelDate] = useState(null);
+  const [visitorList, setVisitorList] = useState(null);
+
+  function handleDateChange(date) {
+    setSelDate(date);
+  }
+
+  function handleDailyVisitor() {
+    const date = format(new Date(selDate), 'yyyy-MM-dd');
+    getVisitDaily(
+      {
+        date: date
+      },
+      ({ data }) => {
+        console.log('데이터 가져오기 성공');
+        console.log(data.dailyStats);
+        var list = [];
+        for (var i of data.dailyStats) {
+          // console.log(i.visitors);
+          list.push(parseInt(i.visitors));
+        }
+        // console.log(visitorList);
+        setVisitorList(list);
+      },
+      (error) => {
+        console.error(error);
+        alert(error.messege);
+      }
+    );
+  }
+
   const chartOptions: ApexOptions = {
     chart: {
+      animations: {
+        enabled: false
+      },
       background: 'transparent',
       toolbar: {
         show: false
@@ -84,13 +92,30 @@ function WatchListColumn() {
       show: false
     },
     labels: [
-      'Monday',
-      'Tueday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-      'Sunday'
+      '00:00 - 00:59',
+      '01:00 - 01:59',
+      '02:00 - 02:59',
+      '03:00 - 03:59',
+      '04:00 - 04:59',
+      '05:00 - 05:59',
+      '06:00 - 06:59',
+      '07:00 - 07:59',
+      '08:00 - 08:59',
+      '09:00 - 09:59',
+      '10:00 - 10:59',
+      '11:00 - 11:59',
+      '12:00 - 12:59',
+      '13:00 - 13:59',
+      '14:00 - 14:59',
+      '15:00 - 15:59',
+      '16:00 - 16:59',
+      '17:00 - 17:59',
+      '18:00 - 18:59',
+      '19:00 - 19:59',
+      '20:00 - 20:59',
+      '21:00 - 21:59',
+      '22:00 - 22:59',
+      '23:00 - 23:59'
     ],
     xaxis: {
       labels: {
@@ -114,7 +139,7 @@ function WatchListColumn() {
       y: {
         title: {
           formatter: function () {
-            return 'Price: $';
+            return 'visitors : ';
           }
         }
       },
@@ -123,10 +148,11 @@ function WatchListColumn() {
       }
     }
   };
+
   const chart1Data = [
     {
-      name: 'Bitcoin Price',
-      data: [55.701, 57.598, 48.607, 46.439, 58.755, 46.978, 58.16]
+      name: 'Visitors per Hour',
+      data: visitorList
     }
   ];
 
@@ -144,73 +170,53 @@ function WatchListColumn() {
             overflow: 'visible'
           }}
         >
-          <Box
-            sx={{
-              p: 3
-            }}
-          >
-            <Box display="flex" alignItems="center">
-              <AvatarWrapper>
-                <img
-                  alt="BTC"
-                  src="/static/images/placeholders/logo/bitcoin.png"
-                />
-              </AvatarWrapper>
-              <Box>
-                <Typography variant="h4" noWrap>
-                  Bitcoin
-                </Typography>
-                <Typography variant="subtitle1" noWrap>
-                  BTC
-                </Typography>
-              </Box>
-            </Box>
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'flex-start',
-                pt: 3
-              }}
-            >
-              <Typography
-                variant="h2"
-                sx={{
-                  pr: 1,
-                  mb: 1
-                }}
+          <Box sx={{ p: 3 }}>
+            <Box>
+              <DatePicker
+                label="Date Picker"
+                value={selDate}
+                onChange={handleDateChange}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Select Date"
+                    variant="standard"
+                    sx={{ m: 1, mr: 3 }}
+                  />
+                )}
+              />
+              <Button
+                variant="contained"
+                onClick={handleDailyVisitor}
+                sx={{ mt: 2, mr: 2 }}
               >
-                $56,475.99
-              </Typography>
-              <Text color="success">
-                <b>+12.5%</b>
-              </Text>
+                확인
+              </Button>
             </Box>
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'flex-start'
-              }}
-            >
-              <Label color="success">+$500</Label>
+            <Label color="secondary">last 24h</Label>
+            {visitorList === null ? (
               <Typography
-                variant="body2"
+                align="center"
+                variant="h2"
+                fontWeight="normal"
                 color="text.secondary"
                 sx={{
-                  pl: 1
+                  mt: 3,
+                  mb: 3
                 }}
+                gutterBottom
               >
-                last 24h
+                Please select date!
               </Typography>
-            </Box>
+            ) : (
+              <Chart
+                options={chartOptions}
+                series={chart1Data}
+                type="area"
+                height={500}
+              />
+            )}
           </Box>
-          <Chart
-            options={chartOptions}
-            series={chart1Data}
-            type="area"
-            height={500}
-          />
         </Card>
       </Grid>
     </Grid>

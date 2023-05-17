@@ -1,11 +1,11 @@
 import {
   Box,
   Tooltip,
-  Badge,
   TooltipProps,
   tooltipClasses,
   styled,
-  useTheme
+  CardMedia,
+  Typography
 } from '@mui/material';
 import Link from 'src/components/Link';
 
@@ -17,63 +17,6 @@ const LogoWrapper = styled(Link)(
         width: 53px;
         margin: 0 auto;
         font-weight: ${theme.typography.fontWeightBold};
-`
-);
-
-const LogoSignWrapper = styled(Box)(
-  () => `
-        width: 52px;
-        height: 38px;
-`
-);
-
-const LogoSign = styled(Box)(
-  ({ theme }) => `
-        background: ${theme.general.reactFrameworkColor};
-        width: 18px;
-        height: 18px;
-        border-radius: ${theme.general.borderRadiusSm};
-        position: relative;
-        transform: rotate(45deg);
-        top: 3px;
-        left: 17px;
-
-        &:after, 
-        &:before {
-            content: "";
-            display: block;
-            width: 18px;
-            height: 18px;
-            position: absolute;
-            top: -1px;
-            right: -20px;
-            transform: rotate(0deg);
-            border-radius: ${theme.general.borderRadiusSm};
-        }
-
-        &:before {
-            background: ${theme.palette.primary.main};
-            right: auto;
-            left: 0;
-            top: 20px;
-        }
-
-        &:after {
-            background: ${theme.palette.secondary.main};
-        }
-`
-);
-
-const LogoSignInner = styled(Box)(
-  ({ theme }) => `
-        width: 16px;
-        height: 16px;
-        position: absolute;
-        top: 12px;
-        left: 12px;
-        z-index: 5;
-        border-radius: ${theme.general.borderRadiusSm};
-        background: ${theme.header.background};
 `
 );
 
@@ -94,31 +37,42 @@ const TooltipWrapper = styled(({ className, ...props }: TooltipProps) => (
   }
 }));
 
-function Logo() {
-  const theme = useTheme();
+const LogoTextWrapper = styled(Box)(
+  ({ theme }) => `
+        padding-left: ${theme.spacing(2)};
+        
+`
+);
 
+const LogoText = styled(Box)(
+  ({ theme }) => `
+        font-size: ${theme.typography.pxToRem(30)};
+        font-weight: ${theme.typography.fontWeightBold};
+        margin: 0 auto;
+        display: flex;
+        color: ${theme.colors.alpha.white[70]};
+`
+);
+
+function Logo() {
   return (
     <TooltipWrapper title="LiCa" arrow>
       <LogoWrapper href="/">
-        <LogoSignWrapper> 
-          <LogoSign>
-            <LogoSignInner />
-          </LogoSign>
-        </LogoSignWrapper>
-        {/* <Badge
-          sx={{
-            '.MuiBadge-badge': {
-              fontSize: theme.typography.pxToRem(11),
-              right: -2,
-              top: 8
-            }
-          }}
-          overlap="circular"
-          color="success"
-          badgeContent="1.0"
+        <CardMedia
+          component="img"
+          sx={{ width: 50 }}
+          image="/static/images/logo/footprint_sidebar.png"
+          alt="LiCa LOGO"
+        />
+        <Box />
+        <Box
+          component="span"
+          sx={{ display: { xs: 'none', sm: 'inline-block' }, mt: 0.7 }}
         >
-          
-        </Badge> */}
+          <LogoTextWrapper>
+            <LogoText>LiCa</LogoText>
+          </LogoTextWrapper>
+        </Box>
       </LogoWrapper>
     </TooltipWrapper>
   );

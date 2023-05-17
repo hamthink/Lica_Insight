@@ -9,26 +9,28 @@ import WatchList from '@/content/Dashboards/Crypto/WatchList';
 
 function StatisticsVisitors() {
   return (
-		<>
-			<Head>
-				<title>Statistics - visitors</title>
-			</Head>
+    <>
+      <Head>
+        <title>Statistics - visitors</title>
+      </Head>
       <Container maxWidth="lg">
-				<Grid
-						container
-						direction="row"
-						justifyContent="center"
-						alignItems="stretch"
-						spacing={4}
+        <Grid
+          container
+          direction="row"
+          justifyContent="center"
+          alignItems="stretch"
+          spacing={4}
         >
-					<Grid item xs={12}>
-						<WatchList />
-					</Grid>
-				</Grid>
-			</Container>
-			<Footer />
-		</>
-	);
+          <Grid item xs={12}>
+            <Container sx={{ mt: 5 }}>
+              <WatchList />
+            </Container>
+          </Grid>
+        </Grid>
+      </Container>
+      <Footer />
+    </>
+  );
 }
 
 StatisticsVisitors.getLayout = (page) => <SidebarLayout>{page}</SidebarLayout>;

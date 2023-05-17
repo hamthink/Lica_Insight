@@ -1,4 +1,4 @@
-import { Box, Container, Link, Typography, styled } from '@mui/material';
+import { Box, Container, Typography, styled } from '@mui/material';
 
 const FooterWrapper = styled(Container)(
   ({ theme }) => `
@@ -9,8 +9,8 @@ const FooterWrapper = styled(Container)(
 function Footer() {
   return (
     <FooterWrapper className="footer-wrapper">
-      <Box 
-        sx={{ display: "flex", justifyContent: "center"}}
+      <Box
+        sx={{ display: 'flex', justifyContent: 'center' }}
         pb={4}
         display={{ xs: 'block', md: 'flex' }}
         alignItems="center"

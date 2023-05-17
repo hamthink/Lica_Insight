@@ -3,21 +3,23 @@ import { useContext } from 'react';
 import {
   Box,
   alpha,
-  Stack,
   lighten,
-  Divider,
   IconButton,
   Tooltip,
   styled,
-  useTheme
+  useTheme,
+  Button,
+  Link,
+  Typography
 } from '@mui/material';
 import MenuTwoToneIcon from '@mui/icons-material/MenuTwoTone';
 import { SidebarContext } from 'src/contexts/SidebarContext';
 import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone';
 
-import HeaderButtons from './Buttons';
 import HeaderUserbox from './Userbox';
-import HeaderMenu from './Menu';
+import Logo from '@/components/Logo';
+import { useRecoilValue } from 'recoil';
+import { authState } from 'atoms';
 
 const HeaderWrapper = styled(Box)(
   ({ theme }) => `
@@ -42,6 +44,8 @@ function Header() {
   const { sidebarToggle, toggleSidebar } = useContext(SidebarContext);
   const theme = useTheme();
 
+  const { isLoggedIn } = useRecoilValue(authState);
+
   return (
     <HeaderWrapper
       display="flex"
@@ -62,34 +66,57 @@ function Header() {
               )}`
       }}
     >
-      {/* <Stack
-        direction="row"
-        divider={<Divider orientation="vertical" flexItem />}
-        alignItems="center"
-        spacing={2}
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        flexGrow={1}
+        margin="0 auto"
+        maxWidth="1200px"
       >
-        <HeaderMenu />
-      </Stack> */}
-      <Box />
-      <Box display="flex" alignItems="center">
-        <HeaderButtons />
-        <HeaderUserbox />
-        <Box
-          component="span"
-          sx={{
-            ml: 2,
-            display: { lg: 'inline-block', xs: 'inline-block' }
-          }}
-        >
-          <Tooltip arrow title="Toggle Menu">
-            <IconButton color="primary" onClick={toggleSidebar}>
-              {!sidebarToggle ? (
-                <MenuTwoToneIcon fontSize="small" />
-              ) : (
-                <CloseTwoToneIcon fontSize="small" />
-              )}
-            </IconButton>
-          </Tooltip>
+        <Logo />
+        <Box display="flex" alignItems="center">
+          {!isLoggedIn && (
+            <Box>
+              <Button
+                component={Link}
+                href="/user/signup"
+                variant="contained"
+                sx={{ ml: 2 }}
+              >
+                회원가입
+              </Button>
+              <Button
+                component={Link}
+                href="/user/login"
+                variant="contained"
+                sx={{ ml: 2 }}
+              >
+                로그인
+              </Button>
+            </Box>
+          )}
+
+          {isLoggedIn && (
+            <>
+              <HeaderUserbox />
+              <Box
+                component="span"
+                sx={{
+                  display: { lg: 'inline-block', xs: 'inline-block' }
+                }}
+              >
+                <Tooltip arrow title="Toggle Menu">
+                  <IconButton color="primary" onClick={toggleSidebar}>
+                    {!sidebarToggle ? (
+                      <MenuTwoToneIcon fontSize="small" />
+                    ) : (
+                      <CloseTwoToneIcon fontSize="small" />
+                    )}
+                  </IconButton>
+                </Tooltip>
+              </Box>
+            </>
+          )}
         </Box>
       </Box>
     </HeaderWrapper>

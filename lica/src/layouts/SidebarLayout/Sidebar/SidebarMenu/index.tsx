@@ -15,11 +15,10 @@ import { SidebarContext } from 'src/contexts/SidebarContext';
 
 import DesignServicesTwoToneIcon from '@mui/icons-material/DesignServicesTwoTone';
 import BrightnessLowTwoToneIcon from '@mui/icons-material/BrightnessLowTwoTone';
-import MmsTwoToneIcon from '@mui/icons-material/MmsTwoTone';
-import TableChartTwoToneIcon from '@mui/icons-material/TableChartTwoTone';
-import AccountCircleTwoToneIcon from '@mui/icons-material/AccountCircleTwoTone';
-import DisplaySettingsTwoToneIcon from '@mui/icons-material/DisplaySettingsTwoTone';
 import GroupsTwoToneIcon from '@mui/icons-material/GroupsTwoTone';
+import BlurOnTwoToneIcon from '@mui/icons-material/BlurOnTwoTone';
+import EggAltTwoToneIcon from '@mui/icons-material/EggAltTwoTone';
+import TimelineTwoToneIcon from '@mui/icons-material/TimelineTwoTone';
 
 const MenuWrapper = styled(Box)(
   ({ theme }) => `
@@ -183,20 +182,7 @@ function SidebarMenu() {
                     onClick={closeSidebar}
                     startIcon={<DesignServicesTwoToneIcon />}
                   >
-                    Overview
-                  </Button>
-                </NextLink>
-              </ListItem>
-              <ListItem component="div">
-                <NextLink href="/d3" passHref>
-                  <Button
-                    className={currentRoute === '/d3' ? 'active' : ''}
-                    disableRipple
-                    component="a"
-                    onClick={closeSidebar}
-                    startIcon={<DesignServicesTwoToneIcon />}
-                  >
-                    D3.js
+                    Main
                   </Button>
                 </NextLink>
               </ListItem>
@@ -214,32 +200,17 @@ function SidebarMenu() {
           <SubMenuWrapper>
             <List component="div">
               <ListItem component="div">
-                <NextLink href="/dashboards/crypto" passHref>
+                <NextLink href="/dashboards/home" passHref>
                   <Button
                     className={
-                      currentRoute === '/dashboards/crypto' ? 'active' : ''
+                      currentRoute === '/dashboards/home' ? 'active' : ''
                     }
                     disableRipple
                     component="a"
                     onClick={closeSidebar}
                     startIcon={<BrightnessLowTwoToneIcon />}
                   >
-                    Cryptocurrency
-                  </Button>
-                </NextLink>
-              </ListItem>
-              <ListItem component="div">
-                <NextLink href="/applications/messenger" passHref>
-                  <Button
-                    className={
-                      currentRoute === '/applications/messenger' ? 'active' : ''
-                    }
-                    disableRipple
-                    component="a"
-                    onClick={closeSidebar}
-                    startIcon={<MmsTwoToneIcon />}
-                  >
-                    Messenger
+                    Home
                   </Button>
                 </NextLink>
               </ListItem>
@@ -281,85 +252,39 @@ function SidebarMenu() {
                     disableRipple
                     component="a"
                     onClick={closeSidebar}
-                    startIcon={<GroupsTwoToneIcon />}
+                    startIcon={<EggAltTwoToneIcon />}
                   >
                     heatmap
                   </Button>
                 </NextLink>
               </ListItem>
-            </List>
-          </SubMenuWrapper>
-        </List>
-
-        <List
-          component="div"
-          subheader={
-            <ListSubheader component="div" disableSticky>
-              Management
-            </ListSubheader>
-          }
-        >
-          <SubMenuWrapper>
-            <List component="div">
               <ListItem component="div">
-                <NextLink href="/management/transactions" passHref>
+                <NextLink href="/statistics/dotmap" passHref>
                   <Button
                     className={
-                      currentRoute === '/management/transactions'
-                        ? 'active'
-                        : ''
+                      currentRoute === '/statistics/dotmap' ? 'active' : ''
                     }
                     disableRipple
                     component="a"
                     onClick={closeSidebar}
-                    startIcon={<TableChartTwoToneIcon />}
+                    startIcon={<BlurOnTwoToneIcon />}
                   >
-                    Transactions List
-                  </Button>
-                </NextLink>
-              </ListItem>
-            </List>
-          </SubMenuWrapper>
-        </List>
-        <List
-          component="div"
-          subheader={
-            <ListSubheader component="div" disableSticky>
-              Accounts
-            </ListSubheader>
-          }
-        >
-          <SubMenuWrapper>
-            <List component="div">
-              <ListItem component="div">
-                <NextLink href="/management/profile" passHref>
-                  <Button
-                    className={
-                      currentRoute === '/management/profile' ? 'active' : ''
-                    }
-                    disableRipple
-                    component="a"
-                    onClick={closeSidebar}
-                    startIcon={<AccountCircleTwoToneIcon />}
-                  >
-                    User Profile
+                    dotmap
                   </Button>
                 </NextLink>
               </ListItem>
               <ListItem component="div">
-                <NextLink href="/management/profile/settings" passHref>
+                <NextLink href="/statistics/trace" passHref>
                   <Button
                     className={
-                      currentRoute === '/management/profile/settings'
-                        ? 'active'
-                        : ''
+                      currentRoute === '/statistics/trace' ? 'active' : ''
                     }
                     disableRipple
                     component="a"
                     onClick={closeSidebar}
-                    startIcon={<DisplaySettingsTwoToneIcon />}
+                    startIcon={<TimelineTwoToneIcon />}
                   >
-                    Account Settings
+                    Trace
                   </Button>
                 </NextLink>
               </ListItem>

@@ -2,35 +2,29 @@ import Head from 'next/head';
 
 import SidebarLayout from '@/layouts/SidebarLayout';
 
-import PageHeader from '@/content/Dashboards/Crypto/PageHeader';
-import PageTitleWrapper from '@/components/PageTitleWrapper';
 import { Container, Grid } from '@mui/material';
+
 import Footer from '@/components/Footer';
 
-import AccountBalance from '@/content/Dashboards/Crypto/AccountBalance';
-import Wallets from '@/content/Dashboards/Crypto/Wallets';
-import AccountSecurity from '@/content/Dashboards/Crypto/AccountSecurity';
+import Maps from '@/content/Dashboards/Crypto/Maps';
 import WatchList from '@/content/Dashboards/Crypto/WatchList';
 
 function DashboardCrypto() {
   return (
     <>
       <Head>
-        <title>Crypto Dashboard</title>
+        <title>Dashboard</title>
       </Head>
-      <PageTitleWrapper>
-        <PageHeader />
-      </PageTitleWrapper>
-      <Container maxWidth="lg">
-        <Grid container direction="row" justifyContent="center" alignItems="stretch" spacing={4}>
+      <Container maxWidth="lg" sx={{ mt: 5 }}>
+        <Grid
+          container
+          direction="row"
+          justifyContent="center"
+          alignItems="stretch"
+          spacing={4}
+        >
           <Grid item xs={12}>
-            <AccountBalance />
-          </Grid>
-          <Grid item lg={8} xs={12}>
-            <Wallets />
-          </Grid>
-          <Grid item lg={4} xs={12}>
-            <AccountSecurity />
+            <Maps />
           </Grid>
           <Grid item xs={12}>
             <WatchList />
