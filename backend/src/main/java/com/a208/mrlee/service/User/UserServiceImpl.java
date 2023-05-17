@@ -9,7 +9,7 @@ import org.springframework.cache.CacheManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService {
                 .name(userDto.getName())
                 .gender(userDto.getGender())
                 .password(passwordEncoder.encode(userDto.getPassword()))
-                .date(LocalDateTime.parse(userDto.getBirthday(), formatter))
+                .date(LocalDate.parse(userDto.getBirthday(), formatter))
                 .build();
         userRepository.save(user);
     }
@@ -80,7 +80,7 @@ public class UserServiceImpl implements UserService {
         String code = cacheManager.getCache("auth").get(userDTO.getEmail(), String.class);
         User user = userRepository.findByEmail(userDTO.getEmail()).orElse(null);
         if(user != null
-//                || code == null
+                || code == null
         ){
             resultMap.put("msg" , "이미 존재하는 아이디입니다");
             return true;
