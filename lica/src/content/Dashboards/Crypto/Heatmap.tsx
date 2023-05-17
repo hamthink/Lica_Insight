@@ -52,8 +52,8 @@ function HeatMap(props) {
         // if (data.result === 'success') {
         console.log('정보 가져오기 성공');
         for (var i of data.infoList) {
-          i.x = Math.round((1140 / 11400) * i.x);
-          i.y = 700 - Math.round((700 / 7000) * i.y);
+          i.x = Math.round((1140 / 11400) * i.x) + 70;
+          i.y = 700 - Math.round((700 / 7000) * i.y) + 20;
           // i.y = 600 - i.y;
         }
         setVisit(data.infoList);
