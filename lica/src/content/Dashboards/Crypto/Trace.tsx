@@ -27,10 +27,10 @@ function Trace(props) {
   const [floor, setFloor] = React.useState('8');
   const [store, setStore] = React.useState('휴게실');
   const [startDate, setStartDate] = React.useState(
-    format(new Date(), "yyyy-MM-dd'T'HH:mm")
+    format(new Date(), "yyyy-MM-dd'T'HH:mm:ss")
   );
   const [endDate, setEndDate] = React.useState(
-    format(new Date(), "yyyy-MM-dd'T'HH:mm")
+    format(new Date(), "yyyy-MM-dd'T'HH:mm:ss")
   );
   const [trackData, setTrackData] = React.useState([]);
   const [highlightedGraph, setHighlightedGraph] = React.useState(null);
@@ -92,10 +92,10 @@ function Trace(props) {
     var line = d3
       .line()
       .x(function (d) {
-        return xScale(d.x) + 30;
+        return xScale(d.x) + 70;
       })
       .y(function (d) {
-        return yScale(d.y) - 30;
+        return yScale(d.y) - 20;
       })
       .curve(d3.curveCatmullRom.alpha(0.5)); // 곡선 형태 지정
 
@@ -267,7 +267,7 @@ function Trace(props) {
                     <DateTimePicker
                       label="date start time picker"
                       value={startDate}
-                      inputFormat="yyyy-MM-dd HH:mm"
+                      inputFormat="yyyy-MM-dd HH:mm:ss"
                       onChange={(startTime) => setStartDate(startTime)}
                       renderInput={(params) => (
                         <TextField
@@ -281,7 +281,7 @@ function Trace(props) {
                     <DateTimePicker
                       label="date end time picker"
                       value={endDate}
-                      inputFormat="yyyy-MM-dd HH:mm"
+                      inputFormat="yyyy-MM-dd HH:mm:ss"
                       onChange={(endTime) => setEndDate(endTime)}
                       renderInput={(params) => (
                         <TextField
