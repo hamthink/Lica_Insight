@@ -27,10 +27,10 @@ function Trace(props) {
   const [floor, setFloor] = React.useState('8');
   const [store, setStore] = React.useState('휴게실');
   const [startDate, setStartDate] = React.useState(
-    format(new Date(), "yyyy-MM-dd'T'HH:mm")
+    format(new Date(), "yyyy-MM-dd'T'HH:mm:ss")
   );
   const [endDate, setEndDate] = React.useState(
-    format(new Date(), "yyyy-MM-dd'T'HH:mm")
+    format(new Date(), "yyyy-MM-dd'T'HH:mm:ss")
   );
   const [trackData, setTrackData] = React.useState([]);
   const [highlightedGraph, setHighlightedGraph] = React.useState(null);
