@@ -267,7 +267,7 @@ function Trace(props) {
                     <DateTimePicker
                       label="date start time picker"
                       value={startDate}
-                      inputFormat="yyyy-MM-dd HH:mm"
+                      inputFormat="yyyy-MM-dd HH:mm:ss"
                       onChange={(startTime) => setStartDate(startTime)}
                       renderInput={(params) => (
                         <TextField
@@ -281,7 +281,7 @@ function Trace(props) {
                     <DateTimePicker
                       label="date end time picker"
                       value={endDate}
-                      inputFormat="yyyy-MM-dd HH:mm"
+                      inputFormat="yyyy-MM-dd HH:mm:ss"
                       onChange={(endTime) => setEndDate(endTime)}
                       renderInput={(params) => (
                         <TextField
