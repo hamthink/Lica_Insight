@@ -92,10 +92,10 @@ function Trace(props) {
     var line = d3
       .line()
       .x(function (d) {
-        return xScale(d.x) + 30;
+        return xScale(d.x) + 70;
       })
       .y(function (d) {
-        return yScale(d.y) - 30;
+        return yScale(d.y) - 20;
       })
       .curve(d3.curveCatmullRom.alpha(0.5)); // 곡선 형태 지정
 
