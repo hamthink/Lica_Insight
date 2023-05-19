@@ -73,13 +73,6 @@ function UserLogin() {
         password: password
       };
 
-      console.log({
-        email: data.email,
-        password: data.password
-        // email: `"${email}"`,
-        // password: `"${password}"`
-      });
-
       postLogin(
         data,
         ({ data }) => {
@@ -104,7 +97,6 @@ function UserLogin() {
                 jobtitle: 'SSAFY'
               })
             );
-            console.log('access-token : ' + accessToken);
             window.location.href = '/dashboards/home';
           } else {
             alert('로그인 실패');

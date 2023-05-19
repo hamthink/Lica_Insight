@@ -53,26 +53,15 @@ function Trace(props) {
       console.error(error);
       alert('날짜를 다시 입력하세요.');
     }
-
-    console.log('start date : ' + startD);
-    console.log('end date : ' + endD);
-
     const params = { start: startD, end: endD };
 
     getVisitTrack(
       params,
       ({ data }) => {
-        console.log(Object.values(data.trackList));
         setTrackData(Object.values(data.trackList));
-
-        console.log('------------');
-        console.log(trackData);
-        // trackData = data;
       },
       (error) => {
         console.error(error);
-        // alert(error.message);
-        console.log('getVisitTrack error');
       }
     );
   }
@@ -99,9 +88,6 @@ function Trace(props) {
       })
       .curve(d3.curveCatmullRom.alpha(0.5)); // 곡선 형태 지정
 
-    // const xAxis = d3.axisBottom(xScale);
-    // const yAxis = d3.axisLeft(yScale);
-
     svg.attr('width', props.range.width).attr('height', props.range.height);
 
     const handleGraphSelect = (graphIndex) => {
@@ -110,33 +96,7 @@ function Trace(props) {
       } else {
         setHighlightedGraph(graphIndex);
       }
-      console.log('선택된 그래프:', graphIndex);
     };
-
-    // svg
-    //   .selectAll('.line')
-    //   .data(trackData)
-    //   .enter()
-    //   .append('path')
-    //   .attr('cx', function (d) {
-    //     return xScale(d.x) + 30;
-    //   })
-    //   .attr('cy', function (d) {
-    //     return yScale(d.y) - 30;
-    //   })
-    //   .attr('r', 3)
-    //   .attr('fill', randomColor());
-
-    // 곡선 추가
-    // trackData.forEach((array) => {
-    //   svg
-    //     .append('circle')
-    //     .datum(array)
-    //     .attr('d', line)
-    //     .attr('stroke', randomColor())
-    //     .attr('stroke-width', 10)
-    //     .attr('fill', 'none');
-    // });
 
     if (highlightedGraph == null) {
       trackData.forEach((array, index) => {

@@ -127,7 +127,6 @@ function UserSignup() {
       { email: email },
       ({ data }) => {
         if (data.result === 'success') {
-          console.log('이메일 인증번호 전송 완료!');
           alert('이메일 인증번호 전송 완료! 3분 이내에 인증을 완료해주세요!');
           setCheckVerification(true);
         } else {
@@ -151,7 +150,6 @@ function UserSignup() {
       data,
       ({ data }) => {
         if (data.result === 'success') {
-          console.log('result : ' + data.result);
           setCheckButton(true);
           alert('이메일 인증 성공!!');
         } else if (data.result === 'fail') {

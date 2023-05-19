@@ -99,7 +99,6 @@ function DotMap(props) {
     const red = Math.floor(Math.random() * 256);
     const green = Math.floor(Math.random() * 256);
     const blue = Math.floor(Math.random() * 256);
-    // const alpha = Math.random().toFixed(2); // 투명도는 0부터 1 사이의 값을 가집니다
 
     return `rgba(${red}, ${green}, ${blue}, ${0.9})`;
   }
@@ -108,29 +107,17 @@ function DotMap(props) {
     const startD = format(new Date(startDate), "yyyy-MM-dd'T'HH:mm:ss");
     const endD = format(new Date(endDate), "yyyy-MM-dd'T'HH:mm:ss");
 
-    // console.log('start date : ' + startDate.toString());
-    // console.log('end date : ' + endDate.toString());
-
-    console.log('start date : ' + startD);
-    console.log('end date : ' + endD);
-
     getVisitTrack(
       {
         start: startD,
         end: endD
       },
       ({ data }) => {
-        console.log(data);
-        // console.log(data.trackList);
-        // if (data.result === 'success') {
-        console.log('정보 가져오기 성공');
-
         let datasets = {
           datasets: []
         };
 
         for (var key of Object.keys(data.trackList)) {
-          // console.log(key + ' : ' + data.trackList[key]);
           for (var i of data.trackList[key]) {
             i.x = Math.round((1140 / 11000) * i.x) + 70;
             i.y = Math.round((700 / 7000) * i.y) + 20;
@@ -145,13 +132,7 @@ function DotMap(props) {
           });
         }
 
-        console.log('datasets : ' + datasets);
         setVisit(datasets);
-
-        // console.log(visit);
-        // } else {
-        //   console.log('정보 가져오기 실패');
-        // }
       },
       (error) => {
         console.error(error);

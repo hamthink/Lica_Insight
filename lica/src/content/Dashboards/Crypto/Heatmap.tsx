@@ -19,9 +19,6 @@ import { getVisit } from '@/api/visit';
 import { format } from 'date-fns';
 
 function HeatMap(props) {
-  // const width = props.range.width;
-  // const height = props.range.height;
-
   const [floor, setFloor] = useState('1');
   const [store, setStore] = useState('휴게실');
   const [startDate, setStartDate] = useState(
@@ -36,32 +33,17 @@ function HeatMap(props) {
     const startD = format(new Date(startDate), "yyyy-MM-dd'T'HH:mm:ss");
     const endD = format(new Date(endDate), "yyyy-MM-dd'T'HH:mm:ss");
 
-    // console.log('start date : ' + startDate.toString());
-    // console.log('end date : ' + endDate.toString());
-
-    console.log('start date : ' + startD);
-    console.log('end date : ' + endD);
-
     getVisit(
       {
         start: startD,
         end: endD
       },
       ({ data }) => {
-        console.log(data);
-        // if (data.result === 'success') {
-        console.log('정보 가져오기 성공');
         for (var i of data.infoList) {
           i.x = Math.round((1140 / 11400) * i.x) + 70;
           i.y = 700 - Math.round((700 / 7000) * i.y) + 20;
-          // i.y = 600 - i.y;
         }
         setVisit(data.infoList);
-
-        // console.log(visit);
-        // } else {
-        //   console.log('정보 가져오기 실패');
-        // }
       },
       (error) => {
         console.error(error);
@@ -82,12 +64,7 @@ function HeatMap(props) {
       xMax: props.range.width,
       yMin: 0,
       yMax: props.range.height
-      // data: [{ x: 165, y: 200, value: 5 }]
     });
-
-    console.log(format(new Date(), 'yyyy-MM-dd HH:mm:ss'));
-
-    // handleHeatmap(startDate, endDate);
   });
 
   const FloorhandleChange = (event: SelectChangeEvent) => {
