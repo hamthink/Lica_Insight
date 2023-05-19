@@ -1,0 +1,127 @@
+spring:
+  profiles:
+    active: local-memory-db
+---
+spring:
+  config:
+    activate:
+      on-profile: local-memory-db
+
+  server:
+    error:
+      include-message: always
+      include-binding-errors: always
+      include-stacktrace: on_trace_param
+
+  datasource:
+    url: jdbc:h2:mem:lica
+    username: a208
+    password: a208!
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        show_sql: true
+        format_sql: true
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: a208
+    password: a208!
+    queue: CustomerTrackingInfo
+
+jwt:
+  secret: a208.mrlee.lica
+
+sendinblue:
+  apikey: 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
+  email : ssafybin0308@gmail.com
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/Test
+    username: postgres
+    password: ssafy
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        show_sql: true
+        format_sql: true
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: a208
+    password: a208!
+    queue: CustomerTrackingInfo
+
+jwt:
+  secret: a208.mrlee.lica
+sendinblue:
+  apikey: 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
+  email : ssafybin0308@sendinblue.com
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+  server:
+    error:
+      include-message: always
+      include-binding-errors: always
+      include-stacktrace: always
+
+  datasource:
+    url: jdbc:postgresql://k8a2081.p.ssafy.io:3306/lica
+    username: postgres
+    password: postgres
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        show_sql: true
+        format_sql: true
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+  rabbitmq:
+    host: k8a208.p.ssafy.io
+    port: 3333
+    username: a208
+    password: a208!
+    queue: CustomerTrackingInfo
+
+jwt:
+  secret: a208.mrlee.lica
+
+sendinblue:
+  apikey: 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
+  email : ssafybin0308@sendinblue.com
+---
