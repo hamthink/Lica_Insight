@@ -32,14 +32,10 @@ function WatchListRow() {
         endDate: date
       },
       ({ data }) => {
-        console.log('데이터 가져오기 성공');
-        console.log(data.weeklyStats);
         var list = [];
         for (var i of data.weeklyStats) {
-          console.log(i.visitors);
           list.push(parseInt(i.visitors));
         }
-        // console.log(visitorList);
         setVisitorList(list);
       },
       (error) => {

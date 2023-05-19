@@ -51,16 +51,11 @@ function Maps() {
   useEffect(() => {
     const authString = sessionStorage.getItem('auth');
     const auth = JSON.parse(authString);
-    console.log(auth);
     if (auth === null || !auth.isLoggedIn) {
-      // sessionStorage에 값이 없거나(null)이거나, 로그아웃 했을 경우
       alert('로그인 필요');
       window.location.href = '/user/login';
     } else {
-      // sessionStorage에 값이 있고, 로그인 되어 있을 경우
-      // sessionStorage에서 정보 가져와서 atom에 저장
       const user = JSON.parse(sessionStorage.getItem('user'));
-      console.log(user);
       setAccessToken(auth);
       setUser(user);
     }
