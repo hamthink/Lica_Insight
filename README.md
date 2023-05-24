@@ -10,7 +10,7 @@
 # Demo
 삼성청년SW아카데미 서울캠퍼스 휴게실을 지나드는 교육생들의 동선 데이터를 수집하고 시각화한 데모입니다.
 
-## Tracking: 교육생들의 이동 경로를 선으로 시각화
+## Tracking
 ### 1
 ![2023-05-18-10-05-00-_-10-05-30](/uploads/f684ee5c65e988facd3243aa86961d78/2023-05-18-10-05-00-_-10-05-30.gif)
 ![2023-05-18_10-05-00___10-05-30_-_Trace](/uploads/45ce5debdccd528b67c4037951a7bf2b/2023-05-18_10-05-00___10-05-30_-_Trace.png)
@@ -23,10 +23,11 @@
 ![2023-05-18-10-14-30-_10-15-00](/uploads/e8769046f209842f1959baea17ce29ab/2023-05-18-10-14-30-_10-15-00.gif)
 ![2023-05-18_10-14-30___10-15-00_-_Trace](/uploads/3b591f38522497943a255288d715162a/2023-05-18_10-14-30___10-15-00_-_Trace.png)
 
-## Location Dots: 교육생들의 위치를 점 도표로 시각화
+## Location dots
+![location_dots](/uploads/740435ea81392c5610d874a9c3a10d17/location_dots.png)
 
-
-## Heat Map: 교육생들의 위치 분포를 온도 지도로 시각화
+## Heatmap
+![heatmap](/uploads/14e7619a9c6f8423fc3f1c289a66e251/heatmap.png)
 
 # System Architecture
 
