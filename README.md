@@ -2,16 +2,15 @@
 
 카메라 영상에서부터 추적 대상의 공간상의 위치를 계산하고 수집한 동선 데이터를 웹사이트를 통해 시각화하여 제공합니다.
 
-### 고객 동선 데이터 시각화 웹IoT 서비스
+# Acknowledgement
+- 활용된 MOT(Multiple Object Tracking) 모델은 [noahcao/OC_SORT](https://github.com/noahcao/OC_SORT) 레포지토리에서 제공하는 pretrained 모델입니다.
+- 프로젝트 요구사항에 맞춰 OC_SORT의 demo_track.py 스크립트를 커스텀 하였습니다.
+- ocsort_custom/tools 디렉토리에서 커스텀된 스크립트를 확인하실 수 있습니다. 
 
-Multiple Object Tracking(MOT) 모델을 이용하여 고객들의 동선 데이터를 수집하고 시각화함으로써 사용자의 매출 상승 전략 수립에 도움을 주는 웹 서비스
+# Demo
+삼성청년SW아카데미 서울캠퍼스 휴게실을 지나드는 교육생들의 동선 데이터를 수집하고 시각화한 데모입니다.
 
-### 주요 기능
-
-1. 고유 TID를 기반으로 추정 방문자 통계를 제공합니다.
-2. 시간대별 고객 위치를 Dot Map으로 제공합니다.
-3. 시간대별 고객 동선을 시각화하여 제공합니다.
-4. 시간대별 고객 위치 분포를 Heat Map으로 제공합니다.
+# System Architecture
 
 # Built With
 ## Frontend
