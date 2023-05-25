@@ -8,7 +8,7 @@
 - ocsort_custom/tools 디렉토리에서 커스텀된 스크립트를 확인할 수 있습니다. 
 
 # Demo
-삼성청년SW아카데미 서울캠퍼스 휴게실을 지나드는 교육생들의 동선 데이터를 수집하고 시각화한 데모입니다.
+휴게실을 지나드는 교육생들의 동선 데이터를 수집하고 시각화한 데모입니다.
 
 ## Location Dots
 ![location_dots](/uploads/740435ea81392c5610d874a9c3a10d17/location_dots.png)
